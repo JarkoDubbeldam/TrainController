@@ -15,7 +15,8 @@ namespace Z21Console {
         Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
         z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags.DrivingAndSwitching | BroadcastFlags.AllLocs | BroadcastFlags.Z21SystemState });
         z21Client.TrackStatusChanged += TrackStatusPrinter;
-        z21Client.SystemStateChanged += TrackStatusPrinter;
+        //z21Client.SystemStateChanged += TrackStatusPrinter;
+        z21Client.LocomotiveInformationChanged += TrackStatusPrinter;
         Console.ReadLine();
         Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
       }

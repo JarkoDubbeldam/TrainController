@@ -9,9 +9,7 @@ namespace Z21.API {
 
     internal override TrackStatus ParseResponseBytes(byte[] response) {
       var status = (TrackStatus)response[5];
-      if((response[4] ^ response[5]) != response[6]) {
-        throw new ArgumentException();
-      }
+      CheckXORByte(response, 4);
       return status;
     }
   }
