@@ -19,6 +19,16 @@ namespace Z21Console {
         z21Client.LocomotiveInformationChanged += TrackStatusPrinter;
         Console.ReadLine();
         Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
+
+        //while (true) {
+        //  var address = 3;
+        //  var request = new TrainSpeedRequest { TrainAddress = (short)address };
+        //  Console.WriteLine("Speed?");
+        //  var speedString = Console.ReadLine();
+        //  var speed = sbyte.Parse(speedString);
+        //  request.TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, speed < 0 ? DrivingDirection.Backward : DrivingDirection.Forward, (Speed)Math.Abs(speed));
+        //  z21Client.SetTrainSpeed(request);
+        //}
       }
     }
 

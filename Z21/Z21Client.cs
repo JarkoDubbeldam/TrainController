@@ -8,7 +8,7 @@ using Z21.API;
 using Z21.Domain;
 
 namespace Z21 {
-  public class Z21Client : IDisposable {
+  public partial class Z21Client : IDisposable {
     private readonly IUdpClient udpClient;
     private readonly UdpMessageHandler udpMessageHandler;
     private readonly CancellationTokenSource cancellationSource;
@@ -24,16 +24,6 @@ namespace Z21 {
       cancellationSource = new CancellationTokenSource();
       keepConnectionAliveTask = Task.Run(() => KeepConnectionAlive(cancellationSource.Token), cancellationSource.Token);
     }
-
-
-
-    public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse<SerialNumberRequest, SerialNumberResponse, int>(serialNumberRequest);
-
-    public void SetBroadcastFlags(SetBroadcastFlagsRequest request) => SendRequestWithoutResponse(request);
-    public Task<BroadcastFlags> GetBroadcastFlags(BroadcastFlagsRequest request) => SendRequestWithResponse<BroadcastFlagsRequest, BroadcastFlagsResponse, BroadcastFlags>(request);
-    public Task<TrackStatus> SetTrackStatus(TrackStatusRequest request) => SendRequestWithResponse<TrackStatusRequest, TrackStatusResponse, TrackStatus>(request);
-
-    public Task<SystemState> GetSystemState(SystemStateRequest request) => SendRequestWithResponse<SystemStateRequest, SystemStateResponse, SystemState>(request);
 
     public event EventHandler<TrackStatus> TrackStatusChanged;
     public event EventHandler<SystemState> SystemStateChanged;
