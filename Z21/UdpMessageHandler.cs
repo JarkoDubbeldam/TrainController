@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +24,19 @@ namespace Z21 {
       while (true) {
         token.ThrowIfCancellationRequested();
         var message = udpClient.ReceiveBytes();
-        Task.Run(() => MessageReceived?.Invoke(this, message));
+        foreach (var subMessage in SplitMessages(message)) {
+          Task.Run(() => MessageReceived?.Invoke(this, subMessage));
+        }
+      }
+    }
+
+    private IEnumerable<byte[]> SplitMessages(byte[] message) {
+      var index = 0;
+      while (index < message.Length) {
+        var messageLength = message[index];
+        var subMessage = message.Skip(index).Take(messageLength).ToArray();
+        yield return subMessage;
+        index += messageLength;
       }
     }
 
