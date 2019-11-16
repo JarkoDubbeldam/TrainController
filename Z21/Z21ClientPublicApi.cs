@@ -6,7 +6,7 @@ using Z21.API;
 using Z21.Domain;
 
 namespace Z21 {
-  public partial class Z21Client {
+  public partial class Z21Client : IZ21Client {
 
     public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse<SerialNumberRequest, SerialNumberResponse, int>(serialNumberRequest);
 
