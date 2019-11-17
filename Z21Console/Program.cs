@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Z21;
 using Z21.API;
@@ -17,19 +18,19 @@ namespace Z21Console {
         z21Client.TrackStatusChanged += TrackStatusPrinter;
         //z21Client.SystemStateChanged += TrackStatusPrinter;
         z21Client.LocomotiveInformationChanged += TrackStatusPrinter;
-        Console.ReadLine();
-        Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
 
-        while (true) {
-          var address = 3;
-          var request = new TrainSpeedRequest { TrainAddress = (short)address };
-          Console.WriteLine("Speed?");
-          var speedString = Console.ReadLine();
-          var speed = sbyte.Parse(speedString);
-          request.TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, speed < 0 ? DrivingDirection.Backward : DrivingDirection.Forward, (Speed)Math.Abs(speed));
-          z21Client.SetTrainSpeed(request);
-        }
+        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, (Speed)25) });
+        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, (Speed)20) });
+
+        Console.ReadLine();
+
+        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, Speed.Stop) });
+        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, Speed.Stop) });
+        Thread.Sleep(1000);
       }
+
+
+
     }
 
     public static void MessageHandler(object sender, byte[] message) {

@@ -22,7 +22,7 @@ namespace Z21 {
 
     private Task ListenForMessages(CancellationToken token) {
       while (true) {
-        token.ThrowIfCancellationRequested();
+        if (token.IsCancellationRequested) return Task.FromCanceled(token);
         var message = udpClient.ReceiveBytes();
         foreach (var subMessage in SplitMessages(message)) {
           Task.Run(() => MessageReceived?.Invoke(this, subMessage));

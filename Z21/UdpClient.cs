@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using SysClient = System.Net.Sockets.UdpClient;
@@ -18,7 +19,11 @@ namespace Z21 {
 
 
     public byte[] ReceiveBytes() {
-      return sysClient.Receive(ref endpoint);
+      try {
+        return sysClient.Receive(ref endpoint);
+      } catch (SocketException e) when (e.Message == "A blocking operation was interrupted by a call to WSACancelBlockingCall") {
+        return Array.Empty<byte>(); // We have been disposed anyways.
+      }
     }
 
     public void SendBytes(byte[] bytes) {

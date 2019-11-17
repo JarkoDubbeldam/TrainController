@@ -52,7 +52,7 @@ namespace Z21 {
 
     private async Task KeepConnectionAlive(CancellationToken token) {
       while (true) {
-        token.ThrowIfCancellationRequested();
+        if (token.IsCancellationRequested) return;
         const int THIRTY_SECONDS = 30_000;
         await Task.Delay(THIRTY_SECONDS);
         await GetSerialNumber(new SerialNumberRequest());
