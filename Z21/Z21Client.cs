@@ -31,21 +31,25 @@ namespace Z21 {
 
     private void TrackStatusChangedListener(object sender, byte[] responseBytes) {
       var trackStatusResponse = new TrackStatusResponse();
-      if(responseBytes.Zip(trackStatusResponse.ResponsePattern, (r, p) => p == null || p == r).All(x => x)) {
+      if (MatchesPattern(responseBytes, trackStatusResponse.ResponsePattern)) {
         TrackStatusChanged?.Invoke(this, trackStatusResponse.ParseResponseBytes(responseBytes));
       }
     }
 
+    private static bool MatchesPattern(byte[] responseBytes, byte?[] pattern) {
+      return responseBytes.Zip(pattern, (r, p) => p == null || p == r).All(x => x);
+    }
+
     private void SystemStateChangedListener(object sender, byte[] responseBytes) {
       var response = new SystemStateResponse();
-      if (responseBytes.Zip(response.ResponsePattern, (r, p) => p == null || p == r).All(x => x)) {
+      if (MatchesPattern(responseBytes, response.ResponsePattern)) {
         SystemStateChanged?.Invoke(this, response.ParseResponseBytes(responseBytes));
       }
     }
 
     private void LocomotiveInfoChangedListener(object sender, byte[] responseBytes) {
       var locoResponse = new LocomotiveInformationResponse();
-      if(responseBytes.Zip(locoResponse.ResponsePattern, (r, p) => p == null || p == r).All(x => x)) {
+      if(MatchesPattern(responseBytes, locoResponse.ResponsePattern)) {
         LocomotiveInformationChanged?.Invoke(this, locoResponse.ParseResponseBytes(responseBytes));
       }
     }
@@ -59,7 +63,7 @@ namespace Z21 {
       }
     }
 
-    private async Task<TResponse> SendRequestWithResponse<TRequest, TFactory, TResponse>(TRequest request) where TRequest : Request where TFactory : ResponseFactory<TResponse>, new() {
+    private async Task<TResponse> SendRequestWithResponse<TFactory, TResponse>(Request request) where TFactory : ResponseFactory<TResponse>, new() {
       var factory = new TFactory();
       var responseTask = CreateResponseTask(factory.ResponsePattern);
       udpClient.SendBytes(request.ToByteArray());

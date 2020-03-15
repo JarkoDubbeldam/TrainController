@@ -13,7 +13,9 @@ namespace Z21 {
     Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest);
     Task<SystemState> GetSystemState(SystemStateRequest request);
     void SetBroadcastFlags(SetBroadcastFlagsRequest request);
+    BroadcastFlags BroadcastFlags { get; }
     Task<TrackStatus> SetTrackStatus(TrackStatusRequest request);
     void SetTrainSpeed(TrainSpeedRequest request);
+    Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request);
   }
 }
