@@ -4,7 +4,7 @@ using System.Text;
 using Z21.Domain;
 
 namespace Z21.API {
-  internal class SystemStateResponse : ResponseFactory<SystemState> {
+  internal class SystemStateResponseFactory : ResponseFactory<SystemState> {
     internal override byte?[] ResponsePattern => new byte?[] { 0x14, 0x00, 0x84, 0x00 };
 
     internal override SystemState ParseResponseBytes(byte[] response) {

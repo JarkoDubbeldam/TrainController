@@ -4,7 +4,7 @@ using System.Text;
 using Z21.Domain;
 
 namespace Z21.API {
-  public class TrackStatusResponse : ResponseFactory<TrackStatus> {
+  public class TrackStatusResponseFactory : ResponseFactory<TrackStatus> {
     internal override byte?[] ResponsePattern => new byte?[] { 0x07, 0x00, 0x40, 0x00, 0x61 };
 
     internal override TrackStatus ParseResponseBytes(byte[] response) {

@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Z21.Domain;
 
 namespace Z21.API {
-  public class LocomotiveInformationRequest : Request {
+  public class LocomotiveInformationRequest : AddressSpecificRequest<LocomotiveInformation> {
     public short LocomotiveAddress { get; set; }
 
+    internal override ResponseFactory<LocomotiveInformation> GetResponseFactory() {
+      return new LocomotiveInformationResponseFactory(LocomotiveAddress);
+    }
+
     internal override byte[] ToByteArray() {
-      var addressBytes = GetAddressBytes();
+      LocomotiveAddress.GetAddressBytes(out var msb, out var lsb);
 
       var bytes = new byte[9] {
         0x09,
@@ -16,8 +21,8 @@ namespace Z21.API {
         0x00,
         0xe3,
         0xf0,
-        (byte)(0xc0 | addressBytes[1]),
-        addressBytes[0],
+        (byte)(0xc0 | msb),
+        lsb,
         default
       };
       bytes[8] = (byte)(bytes[4] ^ bytes[5] ^ bytes[6] ^ bytes[7]);
@@ -25,13 +30,6 @@ namespace Z21.API {
       return bytes;
     }
 
-    public byte[] GetAddressBytes() {
-      var addressBytes = BitConverter.GetBytes(LocomotiveAddress);
-      if (!BitConverter.IsLittleEndian) {
-        Array.Reverse(addressBytes);
-      }
 
-      return addressBytes;
-    }
   }
 }

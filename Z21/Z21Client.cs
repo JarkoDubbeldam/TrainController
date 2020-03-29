@@ -13,6 +13,7 @@ namespace Z21 {
     private readonly UdpMessageHandler udpMessageHandler;
     private readonly CancellationTokenSource cancellationSource;
     private readonly Task keepConnectionAliveTask;
+    private readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
 
     public Z21Client(IUdpClient udpClient) {
       this.udpClient = udpClient;
@@ -30,7 +31,7 @@ namespace Z21 {
     public event EventHandler<LocomotiveInformation> LocomotiveInformationChanged;
 
     private void TrackStatusChangedListener(object sender, byte[] responseBytes) {
-      var trackStatusResponse = new TrackStatusResponse();
+      var trackStatusResponse = new TrackStatusResponseFactory();
       if (MatchesPattern(responseBytes, trackStatusResponse.ResponsePattern)) {
         TrackStatusChanged?.Invoke(this, trackStatusResponse.ParseResponseBytes(responseBytes));
       }
@@ -41,14 +42,14 @@ namespace Z21 {
     }
 
     private void SystemStateChangedListener(object sender, byte[] responseBytes) {
-      var response = new SystemStateResponse();
+      var response = new SystemStateResponseFactory();
       if (MatchesPattern(responseBytes, response.ResponsePattern)) {
         SystemStateChanged?.Invoke(this, response.ParseResponseBytes(responseBytes));
       }
     }
 
     private void LocomotiveInfoChangedListener(object sender, byte[] responseBytes) {
-      var locoResponse = new LocomotiveInformationResponse();
+      var locoResponse = new LocomotiveInformationResponseFactory();
       if(MatchesPattern(responseBytes, locoResponse.ResponsePattern)) {
         LocomotiveInformationChanged?.Invoke(this, locoResponse.ParseResponseBytes(responseBytes));
       }
@@ -63,10 +64,20 @@ namespace Z21 {
       }
     }
 
-    private async Task<TResponse> SendRequestWithResponse<TFactory, TResponse>(Request request) where TFactory : ResponseFactory<TResponse>, new() {
-      var factory = new TFactory();
+    private async Task<TResponse> SendRequestWithResponse<TResponse>(RequestWithResponse<TResponse> request) {
+      var factory = request.GetResponseFactory();
       var responseTask = CreateResponseTask(factory.ResponsePattern);
       udpClient.SendBytes(request.ToByteArray());
+      return factory.ParseResponseBytes(await responseTask);
+    }
+
+
+    private async Task<TOut> SendRequestWithAddressSpecificResponse<TOut>(AddressSpecificRequest<TOut> request) {
+      var factory = request.GetResponseFactory();
+      var requestBytes = request.ToByteArray();
+      var responsePattern = factory.ResponsePattern;
+      var responseTask = CreateResponseTask(responsePattern);
+      udpClient.SendBytes(requestBytes);
       return factory.ParseResponseBytes(await responseTask);
     }
 
@@ -75,7 +86,8 @@ namespace Z21 {
     }
 
     private async Task<byte[]> CreateResponseTask(byte?[] pattern) {
-      var promise = new UdpPromise(pattern);
+      var cts = new CancellationTokenSource(timeout);
+      var promise = new UdpPromise(pattern, cts.Token);
       udpMessageHandler.MessageReceived += promise.RecieveMessageEventHandler;
       try {
         return await promise.Task;

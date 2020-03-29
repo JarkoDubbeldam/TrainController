@@ -10,29 +10,23 @@ namespace Z21 {
   public partial class Z21Client : IZ21Client {
     public BroadcastFlags BroadcastFlags { get; private set; } = BroadcastFlags.None;
 
-    public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse<SerialNumberResponse, int>(serialNumberRequest);
+    public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse(serialNumberRequest);
 
     public void SetBroadcastFlags(SetBroadcastFlagsRequest request) {
       BroadcastFlags = request.BroadcastFlags;
       SendRequestWithoutResponse(request);
     }
 
-    public Task<BroadcastFlags> GetBroadcastFlags(BroadcastFlagsRequest request) => SendRequestWithResponse<BroadcastFlagsResponse, BroadcastFlags>(request);
-    public Task<TrackStatus> SetTrackStatus(TrackStatusRequest request) => SendRequestWithResponse<TrackStatusResponse, TrackStatus>(request);
+    public Task<BroadcastFlags> GetBroadcastFlags(BroadcastFlagsRequest request) => SendRequestWithResponse(request);
+    public Task<TrackStatus> SetTrackStatus(TrackStatusRequest request) => SendRequestWithResponse(request);
 
-    public Task<SystemState> GetSystemState(SystemStateRequest request) => SendRequestWithResponse<SystemStateResponse, SystemState>(request);
+    public Task<SystemState> GetSystemState(SystemStateRequest request) => SendRequestWithResponse<SystemState>(request);
 
     public void SetTrainSpeed(TrainSpeedRequest request) => SendRequestWithoutResponse(request);
     public void SetTrainFunction(TrainFunctionRequest request) => SendRequestWithoutResponse(request);
 
-    public async Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request) {
-      var factory = new LocomotiveInformationResponse();
-      var requestBytes = request.ToByteArray();
-      var addressBytes = request.GetAddressBytes();
-      var responsePattern = factory.ResponsePattern.Concat(new byte?[] { addressBytes[1], addressBytes[0] }).ToArray();
-      var responseTask = CreateResponseTask(responsePattern);
-      udpClient.SendBytes(requestBytes);
-      return factory.ParseResponseBytes(await responseTask);
-    }
+    public Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
+
+    public Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
   }
 }

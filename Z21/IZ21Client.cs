@@ -18,5 +18,6 @@ namespace Z21 {
     void SetTrainSpeed(TrainSpeedRequest request);
     void SetTrainFunction(TrainFunctionRequest request);
     Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request);
+    Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request);
   }
 }

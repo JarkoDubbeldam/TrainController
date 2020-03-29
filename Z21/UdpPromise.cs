@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Z21 {
   internal class UdpPromise : Promise<byte[]> {
     private readonly byte?[] matchPattern;
-    public UdpPromise(byte?[] matchPattern) {
+    public UdpPromise(byte?[] matchPattern, CancellationToken token) : base(token) {
       this.matchPattern = matchPattern;
     }
 
