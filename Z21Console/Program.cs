@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using TrainRepository;
 using Z21;
 using Z21.API;
 using Z21.Domain;
@@ -13,24 +14,43 @@ namespace Z21Console {
       var endpoint = new IPEndPoint(ipAdress, 21105);
       using (var client = new UdpClient(new System.Net.Sockets.UdpClient(12345), endpoint))
       using (var z21Client = new Z21Client(client)) {
-        Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
-        z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags.DrivingAndSwitching | BroadcastFlags.AllLocs | BroadcastFlags.Z21SystemState });
-        z21Client.TrackStatusChanged += TrackStatusPrinter;
-        //z21Client.SystemStateChanged += TrackStatusPrinter;
-        z21Client.LocomotiveInformationChanged += TrackStatusPrinter;
+        var repos = new TrainRepository.TrainRepository(z21Client);
+        var dbLoc = await repos.RegisterTrain(3, "DB Loc");
+        var valleiLijn = await repos.RegisterTrain(24, "Valleilijn");
 
-        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, (Speed)25) });
-        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, (Speed)20) });
+        dbLoc.PropertyChanged += LocPropertyChanged; ;
+        valleiLijn.PropertyChanged += LocPropertyChanged;
+        while (true) {
+          Console.ReadLine();
+          valleiLijn.SetFunctions((TrainFunctions.Function1 | TrainFunctions.Lights) ^ valleiLijn.Functions);
+        }
 
-        Console.ReadLine();
+        //Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
+        //z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags.DrivingAndSwitching | BroadcastFlags.AllLocs | BroadcastFlags.Z21SystemState });
+        //z21Client.TrackStatusChanged += TrackStatusPrinter;
+        ////z21Client.SystemStateChanged += TrackStatusPrinter;
+        //z21Client.LocomotiveInformationChanged += TrackStatusPrinter;
 
-        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, Speed.Stop) });
-        z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, Speed.Stop) });
-        Thread.Sleep(1000);
+        //z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, (Speed)30) });
+        //z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, (Speed)20) });
+        //z21Client.SetTrainFunction(new TrainFunctionRequest { TrainAddress = 24, TrainFunctions = TrainFunctions.Lights | TrainFunctions.Function1});
+        //z21Client.SetTrainFunction(new TrainFunctionRequest { TrainAddress = 3, TrainFunctions = TrainFunctions.Lights });
+        //Console.ReadLine();
+
+        //z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 3, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, DrivingDirection.Forward, Speed.Stop) });
+        //z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = 24, TrainSpeed = new TrainSpeed(SpeedStepSetting.Step28, DrivingDirection.Forward, Speed.Stop) });
+
+        //z21Client.SetTrainFunction(new TrainFunctionRequest { TrainAddress = 24, TrainFunctions = 0 });
+        //z21Client.SetTrainFunction(new TrainFunctionRequest { TrainAddress = 3, TrainFunctions = 0 });
+        //Thread.Sleep(1000);
       }
 
 
 
+    }
+
+    private static void LocPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+      Console.WriteLine(sender);
     }
 
     public static void MessageHandler(object sender, byte[] message) {

@@ -7,10 +7,7 @@ namespace Z21.API {
     public short LocomotiveAddress { get; set; }
 
     internal override byte[] ToByteArray() {
-      var addressBytes = BitConverter.GetBytes(LocomotiveAddress);
-      if (!BitConverter.IsLittleEndian) {
-        Array.Reverse(addressBytes);
-      }
+      var addressBytes = GetAddressBytes();
 
       var bytes = new byte[9] {
         0x09,
@@ -26,6 +23,15 @@ namespace Z21.API {
       bytes[8] = (byte)(bytes[4] ^ bytes[5] ^ bytes[6] ^ bytes[7]);
 
       return bytes;
+    }
+
+    public byte[] GetAddressBytes() {
+      var addressBytes = BitConverter.GetBytes(LocomotiveAddress);
+      if (!BitConverter.IsLittleEndian) {
+        Array.Reverse(addressBytes);
+      }
+
+      return addressBytes;
     }
   }
 }

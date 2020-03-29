@@ -16,6 +16,7 @@ namespace Z21 {
     BroadcastFlags BroadcastFlags { get; }
     Task<TrackStatus> SetTrackStatus(TrackStatusRequest request);
     void SetTrainSpeed(TrainSpeedRequest request);
+    void SetTrainFunction(TrainFunctionRequest request);
     Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request);
   }
 }

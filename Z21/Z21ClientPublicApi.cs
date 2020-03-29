@@ -28,7 +28,8 @@ namespace Z21 {
     public async Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request) {
       var factory = new LocomotiveInformationResponse();
       var requestBytes = request.ToByteArray();
-      var responsePattern = factory.ResponsePattern.Concat(new byte?[] { requestBytes[5], requestBytes[6] }).ToArray();
+      var addressBytes = request.GetAddressBytes();
+      var responsePattern = factory.ResponsePattern.Concat(new byte?[] { addressBytes[1], addressBytes[0] }).ToArray();
       var responseTask = CreateResponseTask(responsePattern);
       udpClient.SendBytes(requestBytes);
       return factory.ParseResponseBytes(await responseTask);

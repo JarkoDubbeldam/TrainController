@@ -8,7 +8,7 @@ using Z21.API;
 using Z21.Domain;
 
 namespace TrainRepository {
-  internal class TrainRepository : ITrainRepository {
+  public class TrainRepository : ITrainRepository {
     private readonly Lazy<IZ21Client> client;
     private readonly ConcurrentDictionary<int, Task<Train>> repos;
 
@@ -43,7 +43,35 @@ namespace TrainRepository {
       var request = new LocomotiveInformationRequest { LocomotiveAddress = (short)address };
       var response = await client.Value.GetLocomotiveInformation(request);
 
-      return new Train { Name = name, Functions = response.TrainFunctions, Speed = response.TrainSpeed };
+      var train = new Train(address, name, response.TrainSpeed, response.TrainFunctions);
+      train.PropertyChanged += OnRegisteredTrainChanged;
+      return train;
+    }
+
+    private void OnRegisteredTrainChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+      switch(e.PropertyName) {
+        case nameof(Train.Speed): {
+            var train = (Train)sender;
+            var request = new TrainSpeedRequest {
+              TrainAddress = (short)train.Address,
+              TrainSpeed = train.Speed
+            };
+            client.Value.SetTrainSpeed(request);
+          }
+          return;
+
+        case nameof(Train.Functions): {
+            var train = (Train)sender;
+            var request = new TrainFunctionRequest {
+              TrainAddress = (short)train.Address,
+              TrainFunctions = train.Functions
+            };
+            client.Value.SetTrainFunction(request);
+          }
+          return;
+
+      }
+
     }
   }
 }
