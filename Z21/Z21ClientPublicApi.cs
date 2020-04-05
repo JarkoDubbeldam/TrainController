@@ -28,5 +28,7 @@ namespace Z21 {
     public Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
 
     public Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
+
+    public Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request) => SendRequestWithAddressSpecificResponse(request);
   }
 }

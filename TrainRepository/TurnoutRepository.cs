@@ -10,10 +10,12 @@ using Z21.Domain;
 
 namespace TrainRepository {
   public class TurnoutRepository : Repository<Turnout> {
+    private readonly ITurnoutInteractionHandler turnoutHandler;
 
-    public TurnoutRepository(IZ21Client z21Client) : base(z21Client) {
+    public TurnoutRepository(IZ21Client z21Client, ITurnoutInteractionHandler turnoutHandler) : base(z21Client) {
 
       z21Client.TurnoutInformationChanged += Z21Client_LocomotiveInformationChanged;
+      this.turnoutHandler = turnoutHandler;
     }
 
     private void Z21Client_LocomotiveInformationChanged(object sender, TurnoutInformation e) {
@@ -36,7 +38,8 @@ namespace TrainRepository {
     protected override void ObjectChangedByUserHandler(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
       switch (e.PropertyName) {
         case nameof(Turnout.TurnoutPosition): {
-            throw new NotImplementedException();
+            var turnout = (Turnout)sender;
+            turnoutHandler.SetTurnoutPosition(turnout.Address, turnout.TurnoutPosition);
           }
           return;
       }
