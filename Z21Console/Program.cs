@@ -15,11 +15,15 @@ namespace Z21Console {
       using (var client = new UdpClient(new System.Net.Sockets.UdpClient(12345), endpoint))
       using (var z21Client = new Z21Client(client)) {
         var repos = new TrainRepository.TrainRepository(z21Client);
-        var dbLoc = await repos.RegisterTrain(3, "DB Loc");
-        var valleiLijn = await repos.RegisterTrain(24, "Valleilijn");
+        var turnoutRepos = new TurnoutRepository(z21Client);
+        var dbLoc = await repos.RegisterObject(3, "DB Loc");
+        var valleiLijn = await repos.RegisterObject(24, "Valleilijn");
+
+        var turnout = await turnoutRepos.RegisterObject(0, "My Favourite Turnout");
 
         dbLoc.PropertyChanged += LocPropertyChanged; ;
         valleiLijn.PropertyChanged += LocPropertyChanged;
+        turnout.PropertyChanged += LocPropertyChanged;
         while (true) {
           Console.ReadLine();
           valleiLijn.SetFunctions((TrainFunctions.Function1 | TrainFunctions.Lights) ^ valleiLijn.Functions);

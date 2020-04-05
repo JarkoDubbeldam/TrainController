@@ -21,6 +21,7 @@ namespace Z21 {
       udpMessageHandler.MessageReceived += TrackStatusChangedListener;
       udpMessageHandler.MessageReceived += SystemStateChangedListener;
       udpMessageHandler.MessageReceived += LocomotiveInfoChangedListener;
+      udpMessageHandler.MessageReceived += TurnoutInfoChangedListener;
 
       cancellationSource = new CancellationTokenSource();
       keepConnectionAliveTask = Task.Run(() => KeepConnectionAlive(cancellationSource.Token), cancellationSource.Token);
@@ -29,6 +30,7 @@ namespace Z21 {
     public event EventHandler<TrackStatus> TrackStatusChanged;
     public event EventHandler<SystemState> SystemStateChanged;
     public event EventHandler<LocomotiveInformation> LocomotiveInformationChanged;
+    public event EventHandler<TurnoutInformation> TurnoutInformationChanged;
 
     private void TrackStatusChangedListener(object sender, byte[] responseBytes) {
       var trackStatusResponse = new TrackStatusResponseFactory();
@@ -52,6 +54,13 @@ namespace Z21 {
       var locoResponse = new LocomotiveInformationResponseFactory();
       if(MatchesPattern(responseBytes, locoResponse.ResponsePattern)) {
         LocomotiveInformationChanged?.Invoke(this, locoResponse.ParseResponseBytes(responseBytes));
+      }
+    }
+
+    private void TurnoutInfoChangedListener(object sender, byte[] responseBytes) {
+      var turnoutResponse = new TurnoutInformationResponseFactory();
+      if (MatchesPattern(responseBytes, turnoutResponse.ResponsePattern)) {
+        TurnoutInformationChanged?.Invoke(this, turnoutResponse.ParseResponseBytes(responseBytes));
       }
     }
 

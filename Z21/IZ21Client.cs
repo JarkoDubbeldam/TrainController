@@ -5,6 +5,7 @@ using Z21.Domain;
 
 namespace Z21 {
   public interface IZ21Client {
+    event EventHandler<TurnoutInformation> TurnoutInformationChanged;
     event EventHandler<LocomotiveInformation> LocomotiveInformationChanged;
     event EventHandler<SystemState> SystemStateChanged;
     event EventHandler<TrackStatus> TrackStatusChanged;
