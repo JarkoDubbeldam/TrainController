@@ -9,12 +9,14 @@ using Z21.API;
 using Z21.Domain;
 
 namespace TrainRepository {
-  public sealed class TrainRepository : Repository<Train> {
+  public sealed class TrainRepository : Repository<Train>, IDisposable {
+    private readonly IDisposable subscription;
+
     public TrainRepository(IZ21Client z21Client) : base(z21Client) {
-      z21Client.LocomotiveInformationChanged += Z21Client_LocomotiveInformationChanged;
+      subscription = z21Client.LocomotiveInformationChanged.Subscribe(x => Z21Client_LocomotiveInformationChanged(x));
     }
 
-    private void Z21Client_LocomotiveInformationChanged(object sender, LocomotiveInformation e) {
+    private void Z21Client_LocomotiveInformationChanged(LocomotiveInformation e) {
       repos.TryGetValue(e.Address, out var train);
       if (train.IsCompletedSuccessfully) {
         train.Result.Update(e);
@@ -52,6 +54,10 @@ namespace TrainRepository {
 
       var train = new Train(address, name, response.TrainSpeed, response.TrainFunctions);
       return train;
+    }
+
+    public override void Dispose() {
+      subscription.Dispose();
     }
   }
 }

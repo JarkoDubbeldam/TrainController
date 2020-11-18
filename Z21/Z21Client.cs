@@ -1,67 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Z21.API;
 using Z21.Domain;
 
 namespace Z21 {
   public partial class Z21Client : IDisposable {
     private readonly IUdpClient udpClient;
-    private readonly UdpMessageHandler udpMessageHandler;
+    private readonly IObservable<byte[]> inStream;
     private readonly CancellationTokenSource cancellationSource;
     private readonly Task keepConnectionAliveTask;
     private readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
 
     public Z21Client(IUdpClient udpClient) {
       this.udpClient = udpClient;
-      udpMessageHandler = new UdpMessageHandler(udpClient);
-      udpMessageHandler.MessageReceived += TrackStatusChangedListener;
-      udpMessageHandler.MessageReceived += SystemStateChangedListener;
-      udpMessageHandler.MessageReceived += LocomotiveInfoChangedListener;
-      udpMessageHandler.MessageReceived += TurnoutInfoChangedListener;
+      inStream = udpClient.ObserveBytes();
 
       cancellationSource = new CancellationTokenSource();
       keepConnectionAliveTask = Task.Run(() => KeepConnectionAlive(cancellationSource.Token), cancellationSource.Token);
     }
 
-    public event EventHandler<TrackStatus> TrackStatusChanged;
-    public event EventHandler<SystemState> SystemStateChanged;
-    public event EventHandler<LocomotiveInformation> LocomotiveInformationChanged;
-    public event EventHandler<TurnoutInformation> TurnoutInformationChanged;
+    public IObservable<TrackStatus> TrackStatusChanged => GetStream(new TrackStatusResponseFactory());
+    public IObservable<SystemState> SystemStateChanged => GetStream(new SystemStateResponseFactory());
+    public IObservable<LocomotiveInformation> LocomotiveInformationChanged => GetStream(new LocomotiveInformationResponseFactory());
+    public IObservable<TurnoutInformation> TurnoutInformationChanged => GetStream(new TurnoutInformationResponseFactory());
+    public IObservable<OccupancyStatus> OccupancyStatusChanged => GetStream(new OccupancyStatusResponseFactory());
 
-    private void TrackStatusChangedListener(object sender, byte[] responseBytes) {
-      var trackStatusResponse = new TrackStatusResponseFactory();
-      if (MatchesPattern(responseBytes, trackStatusResponse.ResponsePattern)) {
-        TrackStatusChanged?.Invoke(this, trackStatusResponse.ParseResponseBytes(responseBytes));
-      }
-    }
+    private IObservable<TResponse> GetStream<TResponse>(ResponseFactory<TResponse> factory) => 
+      inStream
+      .Where(x => MatchesPattern(x, factory.ResponsePattern))
+      .Select(factory.ParseResponseBytes);
 
     private static bool MatchesPattern(byte[] responseBytes, byte?[] pattern) {
       return responseBytes.Zip(pattern, (r, p) => p == null || p == r).All(x => x);
-    }
-
-    private void SystemStateChangedListener(object sender, byte[] responseBytes) {
-      var response = new SystemStateResponseFactory();
-      if (MatchesPattern(responseBytes, response.ResponsePattern)) {
-        SystemStateChanged?.Invoke(this, response.ParseResponseBytes(responseBytes));
-      }
-    }
-
-    private void LocomotiveInfoChangedListener(object sender, byte[] responseBytes) {
-      var locoResponse = new LocomotiveInformationResponseFactory();
-      if(MatchesPattern(responseBytes, locoResponse.ResponsePattern)) {
-        LocomotiveInformationChanged?.Invoke(this, locoResponse.ParseResponseBytes(responseBytes));
-      }
-    }
-
-    private void TurnoutInfoChangedListener(object sender, byte[] responseBytes) {
-      var turnoutResponse = new TurnoutInformationResponseFactory();
-      if (MatchesPattern(responseBytes, turnoutResponse.ResponsePattern)) {
-        TurnoutInformationChanged?.Invoke(this, turnoutResponse.ParseResponseBytes(responseBytes));
-      }
     }
 
     private async Task KeepConnectionAlive(CancellationToken token) {
@@ -94,15 +68,10 @@ namespace Z21 {
       udpClient.SendBytes(request.ToByteArray());
     }
 
-    private async Task<byte[]> CreateResponseTask(byte?[] pattern) {
-      var cts = new CancellationTokenSource(timeout);
-      var promise = new UdpPromise(pattern, cts.Token);
-      udpMessageHandler.MessageReceived += promise.RecieveMessageEventHandler;
-      try {
-        return await promise.Task;
-      } finally {
-        udpMessageHandler.MessageReceived -= promise.RecieveMessageEventHandler;
-      }
+    private IObservable<byte[]> CreateResponseTask(byte?[] pattern) {
+      return udpClient.ObserveBytes().FirstAsync(x => {
+        return MatchesPattern(x, pattern);
+      });//.Timeout(timeout);
     }
 
     private void LogOff() => SendRequestWithoutResponse(new LogOffRequest());
@@ -114,9 +83,8 @@ namespace Z21 {
       if (!disposedValue) {
         if (disposing) {
           cancellationSource.Cancel();
-          
+
           LogOff();
-          udpMessageHandler.Dispose();
           udpClient.Dispose();
           cancellationSource.Dispose();
         }

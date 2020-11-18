@@ -10,6 +10,7 @@ namespace Z21 {
   public partial class Z21Client : IZ21Client {
     public BroadcastFlags BroadcastFlags { get; private set; } = BroadcastFlags.None;
 
+
     public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse(serialNumberRequest);
 
     public void SetBroadcastFlags(SetBroadcastFlagsRequest request) {
@@ -30,5 +31,7 @@ namespace Z21 {
     public Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
 
     public Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request) => SendRequestWithAddressSpecificResponse(request);
+
+    public Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request) => SendRequestWithResponse(request);
   }
 }

@@ -9,16 +9,16 @@ using Z21.API;
 using Z21.Domain;
 
 namespace TrainRepository {
-  public class TurnoutRepository : Repository<Turnout> {
+  public class TurnoutRepository : Repository<Turnout>, IDisposable {
+    private readonly IDisposable subscription;
     private readonly ITurnoutInteractionHandler turnoutHandler;
 
     public TurnoutRepository(IZ21Client z21Client, ITurnoutInteractionHandler turnoutHandler) : base(z21Client) {
-
-      z21Client.TurnoutInformationChanged += Z21Client_LocomotiveInformationChanged;
+      subscription = z21Client.TurnoutInformationChanged.Subscribe(x => Z21Client_LocomotiveInformationChanged(x));
       this.turnoutHandler = turnoutHandler;
     }
 
-    private void Z21Client_LocomotiveInformationChanged(object sender, TurnoutInformation e) {
+    private void Z21Client_LocomotiveInformationChanged(TurnoutInformation e) {
       repos.TryGetValue(e.Address, out var turnout);
       if (turnout.IsCompletedSuccessfully) {
         turnout.Result.Update(e);
@@ -44,6 +44,10 @@ namespace TrainRepository {
           return;
       }
 
+    }
+
+    public override void Dispose() {
+      subscription.Dispose();
     }
   }
 }
