@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -25,14 +26,6 @@ namespace Z21 {
 
     public IObservable<byte[]> ObserveBytes() => instream;
 
-
-    private async Task<UdpReceiveResult> Listen() {
-      Console.WriteLine("Starting Listening");
-      var result = await sysClient.ReceiveAsync();
-      Console.WriteLine(string.Join(' ', result.Buffer.Select(x => x.ToString())));
-      return result;
-    }
-
     private IEnumerable<byte[]> SplitMessages(byte[] message) {
       var index = 0;
       while (index < message.Length) {
@@ -44,6 +37,7 @@ namespace Z21 {
     }
 
     public void SendBytes(byte[] bytes) {
+      Debug.WriteLine($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
       sysClient.Send(bytes, bytes.Length, endpoint);
     }
 

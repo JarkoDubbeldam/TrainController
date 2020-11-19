@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Z21", "Z21\Z21.csproj", "{F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Z21Console", "Z21Console\Z21Console.csproj", "{62325576-137B-4517-82E4-71A5FF35D66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainControllerUI", "TrainControllerUI\TrainControllerUI.csproj", "{291B6439-3CF2-4DB5-9147-D2C559901D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainControllerUI", "TrainControllerUI\TrainControllerUI.csproj", "{291B6439-3CF2-4DB5-9147-D2C559901D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainRepository", "TrainRepository\TrainRepository.csproj", "{B75889E6-5118-4EDD-AD15-BB57F7B3AC72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRepository", "TrainRepository\TrainRepository.csproj", "{B75889E6-5118-4EDD-AD15-BB57F7B3AC72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainUI", "TrainUI\TrainUI.csproj", "{D93AA7AC-6125-4B75-BE3D-749FDBA35EB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B75889E6-5118-4EDD-AD15-BB57F7B3AC72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B75889E6-5118-4EDD-AD15-BB57F7B3AC72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B75889E6-5118-4EDD-AD15-BB57F7B3AC72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93AA7AC-6125-4B75-BE3D-749FDBA35EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93AA7AC-6125-4B75-BE3D-749FDBA35EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93AA7AC-6125-4B75-BE3D-749FDBA35EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93AA7AC-6125-4B75-BE3D-749FDBA35EB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

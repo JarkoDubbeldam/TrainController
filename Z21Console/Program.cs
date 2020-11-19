@@ -20,25 +20,30 @@ namespace Z21Console {
       using var scope = container.BeginLifetimeScope();
       var z21Client = scope.Resolve<IZ21Client>();
       z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.RBus });
-      using var _ = z21Client.OccupancyStatusChanged.Subscribe(x => Console.WriteLine(string.Join("", x.Occupancies.Cast<bool>().Select(x => x ? "1" : "0"))));
-      using var repos = scope.Resolve<IRepository<Train>>();
-      using var turnoutRepos = scope.Resolve<IRepository<Turnout>>();
-      var dbLoc = await repos.RegisterObject(3, "DB Loc");
-      //scope.Resolve<IZ21Client>().LocomotiveInformationChanged.Subscribe(Console.WriteLine);
-      var nsLoc = await repos.RegisterObject(4, "NS Loc");
-      var valleiLijn = await repos.RegisterObject(24, "Valleilijn");
 
-      var turnout = await turnoutRepos.RegisterObject(0, "My Favourite Turnout");
-      dbLoc.PropertyChanged += LocPropertyChanged;
-      nsLoc.PropertyChanged += LocPropertyChanged;
-      valleiLijn.PropertyChanged += LocPropertyChanged;
-      turnout.PropertyChanged += LocPropertyChanged;
+      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
+      await z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = 3 });
+
+      Console.ReadLine();
+      //using var _ = z21Client.OccupancyStatusChanged.Subscribe(x => Console.WriteLine(string.Join("", x.Occupancies.Cast<bool>().Select(x => x ? "1" : "0"))));
+      //using var repos = scope.Resolve<IRepository<Train>>();
+      //using var turnoutRepos = scope.Resolve<IRepository<Turnout>>();
+      //var dbLoc = await repos.RegisterObject(3, "DB Loc");
+      ////scope.Resolve<IZ21Client>().LocomotiveInformationChanged.Subscribe(Console.WriteLine);
+      //var nsLoc = await repos.RegisterObject(4, "NS Loc");
+      //var valleiLijn = await repos.RegisterObject(24, "Valleilijn");
+
+      //var turnout = await turnoutRepos.RegisterObject(0, "My Favourite Turnout");
+      //dbLoc.PropertyChanged += LocPropertyChanged;
+      //nsLoc.PropertyChanged += LocPropertyChanged;
+      //valleiLijn.PropertyChanged += LocPropertyChanged;
+      //turnout.PropertyChanged += LocPropertyChanged;
 
 
-      while (true) {
-        Console.ReadLine();
-        nsLoc.SetSpeed(new TrainSpeed(nsLoc.Speed.speedStepSetting, nsLoc.Speed.drivingDirection == DrivingDirection.Backward ? DrivingDirection.Forward : DrivingDirection.Backward, 0));
-      }
+      //while (true) {
+      //  Console.ReadLine();
+      //  nsLoc.SetSpeed(new TrainSpeed(nsLoc.Speed.speedStepSetting, nsLoc.Speed.drivingDirection == DrivingDirection.Backward ? DrivingDirection.Forward : DrivingDirection.Backward, 0));
+      //}
 
       //Console.WriteLine(z21Client.GetSerialNumber(new SerialNumberRequest()));
       //z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags.DrivingAndSwitching | BroadcastFlags.AllLocs | BroadcastFlags.Z21SystemState });

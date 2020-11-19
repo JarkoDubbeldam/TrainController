@@ -1,0 +1,22 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:TrainUI.ViewModels;assembly=TrainUI"
+        xmlns:views="clr-namespace:TrainUI.Views;assembly=TrainUI"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TrainUI.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TrainUI">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+  <ListBox Items="{Binding Trains}">
+    <ListBox.ItemTemplate>
+      <DataTemplate>
+        <views:TrainView></views:TrainView>
+      </DataTemplate>
+    </ListBox.ItemTemplate>
+  </ListBox>
+</Window>
