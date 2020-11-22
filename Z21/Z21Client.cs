@@ -69,9 +69,12 @@ namespace Z21 {
     }
 
     private IObservable<byte[]> CreateResponseTask(byte?[] pattern) {
-      return udpClient.ObserveBytes().FirstAsync(x => {
-        return MatchesPattern(x, pattern);
-      });//.Timeout(timeout);
+      var timeoutSequence = Observable.Throw<byte[]>(new TimeoutException()).DelaySubscription(timeout);
+      return Observable.Amb(
+        udpClient.ObserveBytes().FirstAsync(x => {
+          return MatchesPattern(x, pattern);
+        }),
+        timeoutSequence);
     }
 
     private void LogOff() => SendRequestWithoutResponse(new LogOffRequest());
