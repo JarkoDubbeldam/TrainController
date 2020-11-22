@@ -12,11 +12,14 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-  <ListBox Items="{Binding Trains}">
-    <ListBox.ItemTemplate>
-      <DataTemplate>
-        <views:TrainView></views:TrainView>
-      </DataTemplate>
-    </ListBox.ItemTemplate>
-  </ListBox>
+  <DockPanel>
+    <views:ConnectionStatusView DockPanel.Dock="Bottom" DataContext="{Binding ConnectionStatus}"></views:ConnectionStatusView>
+    <ListBox DockPanel.Dock="Left" Items="{Binding Trains}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <views:TrainView></views:TrainView>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </DockPanel>
 </Window>

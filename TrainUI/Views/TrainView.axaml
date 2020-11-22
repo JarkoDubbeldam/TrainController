@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:TrainUI.Views;assembly=TrainUI"
              xmlns:dd="clr-namespace:TrainUI.DesignData;assembly=TrainUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TrainUI.Views.TrainView">
@@ -15,6 +16,14 @@
       <TextBlock Text="{Binding Address}" HorizontalAlignment="Center"></TextBlock>
       <Slider HorizontalAlignment="Stretch" Margin="10" Minimum="-100" Maximum="100" Value="{Binding Speed}"></Slider>
       <Button HorizontalAlignment="Stretch" Command="{Binding Stop}">Stop</Button>
+      <ListBox Items="{Binding TrainFunctionsViewModels}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <views:TrainFunctionView></views:TrainFunctionView>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
     </StackPanel>
+
   </Border>
 </UserControl>

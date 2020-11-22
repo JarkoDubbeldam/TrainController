@@ -1,0 +1,38 @@
+{
+  "Trains": [
+    {
+      "Name": "Db loc",
+      "Address": 3,
+      "TrainFunctions": [
+        {
+          "Name": "Lights",
+          "Mask": 16
+        }
+      ]
+    },
+    {
+      "Name": "NS 6466",
+      "Address": 4,
+      "TrainFunctions": [
+        {
+          "Name": "Lights",
+          "Mask": 16
+        }
+      ]
+    },
+    {
+      "Name": "Valleilijn",
+      "Address": 24,
+      "TrainFunctions": [
+        {
+          "Name": "Headlights",
+          "Mask": 16
+        },
+        {
+          "Name": "All lights",
+          "Mask": 17
+        }
+      ]
+    }
+  ]
+}

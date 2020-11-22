@@ -17,4 +17,9 @@
     <ProjectReference Include="..\TrainRepository\TrainRepository.csproj" />
     <ProjectReference Include="..\Z21\Z21.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="appstate.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

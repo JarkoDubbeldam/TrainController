@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -18,34 +21,57 @@ namespace TrainUI.ViewModels {
   [DataContract]
   public class TrainViewModel : ReactiveObject, IActivatableViewModel {
     private int speed;
+    private TrainFunctions trainFunctions;
     private readonly IZ21Client z21Client;
     private readonly TrainModel trainModel;
+    private readonly Func<TrainFunctionModel, TrainFunctionViewModel> trainFunctionFactory;
 
     public ViewModelActivator Activator { get; }
-    public TrainViewModel(IZ21Client z21Client, TrainModel trainModel) {
+    public TrainViewModel(IZ21Client z21Client, TrainModel trainModel, Func<TrainFunctionModel, TrainFunctionViewModel> trainFunctionFactory) {
       this.z21Client = z21Client;
       this.trainModel = trainModel;
+      this.trainFunctionFactory = trainFunctionFactory;
       z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
       z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = Address });
       Activator = new ViewModelActivator();
-      this.WhenActivated(() => 
-        new[] { 
-          z21Client.LocomotiveInformationChanged.Where(x => x.Address == Address).Subscribe(HandleTrainUpdate),
-          this.WhenAnyValue(x => x.Speed).Throttle(TimeSpan.FromMilliseconds(50)).DistinctUntilChanged().Subscribe(UpdateSpeed)
-        });
        
 
       var speedNonZero = this.WhenAnyValue(x => x.Speed, x => x != 0);
       Stop = ReactiveCommand.Create(() => { Speed = 0; }, speedNonZero);
 
+      TrainFunctionsViewModels = new ObservableCollection<TrainFunctionViewModel>(trainModel.TrainFunctions.Select(x => trainFunctionFactory(x)));
 
-        
+
+      this.WhenActivated(() =>
+        new[] {
+          z21Client.LocomotiveInformationChanged.Where(x => x.Address == Address).Subscribe(HandleTrainUpdate),
+          this.WhenAnyValue(x => x.Speed).Throttle(TimeSpan.FromMilliseconds(50)).DistinctUntilChanged().Subscribe(UpdateSpeed),
+          TrainFunctionsViewModels
+            .Select(x => x.WhenAnyValue(y => y.Active, y => y.Mask)
+              .DistinctUntilChanged()
+              .Select(GetNewTrainFunctions))
+            .Merge()
+            .Throttle(TimeSpan.FromMilliseconds(50))
+            .DistinctUntilChanged()
+            .Subscribe(UpdateFunctions),
+          TrainFunctionsViewModels
+            .Select(x => x.WhenAnyValue(y => y.Active, y => y.Mask)
+              .DistinctUntilChanged()
+              .Select(GetNewTrainFunctions))
+            .Merge()
+            .Subscribe(x => Debug.WriteLine(x))
+        });
     }
+
+
 
     [DataMember]
     public string Name => trainModel.Name;
     [DataMember]
     public short Address => trainModel.Address;
+    [DataMember]
+    public ObservableCollection<TrainFunctionViewModel> TrainFunctionsViewModels { get; }
+
     [IgnoreDataMember]
     public int Speed { get => speed; set => this.RaiseAndSetIfChanged(ref speed, value); }
     [IgnoreDataMember]
@@ -54,7 +80,16 @@ namespace TrainUI.ViewModels {
     private void HandleTrainUpdate(LocomotiveInformation locomotiveInformation) {
       var newSpeed = ParseSpeed(locomotiveInformation.TrainSpeed);
       if(newSpeed != Speed) {
-        Dispatcher.UIThread.InvokeAsync(() => Speed = newSpeed);;
+        Dispatcher.UIThread.InvokeAsync(() => Speed = newSpeed);
+      }
+      var newFunctions = locomotiveInformation.TrainFunctions;
+      if (newFunctions != trainFunctions) {
+        trainFunctions = newFunctions;
+        Dispatcher.UIThread.InvokeAsync(() => {
+          foreach (var trainFunctionsViewModel in TrainFunctionsViewModels) {
+            trainFunctionsViewModel.TrainFunctions = trainFunctions;
+          }
+        });
       }
     }
 
@@ -67,6 +102,22 @@ namespace TrainUI.ViewModels {
       z21Client.SetTrainSpeed(new TrainSpeedRequest {
         TrainAddress = Address,
         TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, newSpeed > 0 ? DrivingDirection.Forward : DrivingDirection.Backward, (Speed)Math.Abs(newSpeed))
+      });
+    }
+
+    private TrainFunctions GetNewTrainFunctions((bool? active, TrainFunctions mask) data) {
+      var (active, mask) = data;
+      if(active == null) {
+        return trainFunctions;
+      }
+      return (active ?? false) ? mask | trainFunctions : ~mask & trainFunctions;
+    }
+
+    private void UpdateFunctions(TrainFunctions newFunctions) {
+      if(newFunctions == trainFunctions) { return; }
+      z21Client.SetTrainFunction(new TrainFunctionRequest {
+        TrainAddress = Address,
+        TrainFunctions = newFunctions
       });
     }
   }

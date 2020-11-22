@@ -18,7 +18,7 @@ namespace TrainUI.ViewModels {
   public class MainWindowViewModel : ReactiveObject, IActivatableViewModel {
 
 
-    public MainWindowViewModel(MainWindowModel model, Func<TrainModel, TrainViewModel> trainViewModelFactory) {
+    public MainWindowViewModel(MainWindowModel model, Func<TrainModel, TrainViewModel> trainViewModelFactory, ConnectionStatusViewModel connectionStatus) {
       this.WhenActivated((CompositeDisposable disposables) =>
       {
         /* handle activation */
@@ -27,6 +27,7 @@ namespace TrainUI.ViewModels {
             .DisposeWith(disposables);
       });
       Trains = new ObservableCollection<TrainViewModel>(model.Trains.Select(trainViewModelFactory));
+      ConnectionStatus = connectionStatus;
     }
 
     [IgnoreDataMember]
@@ -34,5 +35,7 @@ namespace TrainUI.ViewModels {
 
     [DataMember]
     public ObservableCollection<TrainViewModel> Trains { get; }
+
+    public ConnectionStatusViewModel ConnectionStatus { get; }
   }
 }
