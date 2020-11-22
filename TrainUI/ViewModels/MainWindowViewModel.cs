@@ -19,15 +19,15 @@ namespace TrainUI.ViewModels {
 
 
     public MainWindowViewModel(MainWindowModel model, Func<TrainModel, TrainViewModel> trainViewModelFactory, ConnectionStatusViewModel connectionStatus) {
-      this.WhenActivated((CompositeDisposable disposables) =>
-      {
-        /* handle activation */
-        Disposable
-            .Create(() => { /* handle deactivation */ })
-            .DisposeWith(disposables);
-      });
       Trains = new ObservableCollection<TrainViewModel>(model.Trains.Select(trainViewModelFactory));
       ConnectionStatus = connectionStatus;
+      ConnectionStatus.WhenAnyValue(x => x.Connected).DistinctUntilChanged().Where(x => x).Subscribe(x => OnConnected());
+      this.WhenActivated(() => new IDisposable[] {
+      });
+    }
+
+    private Task OnConnected() {
+      return Task.WhenAll(Trains.Select(x => x.Connect()));
     }
 
     [IgnoreDataMember]

@@ -14,7 +14,7 @@
     </Design.DataContext>
   <DockPanel>
     <views:ConnectionStatusView DockPanel.Dock="Bottom" DataContext="{Binding ConnectionStatus}"></views:ConnectionStatusView>
-    <ListBox DockPanel.Dock="Left" Items="{Binding Trains}">
+    <ListBox DockPanel.Dock="Left" Items="{Binding Trains}" IsEnabled="{Binding ConnectionStatus.Connected}">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <views:TrainView></views:TrainView>

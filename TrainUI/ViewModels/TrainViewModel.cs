@@ -6,6 +6,7 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 using Avalonia.Threading;
 
@@ -31,10 +32,9 @@ namespace TrainUI.ViewModels {
       this.z21Client = z21Client;
       this.trainModel = trainModel;
       this.trainFunctionFactory = trainFunctionFactory;
-      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
-      z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = Address });
+      //var _ = Connect();
       Activator = new ViewModelActivator();
-       
+
 
       var speedNonZero = this.WhenAnyValue(x => x.Speed, x => x != 0);
       Stop = ReactiveCommand.Create(() => { Speed = 0; }, speedNonZero);
@@ -63,7 +63,10 @@ namespace TrainUI.ViewModels {
         });
     }
 
-
+    public async Task Connect() {
+      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
+      await z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = Address });
+    }
 
     [DataMember]
     public string Name => trainModel.Name;
