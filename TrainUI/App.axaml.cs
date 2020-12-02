@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 
 using ReactiveUI;
 
+using Splat;
+
 using TrainRepository;
 
 using TrainUI.Converters;
@@ -22,14 +24,9 @@ using TrainUI.Views;
 
 namespace TrainUI {
   public class App : Application {
-    private IContainer container;
 
     public override void Initialize() {
       AvaloniaXamlLoader.Load(this);
-
-      var builder = new ContainerBuilder();
-      builder.RegisterModule<TrainUIModule>();
-      container = builder.Build();
     }
 
     public override void OnFrameworkInitializationCompleted() {
@@ -53,7 +50,7 @@ namespace TrainUI {
 
       // Create the AutoSuspendHelper.
       var suspension = new AutoSuspendHelper(ApplicationLifetime);
-      var factory = container.Resolve<Func<MainWindowModel, MainWindowViewModel>>();
+      var factory = Locator.Current.GetService<Func<MainWindowModel, MainWindowViewModel>>();
       RxApp.SuspensionHost.CreateNewAppState = () => factory(new MainWindowModel { 
         Trains = new[] { 
           new TrainModel { 
@@ -68,7 +65,7 @@ namespace TrainUI {
           }
         }
       });
-      RxApp.SuspensionHost.SetupDefaultSuspendResume(new JsonSuspensionDriver(new JsonSuspensionSettings { Filename = "appstate.json" }, container.Resolve<IList<JsonConverter>>()));
+      RxApp.SuspensionHost.SetupDefaultSuspendResume(new JsonSuspensionDriver(new JsonSuspensionSettings { Filename = "appstate.json" }, Locator.Current.GetService<IList<JsonConverter>>()));
       suspension.OnFrameworkInitializationCompleted();
 
       // Load the saved view model state.

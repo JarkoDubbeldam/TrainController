@@ -9,19 +9,32 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+using Autofac;
+
 using ReactiveUI;
 
+using Splat;
+
 using TrainUI.Models;
+
+using Z21;
 
 namespace TrainUI.ViewModels {
   [DataContract]
   public class MainWindowViewModel : ReactiveObject, IActivatableViewModel {
 
+    public MainWindowViewModel() {
+      ConnectionStatus = new ConnectionStatusViewModel(Locator.Current.GetService<IZ21Client>());
+      this.WhenActivated(() => new IDisposable[] {
 
-    public MainWindowViewModel(MainWindowModel model, Func<TrainModel, TrainViewModel> trainViewModelFactory, ConnectionStatusViewModel connectionStatus) {
+      });
+    }
+
+
+    public MainWindowViewModel(MainWindowModel model, Func<TrainModel, TrainViewModel> trainViewModelFactory) {
       Trains = new ObservableCollection<TrainViewModel>(model.Trains.Select(trainViewModelFactory));
-      ConnectionStatus = connectionStatus;
-      ConnectionStatus.WhenAnyValue(x => x.Connected).DistinctUntilChanged().Where(x => x).Subscribe(x => OnConnected());
+      //ConnectionStatus = connectionStatus;
+      //ConnectionStatus.WhenAnyValue(x => x.Connected).DistinctUntilChanged().Where(x => x).Subscribe(x => OnConnected());
       this.WhenActivated(() => new IDisposable[] {
       });
     }

@@ -18,6 +18,6 @@ namespace TrainUI {
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .LogToDebug()
-            .UseReactiveUI();
+            .UseAutofac<AppBuilder, TrainUIModule>();
   }
 }

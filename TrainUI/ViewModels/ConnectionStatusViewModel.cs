@@ -8,6 +8,8 @@ using Avalonia.Media;
 
 using ReactiveUI;
 
+using Splat;
+
 using Z21;
 
 namespace TrainUI.ViewModels {
@@ -15,11 +17,11 @@ namespace TrainUI.ViewModels {
     private readonly IZ21Client z21Client;
     private bool connected = false;
 
-    public ConnectionStatusViewModel(IZ21Client z21Client) {
-      this.z21Client = z21Client;
+    public ConnectionStatusViewModel(IZ21Client z21Client = null) {
+      this.z21Client = z21Client ?? Locator.Current.GetService<IZ21Client>();
 
-      Observable.Interval(TimeSpan.FromSeconds(2)).SelectMany(CheckConnectionStatus).DistinctUntilChanged().Subscribe(UpdateConnectionStatus);
       this.WhenActivated(() => new IDisposable[]{
+        Observable.Interval(TimeSpan.FromSeconds(2)).SelectMany(CheckConnectionStatus).DistinctUntilChanged().Subscribe(UpdateConnectionStatus)
       });
     }
 
