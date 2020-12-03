@@ -1,127 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
-
-using Avalonia.Threading;
+using System.Text;
 
 using ReactiveUI;
 
 using TrainUI.Models;
 
-using Z21;
-using Z21.API;
-using Z21.Domain;
-
 namespace TrainUI.ViewModels {
   [DataContract]
   public class TrainViewModel : ReactiveObject, IActivatableViewModel {
+    private string name;
     private int speed;
-    private TrainFunctions trainFunctions;
-    private readonly IZ21Client z21Client;
-    private readonly TrainModel trainModel;
-    private readonly Func<TrainFunctionModel, TrainFunctionViewModel> trainFunctionFactory;
+    private short address;
+    private ObservableCollection<TrainFunctionViewModel> trainFunctions;
 
     public ViewModelActivator Activator { get; }
-    public TrainViewModel(IZ21Client z21Client, TrainModel trainModel, Func<TrainFunctionModel, TrainFunctionViewModel> trainFunctionFactory) {
-      this.z21Client = z21Client;
-      this.trainModel = trainModel;
-      this.trainFunctionFactory = trainFunctionFactory;
-      //var _ = Connect();
+
+    public TrainViewModel() {
       Activator = new ViewModelActivator();
-
-
-      var speedNonZero = this.WhenAnyValue(x => x.Speed, x => x != 0);
-      Stop = ReactiveCommand.Create(() => { Speed = 0; }, speedNonZero);
-
-      TrainFunctionsViewModels = new ObservableCollection<TrainFunctionViewModel>(trainModel.TrainFunctions.Select(x => trainFunctionFactory(x)));
-
-
-      this.WhenActivated(() =>
-        new[] {
-          z21Client.LocomotiveInformationChanged.Where(x => x.Address == Address).Subscribe(HandleTrainUpdate),
-          this.WhenAnyValue(x => x.Speed).Throttle(TimeSpan.FromMilliseconds(50)).DistinctUntilChanged().Subscribe(UpdateSpeed),
-          TrainFunctionsViewModels
-            .Select(x => x.WhenAnyValue(y => y.Active, y => y.Mask)
-              .DistinctUntilChanged()
-              .Select(GetNewTrainFunctions))
-            .Merge()
-            .Throttle(TimeSpan.FromMilliseconds(50))
-            .DistinctUntilChanged()
-            .Subscribe(UpdateFunctions),
-          TrainFunctionsViewModels
-            .Select(x => x.WhenAnyValue(y => y.Active, y => y.Mask)
-              .DistinctUntilChanged()
-              .Select(GetNewTrainFunctions))
-            .Merge()
-            .Subscribe(x => Debug.WriteLine(x))
-        });
-    }
-
-    public async Task Connect() {
-      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
-      await z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = Address });
+      TrainFunctions = new ObservableCollection<TrainFunctionViewModel>();
+      var hasNonZeroSpeed = this.WhenAnyValue(x => x.Speed, x => x != 0);
+      Stop = ReactiveCommand.Create(() => Speed = 0, hasNonZeroSpeed);
+      this.WhenActivated((CompositeDisposable disposables) => { 
+      });
     }
 
     [DataMember]
-    public string Name => trainModel.Name;
+    public string Name { get => name; set => this.RaiseAndSetIfChanged(ref name, value); }
     [DataMember]
-    public short Address => trainModel.Address;
-    [DataMember]
-    public ObservableCollection<TrainFunctionViewModel> TrainFunctionsViewModels { get; }
+    public short Address { get => address; set => this.RaiseAndSetIfChanged(ref address, value); }
 
-    [IgnoreDataMember]
     public int Speed { get => speed; set => this.RaiseAndSetIfChanged(ref speed, value); }
-    [IgnoreDataMember]
-    public ReactiveCommand<Unit, Unit> Stop { get; }
 
-    private void HandleTrainUpdate(LocomotiveInformation locomotiveInformation) {
-      var newSpeed = ParseSpeed(locomotiveInformation.TrainSpeed);
-      if(newSpeed != Speed) {
-        Dispatcher.UIThread.InvokeAsync(() => Speed = newSpeed);
+    [DataMember]
+    public ObservableCollection<TrainFunctionViewModel> TrainFunctions { get => trainFunctions; set => this.RaiseAndSetIfChanged(ref trainFunctions, value); }
+    [DataMember]
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public ReactiveCommand<Unit, int> Stop { get; }
+    public IEnumerable<TrainFunctionMenuModel> TrainFunctionMenuItems => TrainFunctions.Select(x => new TrainFunctionMenuModel { Id = x.Id, Name = x.Name });
+
+    public void RemoveTrainFunction(Guid id) {
+      var function = TrainFunctions.SingleOrDefault(x => x.Id == id);
+      if(function != null) {
+        TrainFunctions.Remove(function);
       }
-      var newFunctions = locomotiveInformation.TrainFunctions;
-      if (newFunctions != trainFunctions) {
-        trainFunctions = newFunctions;
-        Dispatcher.UIThread.InvokeAsync(() => {
-          foreach (var trainFunctionsViewModel in TrainFunctionsViewModels) {
-            trainFunctionsViewModel.TrainFunctions = trainFunctions;
-          }
-        });
-      }
-    }
-
-    private int ParseSpeed(TrainSpeed speed) {
-      var sign = speed.drivingDirection == DrivingDirection.Forward ? 1 : -1;
-      return sign * (speed.speed > 0 ? (int)speed.speed : 0);
-    }
-
-    private void UpdateSpeed(int newSpeed) {
-      z21Client.SetTrainSpeed(new TrainSpeedRequest {
-        TrainAddress = Address,
-        TrainSpeed = new TrainSpeed(SpeedStepSetting.Step128, newSpeed > 0 ? DrivingDirection.Forward : DrivingDirection.Backward, (Speed)Math.Abs(newSpeed))
-      });
-    }
-
-    private TrainFunctions GetNewTrainFunctions((bool? active, TrainFunctions mask) data) {
-      var (active, mask) = data;
-      if(active == null) {
-        return trainFunctions;
-      }
-      return (active ?? false) ? mask | trainFunctions : ~mask & trainFunctions;
-    }
-
-    private void UpdateFunctions(TrainFunctions newFunctions) {
-      if(newFunctions == trainFunctions) { return; }
-      z21Client.SetTrainFunction(new TrainFunctionRequest {
-        TrainAddress = Address,
-        TrainFunctions = newFunctions
-      });
     }
   }
 }

@@ -10,8 +10,8 @@ using TrainUI.ViewModels;
 namespace TrainUI.Views {
   public class TrainView : ReactiveUserControl<TrainViewModel> {
     public TrainView() {
-
-      this.WhenActivated(disposables => { /* Handle view activation etc. */ });
+      this.WhenActivated(disposables => {
+      });
       this.InitializeComponent();
     }
 

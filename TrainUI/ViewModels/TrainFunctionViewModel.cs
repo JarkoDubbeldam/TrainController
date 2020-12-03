@@ -1,55 +1,34 @@
 ﻿using System;
-using System.Reactive.Linq;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 using System.Runtime.Serialization;
-
-using Avalonia.Data.Converters;
-using Avalonia.Interactivity;
-using Avalonia.Threading;
+using System.Text;
 
 using ReactiveUI;
 
-using TrainUI.Converters;
-using TrainUI.Models;
-
-using Z21;
-using Z21.API;
 using Z21.Domain;
 
 namespace TrainUI.ViewModels {
   [DataContract]
   public class TrainFunctionViewModel : ReactiveObject, IActivatableViewModel {
+    private string name;
     private bool? active;
-    private readonly TrainFunctionModel model;
+    private TrainFunctions functionMask;
 
-    public TrainFunctionViewModel(TrainFunctionModel model) {
-      this.model = model;
-
+    public TrainFunctionViewModel() {
       Activator = new ViewModelActivator();
-      this.WhenActivated(() =>
-        new IDisposable[] { });
+      this.WhenActivated((CompositeDisposable d) => { });
     }
 
-    [IgnoreDataMember]
-    public ViewModelActivator Activator { get; }
-
     [DataMember]
-    public string Name => model.Name;
-    [DataMember]
-    public TrainFunctions Mask => model.Mask;
-
-    [IgnoreDataMember]
+    public string Name { get => name; set => this.RaiseAndSetIfChanged(ref name, value); }
     public bool? Active { get => active; set => this.RaiseAndSetIfChanged(ref active, value); }
-    public TrainFunctions TrainFunctions { 
-      set {
-        if ((value & Mask) == Mask) {
-          Active = true;
-        } else if((value & Mask) == TrainFunctions.None) {
-          Active = false;
-        } else {
-          Active = null;
-        }
-      } 
-    }
 
+    [DataMember]
+    public TrainFunctions FunctionMask { get => functionMask; set => this.RaiseAndSetIfChanged(ref functionMask, value); }
+    [DataMember]
+    public Guid Id { get; set; } = Guid.NewGuid();
+
+    public ViewModelActivator Activator { get; }
   }
 }

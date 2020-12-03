@@ -3,6 +3,8 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
+using ReactiveUI;
+
 using TrainUI.ViewModels;
 
 namespace TrainUI {
@@ -21,7 +23,7 @@ namespace TrainUI {
     }
 
     public bool Match(object data) {
-      return data is ViewModelBase;
+      return data is ReactiveObject;
     }
   }
 }

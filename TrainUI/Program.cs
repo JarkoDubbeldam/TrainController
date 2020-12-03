@@ -17,7 +17,7 @@ namespace TrainUI {
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .LogToDebug()
+            .LogToDebug(Avalonia.Logging.LogEventLevel.Information)
             .UseAutofac<AppBuilder, TrainUIModule>();
   }
 }

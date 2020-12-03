@@ -8,14 +8,10 @@ using ReactiveUI;
 using TrainUI.ViewModels;
 
 namespace TrainUI.Views {
-  public class MainWindow : ReactiveWindow<MainWindowViewModel> {
-    public MainWindow() {
+  public class TrainListView : ReactiveUserControl<TrainListViewModel> {
+    public TrainListView() {
       this.InitializeComponent();
-#if DEBUG
-      this.AttachDevTools();
-#endif
-      this.WhenActivated(disposables => { 
-      });
+      this.WhenActivated(c => { });
     }
 
     private void InitializeComponent() {

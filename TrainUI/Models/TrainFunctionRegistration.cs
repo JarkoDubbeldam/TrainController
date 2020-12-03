@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Z21.Domain;
+
 namespace TrainUI.Models {
-  public class TrainModel {
+  public class TrainFunctionRegistration {
     public string Name { get; set; }
-    public short Address { get; set; }
-    public IList<TrainFunctionModel> TrainFunctions { get; set; }
+    public TrainFunctions FunctionMask { get; set; }
+
   }
 }

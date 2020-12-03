@@ -18,7 +18,6 @@ using Splat;
 using TrainRepository;
 
 using TrainUI.Converters;
-using TrainUI.Models;
 using TrainUI.ViewModels;
 using TrainUI.Views;
 
@@ -50,22 +49,14 @@ namespace TrainUI {
 
       // Create the AutoSuspendHelper.
       var suspension = new AutoSuspendHelper(ApplicationLifetime);
-      var factory = Locator.Current.GetService<Func<MainWindowModel, MainWindowViewModel>>();
-      RxApp.SuspensionHost.CreateNewAppState = () => factory(new MainWindowModel { 
-        Trains = new[] { 
-          new TrainModel { 
-            Name = "Db loc", 
-            Address = 3, 
-            TrainFunctions = new[] { 
-              new TrainFunctionModel {
-                Name = "Lights",
-                Mask = Z21.Domain.TrainFunctions.Lights
-              } 
-            }
-          }
+      RxApp.SuspensionHost.CreateNewAppState = () => new MainWindowViewModel();
+      RxApp.SuspensionHost.SetupDefaultSuspendResume(new JsonSuspensionDriver(new JsonSuspensionSettings { 
+        Filename = "appstate.json", 
+        JsonSerializerSettings = new JsonSerializerSettings {
+          TypeNameHandling = TypeNameHandling.All,
+          Formatting = Formatting.Indented
         }
-      });
-      RxApp.SuspensionHost.SetupDefaultSuspendResume(new JsonSuspensionDriver(new JsonSuspensionSettings { Filename = "appstate.json" }, Locator.Current.GetService<IList<JsonConverter>>()));
+      }, Locator.Current.GetService<IList<JsonConverter>>()));
       suspension.OnFrameworkInitializationCompleted();
 
       // Load the saved view model state.
