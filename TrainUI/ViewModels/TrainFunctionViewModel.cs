@@ -30,5 +30,16 @@ namespace TrainUI.ViewModels {
     public Guid Id { get; set; } = Guid.NewGuid();
 
     public ViewModelActivator Activator { get; }
+
+    public void SetTrainFunctionStatus(TrainFunctions trainFunctions) {
+      var masked = trainFunctions & FunctionMask;
+      if(masked == FunctionMask) {
+        Active = true;
+      } else if(masked == TrainFunctions.None) {
+        Active = false;
+      } else {
+        Active = null;
+      }
+    }
   }
 }

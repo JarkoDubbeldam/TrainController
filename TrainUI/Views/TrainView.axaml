@@ -9,7 +9,7 @@
     <StackPanel Background="White" IsEnabled="{Binding Enabled}">
       <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" Margin="10"></TextBlock>
       <TextBlock Text="{Binding Address}" HorizontalAlignment="Center"></TextBlock>
-      <Slider HorizontalAlignment="Stretch" Margin="10" Minimum="-100" Maximum="100" Value="{Binding Speed}"></Slider>
+      <Slider HorizontalAlignment="Stretch" Margin="10" Minimum="-127" Maximum="127" Value="{Binding Speed}"></Slider>
       <Button HorizontalAlignment="Stretch" Command="{Binding Stop}">Stop</Button>
       <ListBox Items="{Binding TrainFunctions}">
         <ListBox.ItemTemplate>

@@ -14,7 +14,7 @@ namespace Z21.API {
       }
 
       var speedByte = TrainSpeed.ToSpeedByte();
-      var speedSettingByte = GetSpeedStepSettingBytes(TrainSpeed.speedStepSetting);
+      var speedSettingByte = GetSpeedStepSettingBytes(TrainSpeed.SpeedStepSetting);
       var request = new byte[] { 0x0a, 0x00, 0x40, 0x00, 0xe4, speedSettingByte, (byte)(addressBytes[1] | 0xC0), addressBytes[0], speedByte, default };
       request[9] = (byte)(request[4] ^ request[5] ^ request[6] ^ request[7] ^ request[8]);
       return request;
