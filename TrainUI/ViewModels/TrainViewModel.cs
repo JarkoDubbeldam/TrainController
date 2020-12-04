@@ -9,7 +9,11 @@ using System.Text;
 
 using ReactiveUI;
 
+using Splat;
+
 using TrainUI.Models;
+
+using Z21;
 
 namespace TrainUI.ViewModels {
   [DataContract]
@@ -18,6 +22,7 @@ namespace TrainUI.ViewModels {
     private int speed;
     private short address;
     private ObservableCollection<TrainFunctionViewModel> trainFunctions;
+    private bool enabled;
 
     public ViewModelActivator Activator { get; }
 
@@ -26,7 +31,11 @@ namespace TrainUI.ViewModels {
       TrainFunctions = new ObservableCollection<TrainFunctionViewModel>();
       var hasNonZeroSpeed = this.WhenAnyValue(x => x.Speed, x => x != 0);
       Stop = ReactiveCommand.Create(() => Speed = 0, hasNonZeroSpeed);
-      this.WhenActivated((CompositeDisposable disposables) => { 
+      this.WhenActivated((CompositeDisposable disposables) => {
+        Locator.Current.GetService<IZ21Client>()
+          .ConnectionStatus
+          .Subscribe(x => Enabled = x)
+          .DisposeWith(disposables);
       });
     }
 
@@ -41,6 +50,7 @@ namespace TrainUI.ViewModels {
     public ObservableCollection<TrainFunctionViewModel> TrainFunctions { get => trainFunctions; set => this.RaiseAndSetIfChanged(ref trainFunctions, value); }
     [DataMember]
     public Guid Id { get; set; } = Guid.NewGuid();
+    public bool Enabled { get => enabled; set => this.RaiseAndSetIfChanged(ref enabled, value); }
     public ReactiveCommand<Unit, int> Stop { get; }
     public IEnumerable<TrainFunctionMenuModel> TrainFunctionMenuItems => TrainFunctions.Select(x => new TrainFunctionMenuModel { Id = x.Id, Name = x.Name });
 
