@@ -1,0 +1,41 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:TrainUI.Views;assembly=TrainUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TrainUI.Views.TrainListView">
+  <DockPanel>
+    <Button DockPanel.Dock="Bottom"
+            Command="{Binding $parent[views:TrainOverviewView].DataContext.AddTrain}">
+      Add a train
+    </Button>
+    <ListBox DockPanel.Dock="Left" Items="{Binding Trains}">
+      <ListBox.ItemTemplate>        
+        <DataTemplate>
+          <views:TrainView>
+            <views:TrainView.ContextMenu>
+              <ContextMenu>
+                <MenuItem Header="Delete Train"                     
+                          Command="{Binding $parent[views:TrainOverviewView].DataContext.RemoveTrain}"
+                          CommandParameter="{Binding Id}"/>
+                <MenuItem Header="Add TrainFunction"
+                          Command="{Binding $parent[views:TrainOverviewView].DataContext.AddTrainFunction}"
+                          CommandParameter="{Binding Id}"/>
+                <MenuItem Header="Delete TrainFunction" Items="{Binding TrainFunctions}" IsEnabled="{Binding !!TrainFunctions.Count}">
+                  <MenuItem.Styles>
+                    <Style Selector="MenuItem">
+                      <Setter Property="Header" Value="{Binding Name}"/>
+                      <Setter Property="Command" Value="{Binding $parent[views:TrainView].DataContext.RemoveTrainFunction}"/>
+                      <Setter Property="CommandParameter" Value="{Binding Id}"/>
+                    </Style>
+                  </MenuItem.Styles>               
+                </MenuItem>
+              </ContextMenu>
+            </views:TrainView.ContextMenu>
+          </views:TrainView>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </DockPanel>
+</UserControl>

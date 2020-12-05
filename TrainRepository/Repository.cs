@@ -39,5 +39,6 @@ namespace TrainRepository {
 
     protected abstract void ObjectChangedByUserHandler(object sender, PropertyChangedEventArgs e);
     protected abstract Task<TObject> GetObjectInfoFromController(int address, string name);
+    public abstract void Dispose();
   }
 }

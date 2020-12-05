@@ -17,6 +17,7 @@ namespace Z21.Domain {
 
   [Flags]
   public enum TrainFunctions : uint {
+    None = 0,
     DoubleTraction = 0x00000040,
     Smartsearch = 0x00000020,
     Lights = 0x00000010,

@@ -5,10 +5,12 @@ using Z21.Domain;
 
 namespace Z21 {
   public interface IZ21Client {
-    event EventHandler<TurnoutInformation> TurnoutInformationChanged;
-    event EventHandler<LocomotiveInformation> LocomotiveInformationChanged;
-    event EventHandler<SystemState> SystemStateChanged;
-    event EventHandler<TrackStatus> TrackStatusChanged;
+    IObservable<bool> ConnectionStatus { get; }
+    IObservable<TurnoutInformation> TurnoutInformationChanged { get; }
+    IObservable<LocomotiveInformation> LocomotiveInformationChanged { get; }
+    IObservable<SystemState> SystemStateChanged { get; }
+    IObservable<TrackStatus> TrackStatusChanged { get; }
+    IObservable<OccupancyStatus> OccupancyStatusChanged { get; }
 
     Task<BroadcastFlags> GetBroadcastFlags(BroadcastFlagsRequest request);
     Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest);
@@ -21,5 +23,6 @@ namespace Z21 {
     Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request);
     Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request);
     Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request);
+    Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request);
   }
 }

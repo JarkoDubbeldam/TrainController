@@ -7,24 +7,22 @@ namespace Z21.API {
   public class TrainFunctionRequest : Request {
     public short TrainAddress { get; set; }
     public TrainFunctions TrainFunctions { get; set; }
+    public TrainFunctionToggleMode TrainFunctionToggleMode { get; set; }
 
     internal override byte[] ToByteArray() {
       var addressBytes = BitConverter.GetBytes(TrainAddress);
       if (!BitConverter.IsLittleEndian) {
         Array.Reverse(addressBytes);
       }
+      if (!TrainFunctionOrder.Contains(TrainFunctions)) {
+        throw new ArgumentException("TrainFunctions can only contain a single flag.", nameof(TrainFunctions));
+      }
 
-      var requestArray = Enum.GetValues(typeof(TrainFunctions))
-        .Cast<TrainFunctions>()
-        .Where(x => TrainFunctionOrder.Contains(x))
-        .SelectMany(x => {
-          var setting = TrainFunctions.HasFlag(x);
-          var request = new byte[] { 0x0a, 0x00, 0x40, 0x00, 0xe4, 0xf8, (byte)(addressBytes[1] | 0xC0), addressBytes[0], default, default };
-          request[8] = (byte)(StateBytes(setting) | GetFunctionIndex(x));
-          request[9] = (byte)(request[4] ^ request[5] ^ request[6] ^ request[7] ^ request[8]);
-          return request;
-        }).ToArray();
-      return requestArray;
+      var request = new byte[] { 0x0a, 0x00, 0x40, 0x00, 0xe4, 0xf8, (byte)(addressBytes[1] | 0xC0), addressBytes[0], default, default };
+      request[8] = (byte)((byte)TrainFunctionToggleMode | GetFunctionIndex(TrainFunctions));
+      request[9] = (byte)(request[4] ^ request[5] ^ request[6] ^ request[7] ^ request[8]);
+      return request;
+
     }
 
     private static int GetFunctionIndex(TrainFunctions trainFunction) {
@@ -35,10 +33,6 @@ namespace Z21.API {
       }
 
       return index;
-    }
-
-    private static int StateBytes(bool onOrOff) {
-      return onOrOff ? 0b01000000 : 0;
     }
 
     private static readonly List<TrainFunctions> TrainFunctionOrder = new List<TrainFunctions>{

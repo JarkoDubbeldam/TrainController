@@ -1,32 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
+
 using SysClient = System.Net.Sockets.UdpClient;
 
 namespace Z21 {
   public class UdpClient : IUdpClient {
     private readonly SysClient sysClient;
     private IPEndPoint endpoint;
+    private readonly UdpObservable listener;
+    private readonly IObservable<byte[]> instream;
 
     public UdpClient(SysClient sysClient, IPEndPoint endpoint) {
       this.sysClient = sysClient;
       this.endpoint = endpoint;
+      listener = new UdpObservable(sysClient);
+      instream = listener.SelectMany(SplitMessages);
     }
 
 
+    public IObservable<byte[]> ObserveBytes() => instream;
 
-    public byte[] ReceiveBytes() {
-      try {
-        return sysClient.Receive(ref endpoint);
-      } catch (SocketException e) when (e.Message == "A blocking operation was interrupted by a call to WSACancelBlockingCall") {
-        return Array.Empty<byte>(); // We have been disposed anyways.
+    private IEnumerable<byte[]> SplitMessages(byte[] message) {
+      var index = 0;
+      while (index < message.Length) {
+        var messageLength = message[index];
+        var subMessage = message.Skip(index).Take(messageLength).ToArray();
+        yield return subMessage;
+        index += messageLength;
       }
     }
 
     public void SendBytes(byte[] bytes) {
+      Debug.WriteLine($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
       sysClient.Send(bytes, bytes.Length, endpoint);
     }
 
@@ -37,6 +48,7 @@ namespace Z21 {
       if (!disposedValue) {
         if (disposing) {
           sysClient.Dispose();
+          listener.Dispose();
         }
 
         // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
