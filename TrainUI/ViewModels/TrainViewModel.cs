@@ -43,7 +43,6 @@ namespace TrainUI.ViewModels {
           .ConnectionStatus
           .Subscribe(x => Enabled = x)
           .DisposeWith(disposables);
-        z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
         z21Client.LocomotiveInformationChanged
           .Where(t => t.Address == address)
           .Subscribe(HandleTrainUpdate)

@@ -7,6 +7,8 @@ using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
+using Avalonia;
+
 using ReactiveUI;
 
 using TrainUI.Models;
@@ -76,14 +78,19 @@ namespace TrainUI.ViewModels {
         viewModel.Cancel.Select(x => (TrainFunctionRegistration)null))
         .Take(1)
         .Subscribe(model => {
-          if (model != null) {
-            TrainList
-              .Trains
-              .Single(x => x.Id == viewModel.TrainId)
-              .TrainFunctions
-              .Add(new TrainFunctionViewModel { Name = model.Name, FunctionMask = model.FunctionMask });
-          }
           Content = TrainList;
+          if (model != null) {
+            var train = TrainList
+              .Trains
+              .Single(x => x.Id == viewModel.TrainId);
+            try {
+              train
+                .TrainFunctions
+                .Add(new TrainFunctionViewModel { Name = model.Name, FunctionMask = model.FunctionMask, Address = train.Address });
+            } catch (AvaloniaInternalException) {
+              // ¯\_(ツ)_/¯
+            }
+          }
         });
     }
   }

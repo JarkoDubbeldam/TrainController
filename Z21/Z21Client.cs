@@ -38,15 +38,19 @@ namespace Z21 {
 
     public IObservable<bool> ConnectionStatus { get; } 
     public IObservable<TrackStatus> TrackStatusChanged => GetStream(new TrackStatusResponseFactory());
-    public IObservable<SystemState> SystemStateChanged => GetStream(new SystemStateResponseFactory());
-    public IObservable<LocomotiveInformation> LocomotiveInformationChanged => GetStream(new LocomotiveInformationResponseFactory());
-    public IObservable<TurnoutInformation> TurnoutInformationChanged => GetStream(new TurnoutInformationResponseFactory());
-    public IObservable<OccupancyStatus> OccupancyStatusChanged => GetStream(new OccupancyStatusResponseFactory());
+    public IObservable<SystemState> SystemStateChanged => GetStream(new SystemStateResponseFactory(), BroadcastFlags.Z21SystemState);
+    public IObservable<LocomotiveInformation> LocomotiveInformationChanged => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching);
+    public IObservable<TurnoutInformation> TurnoutInformationChanged => GetStream(new TurnoutInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching);
+    public IObservable<OccupancyStatus> OccupancyStatusChanged => GetStream(new OccupancyStatusResponseFactory(), BroadcastFlags.RBus);
 
-    private IObservable<TResponse> GetStream<TResponse>(ResponseFactory<TResponse> factory) => 
-      inStream
-      .Where(x => MatchesPattern(x, factory.ResponsePattern))
-      .Select(factory.ParseResponseBytes);
+    private IObservable<TResponse> GetStream<TResponse>(ResponseFactory<TResponse> factory, BroadcastFlags requiredFlags = BroadcastFlags.None) {
+      if(requiredFlags != BroadcastFlags.None && !BroadcastFlags.HasFlag(requiredFlags)) {
+        SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags | requiredFlags });
+      }
+      return inStream
+        .Where(x => MatchesPattern(x, factory.ResponsePattern))
+        .Select(factory.ParseResponseBytes);
+    }
 
     private static bool MatchesPattern(byte[] responseBytes, byte?[] pattern) {
       return responseBytes.Zip(pattern, (r, p) => p == null || p == r).All(x => x);

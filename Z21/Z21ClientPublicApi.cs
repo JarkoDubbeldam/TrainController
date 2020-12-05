@@ -14,8 +14,8 @@ namespace Z21 {
     public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse(serialNumberRequest);
 
     public void SetBroadcastFlags(SetBroadcastFlagsRequest request) {
-      BroadcastFlags = request.BroadcastFlags;
       SendRequestWithoutResponse(request);
+      _ = Task.Run(async () => BroadcastFlags = await GetBroadcastFlags(new BroadcastFlagsRequest { }));
     }
 
     public Task<BroadcastFlags> GetBroadcastFlags(BroadcastFlagsRequest request) => SendRequestWithResponse(request);
