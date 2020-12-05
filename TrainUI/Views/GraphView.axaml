@@ -1,0 +1,12 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TrainUI.Views.GraphView">
+  <Canvas Width="{Binding Width}" Height="{Binding Height}">
+    <TextBlock Canvas.Left="0" Canvas.Top="0" Text="{Binding MaxValue}"></TextBlock>
+    <TextBlock Canvas.Left="0" Canvas.Bottom="0">0 mA</TextBlock>
+    <Polyline Points="{Binding Graph}" Stroke="Green" Canvas.Left="30" Canvas.Bottom="0"></Polyline>
+  </Canvas>
+</UserControl>

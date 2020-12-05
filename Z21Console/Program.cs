@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -12,6 +16,12 @@ using Z21.Domain;
 namespace Z21Console {
   internal class Program {
     private static async Task Main() {
+      Observable.Interval(TimeSpan.FromMilliseconds(500))
+        .Timestamp()
+        .AccumulateBuffer(TimeSpan.FromSeconds(2))
+        .Subscribe(x => Console.WriteLine(string.Join(" ", x.Select(y => y.Value.ToString()))));
+      Console.ReadLine();
+
       var ipAdress = new IPAddress(new byte[] { 192, 168, 0, 111 });
       var endpoint = new IPEndPoint(ipAdress, 21105);
       var builder = new ContainerBuilder();
@@ -78,6 +88,30 @@ namespace Z21Console {
 
     public static void TrackStatusPrinter<T>(object sender, T trackStatus) {
       Console.WriteLine(trackStatus);
+    }
+
+
+  }
+  public static class Extensions {
+    public static IObservable<IReadOnlyList<Timestamped<T>>> AccumulateBuffer<T>(this IObservable<Timestamped<T>> observable, TimeSpan interval) {
+      var accumulator = new List<Timestamped<T>>();
+      return observable.Select(x => {
+        accumulator.Add(x);
+        var now = DateTime.Now;
+        var expiration = now - interval;
+        var numbersToRemove = 0;
+        foreach (var item in accumulator) {
+          if (item.Timestamp < expiration) {
+            numbersToRemove++;
+          } else {
+            break;
+          }
+        }
+        if (numbersToRemove > 0) {
+          accumulator.RemoveRange(0, numbersToRemove);
+        }
+        return new ReadOnlyCollection<Timestamped<T>>(accumulator);
+      });
     }
   }
 }
