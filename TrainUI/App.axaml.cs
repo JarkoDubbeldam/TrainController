@@ -29,24 +29,6 @@ namespace TrainUI {
     }
 
     public override void OnFrameworkInitializationCompleted() {
-      //var suspension = new AutoSuspendHelper(ApplicationLifetime);
-      //RxApp.SuspensionHost.CreateNewAppState = () => new MainWindowViewModel();
-      //var suspensionSettings = new JsonSuspensionSettings {
-      //  Filename = "appstate.json"
-      //};
-      //RxApp.SuspensionHost.SetupDefaultSuspendResume(container.Resolve<Func<JsonSuspensionSettings, JsonSuspensionDriver>>()(suspensionSettings));
-
-
-      //if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-      //  var context = RxApp.SuspensionHost.GetAppState<MainWindowViewModel>();
-      //  //context ??= factory(new TrainModel { Name = "Db loc", Address = 3 });
-      //  desktop.MainWindow = new MainWindow {
-      //    DataContext = context,
-      //  };
-      //}
-
-      //base.OnFrameworkInitializationCompleted();
-
       // Create the AutoSuspendHelper.
       var suspension = new AutoSuspendHelper(ApplicationLifetime);
       RxApp.SuspensionHost.CreateNewAppState = () => new MainWindowViewModel();

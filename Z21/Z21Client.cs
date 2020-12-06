@@ -56,21 +56,6 @@ namespace Z21 {
       return responseBytes.Zip(pattern, (r, p) => p == null || p == r).All(x => x);
     }
 
-    private async IAsyncEnumerable<bool> KeepConnectionAlive([EnumeratorCancellation] CancellationToken token) {
-      while (true) {
-        if (token.IsCancellationRequested) yield break;
-        const int TWO_SECONDS = 2_000;
-        await Task.Delay(TWO_SECONDS);
-        bool success;
-        try {
-          await GetSerialNumber(new SerialNumberRequest());
-          success = true;
-        } catch (TimeoutException) {
-          success = false;
-        }
-        yield return success;
-      }
-    }
 
     private async Task<TResponse> SendRequestWithResponse<TResponse>(RequestWithResponse<TResponse> request) {
       var factory = request.GetResponseFactory();
