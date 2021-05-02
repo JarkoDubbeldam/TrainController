@@ -31,9 +31,9 @@ struct TrackSection {
 		TrackSection(int group, int id) : Group(group), Id(id) {}
 };
 
-class TrackLoopController {
+class TrackLoopListener {
 public:
-		TrackLoopController(TrackSection entrance, TrackSection loop1, TrackSection loop2, TrackSection exit);
+		TrackLoopListener(TrackSection entrance, TrackSection loop1, TrackSection loop2, TrackSection exit);
 
 		TrackLoopAction handleTrackStatusUpdate(const byte occupancyBytes[10]);
 

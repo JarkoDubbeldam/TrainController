@@ -10,7 +10,7 @@
 
 #include <Ethernet.h>
 #include <EthernetUdp.h>
-#include "TrackLoopController.h"
+#include "TrackLoopRelayHandler.h"
 
 #include <SPI.h>
 
@@ -22,7 +22,7 @@
 #define POLL_DELAY_IN_MS 250
 
 
-byte mac[] = { 0xA8, 0x61, 0x0A, 0xAE, 0x8A, 0x8E };
+constexpr byte mac[] = { 0xA8, 0x61, 0x0A, 0xAE, 0x8A, 0x8E };
 
 IPAddress z21IpAddress(192, 168, 0, 111);
 int z21Port = 21105;
@@ -35,7 +35,11 @@ char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
 
-TrackLoopController loopController(TrackSection(1, 2), TrackSection(2, 1), TrackSection(2, 2), TrackSection(1, 1));
+TrackLoopRelayHandler handlers[] = {
+    TrackLoopRelayHandler(TrackLoopListener(TrackSection(1, 2), TrackSection(2, 1), TrackSection(2, 2), TrackSection(1, 1)), PIN_RELAY_1, PIN_RELAY_2)
+};
+
+
 
 void setup() {
   Ethernet.init(10); 
@@ -87,8 +91,8 @@ void loop() {
 
 
 
-byte Request[] = { 0x05, 0x00, 0x81, 0x00, 0x00 };
-int RequestLength = 5;
+constexpr byte Request[] = { 0x05, 0x00, 0x81, 0x00, 0x00 };
+const int RequestLength = 5;
 void SendRequest() {
     Udp.beginPacket(z21IpAddress, z21Port);
     Udp.write(Request, RequestLength);
@@ -118,36 +122,10 @@ void ReceiveResponse() {
             for (int i = 0; i < 10; i++) {
                 occupancybuffer[i] = (byte)packetBuffer[5 + i];
             }
-            auto requiredChange = loopController.handleTrackStatusUpdate(occupancybuffer);
-#ifdef DEBUG_MESSAGES
-            Serial.print("Required change: ");
-            Serial.println(requiredChange);
-#endif
-            switch (requiredChange) {
-            case INVERT:
-                digitalWrite(PIN_RELAY_1, HIGH);
-                digitalWrite(PIN_RELAY_2, HIGH);
-                digitalWrite(PIN_RELAY_3, HIGH);
-                digitalWrite(PIN_RELAY_4, HIGH);
-                break;
-            case REVERT:
-                digitalWrite(PIN_RELAY_1, LOW);
-                digitalWrite(PIN_RELAY_2, LOW);
-                digitalWrite(PIN_RELAY_3, LOW);
-                digitalWrite(PIN_RELAY_4, LOW);
+            for (auto handler : handlers) {
+                handler.updateRelays(occupancybuffer);
             }
         }
     }
   }
-}
-
-int BufferToInt(byte buffer[], size_t startIndex){
-  int result = 0;
-  for (size_t index = 0; index < 2; index++) {
-    int value = buffer[startIndex + index];
-    Serial.print(value);
-    Serial.print(" ");
-    result |= value << (index * 8);
-  }  
-  return result;
 }

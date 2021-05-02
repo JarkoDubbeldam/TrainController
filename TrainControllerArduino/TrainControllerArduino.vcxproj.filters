@@ -21,12 +21,18 @@
     <ClInclude Include="__vm\.TrainControllerArduino.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TrackLoopController.h">
+    <ClInclude Include="TrackLoopRelayHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackLoopListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TrackLoopController.cpp">
+    <ClCompile Include="TrackLoopRelayHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackLoopListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

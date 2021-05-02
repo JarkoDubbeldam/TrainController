@@ -2,17 +2,17 @@
 // 
 // 
 
-#include "TrackLoopController.h"
+#include "TrackLoopListener.h"
 
 bool getOccupancyStatus(const byte occupancyBytes[10], const TrackSection& section) {
     auto group = occupancyBytes[section.Group - 1];
     return (group & (1 << (section.Id - 1))) > 0;
 }
 
-TrackLoopController::TrackLoopController(const TrackSection entrance, const TrackSection loop1, const TrackSection loop2, const TrackSection exit) :
+TrackLoopListener::TrackLoopListener(const TrackSection entrance, const TrackSection loop1, const TrackSection loop2, const TrackSection exit) :
     entrance(entrance), loop1(loop1), loop2(loop2), exit(exit), trackStatus(NORMAL), loopStatus(EMPTY){}
 
-TrackLoopAction TrackLoopController::handleTrackStatusUpdate(const byte occupancyBytes[10])
+TrackLoopAction TrackLoopListener::handleTrackStatusUpdate(const byte occupancyBytes[10])
 {
     auto loopStatus = parseStatusFromOccupancy(occupancyBytes);
 #ifdef DEBUG_MESSAGES
@@ -37,7 +37,7 @@ TrackLoopAction TrackLoopController::handleTrackStatusUpdate(const byte occupanc
     return NOTHING;
 }
 
-TrackLoopStatus TrackLoopController::parseStatusFromOccupancy(const byte occupancyBytes[10]) const
+TrackLoopStatus TrackLoopListener::parseStatusFromOccupancy(const byte occupancyBytes[10]) const
 {
     const auto entranceOccupied = getOccupancyStatus(occupancyBytes, entrance);
     const auto loop1Occupied = getOccupancyStatus(occupancyBytes, loop1);
