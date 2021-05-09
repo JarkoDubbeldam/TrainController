@@ -6,7 +6,7 @@
 */
 
 
-#define DEBUG_MESSAGES
+//#define DEBUG_MESSAGES
 
 #include <Ethernet.h>
 #include <EthernetUdp.h>
@@ -35,15 +35,13 @@ char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
 
-TrackLoopRelayHandler handlers[] = {
-    TrackLoopRelayHandler(TrackLoopListener(TrackSection(1, 2), TrackSection(2, 1), TrackSection(2, 2), TrackSection(1, 1)), PIN_RELAY_1, PIN_RELAY_2)
-};
+#define HANDLER_COUNT 1
+TrackLoopRelayHandler* handlers;
 
 
 
 void setup() {
   Ethernet.init(10); 
-
 
 
   Serial.begin(9600);
@@ -79,6 +77,15 @@ void setup() {
 
   // start UDP
   Udp.begin(localPort);
+
+  
+  handlers = new TrackLoopRelayHandler[HANDLER_COUNT] {
+    TrackLoopRelayHandler(TrackLoopListener(TrackSection(4, 8), TrackSection(3, 2), TrackSection(3, 1), TrackSection(4, 5)), PIN_RELAY_1, PIN_RELAY_2)
+  };
+
+  for (int i = 0; i < HANDLER_COUNT; i++){
+    handlers[i].print();
+  }
 }
 
 void loop() {
@@ -97,7 +104,9 @@ void SendRequest() {
     Udp.beginPacket(z21IpAddress, z21Port);
     Udp.write(Request, RequestLength);
     Udp.endPacket();
+#ifdef DEBUG_MESSAGES
     Serial.println("Sent request to z21.");
+#endif
 }
 
 void ReceiveResponse() {
@@ -122,8 +131,8 @@ void ReceiveResponse() {
             for (int i = 0; i < 10; i++) {
                 occupancybuffer[i] = (byte)packetBuffer[5 + i];
             }
-            for (auto handler : handlers) {
-                handler.updateRelays(occupancybuffer);
+            for (int i = 0; i < HANDLER_COUNT; i++){
+                handlers[i].updateRelays(occupancybuffer);
             }
         }
     }

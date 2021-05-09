@@ -3,14 +3,28 @@
 // 
 
 #include "TrackLoopListener.h"
+//#define DEBUG_MESSAGES
 
 bool getOccupancyStatus(const byte occupancyBytes[10], const TrackSection& section) {
+#ifdef DEBUG_MESSAGES
+    Serial.print(section.Group);
+    Serial.print(" ");
+    Serial.println(section.Id);
+#endif
+    if(section.Group < 1 || section.Group > 10) return false;
     auto group = occupancyBytes[section.Group - 1];
     return (group & (1 << (section.Id - 1))) > 0;
 }
 
-TrackLoopListener::TrackLoopListener(const TrackSection entrance, const TrackSection loop1, const TrackSection loop2, const TrackSection exit) :
-    entrance(entrance), loop1(loop1), loop2(loop2), exit(exit), trackStatus(NORMAL), loopStatus(EMPTY){}
+TrackLoopListener::TrackLoopListener(TrackSection entrance, TrackSection loop1, TrackSection loop2, TrackSection exit) :
+    entrance(entrance), loop1(loop1), loop2(loop2), exit(exit), trackStatus(NORMAL), loopStatus(EMPTY){
+#ifdef DEBUG_MESSAGES
+    Serial.println("Initialising listener. Entrance config:");
+    Serial.print(entrance.Group);
+    Serial.print(" ");
+    Serial.println(entrance.Id);      
+#endif
+}
 
 TrackLoopAction TrackLoopListener::handleTrackStatusUpdate(const byte occupancyBytes[10])
 {
@@ -39,6 +53,13 @@ TrackLoopAction TrackLoopListener::handleTrackStatusUpdate(const byte occupancyB
 
 TrackLoopStatus TrackLoopListener::parseStatusFromOccupancy(const byte occupancyBytes[10]) const
 {
+#ifdef DEBUG_MESSAGES
+    for (int i = 0; i < 10; i++) {
+        Serial.print(occupancyBytes[i]);
+        Serial.print(" ");
+    }
+    Serial.println();
+#endif
     const auto entranceOccupied = getOccupancyStatus(occupancyBytes, entrance);
     const auto loop1Occupied = getOccupancyStatus(occupancyBytes, loop1);
     const auto loop2Occupied = getOccupancyStatus(occupancyBytes, loop2);
@@ -48,6 +69,11 @@ TrackLoopStatus TrackLoopListener::parseStatusFromOccupancy(const byte occupancy
         (loop1Occupied ? 2 : 0) +
         (loop2Occupied ? 4 : 0) +
         (exitOccupied ? 8 : 0);
+
+#ifdef DEBUG_MESSAGES
+    Serial.print("Track status is: ");
+    Serial.println(trackStatus);
+#endif
 
     switch (trackStatus) {
     case 0: // None occupied

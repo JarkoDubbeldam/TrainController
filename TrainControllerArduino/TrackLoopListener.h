@@ -29,6 +29,13 @@ struct TrackSection {
 		int Group;
 		int Id;
 		TrackSection(int group, int id) : Group(group), Id(id) {}
+		TrackSection(const TrackSection& other) : Group(other.Group), Id(other.Id){}
+
+		void print(){
+			Serial.print(Group);
+			Serial.print(" ");
+			Serial.print(Id);
+		}
 };
 
 class TrackLoopListener {
@@ -36,6 +43,21 @@ public:
 		TrackLoopListener(TrackSection entrance, TrackSection loop1, TrackSection loop2, TrackSection exit);
 
 		TrackLoopAction handleTrackStatusUpdate(const byte occupancyBytes[10]);
+
+		void print(){
+			Serial.print("Entrance: ");
+			entrance.print();
+			Serial.println();
+			Serial.print("Loop 1: ");
+			loop1.print();
+			Serial.println();
+			Serial.print("Loop 2: ");
+			loop2.print();
+			Serial.println();
+			Serial.print("Exit: ");
+			exit.print();
+			Serial.println();
+		}
 
 private:
 		enum InternalTrackStatus {
@@ -53,4 +75,3 @@ private:
 };
 
 #endif
-
