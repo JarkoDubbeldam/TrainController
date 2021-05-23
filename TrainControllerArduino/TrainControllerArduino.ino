@@ -10,7 +10,6 @@
 
 #include <Ethernet.h>
 #include <EthernetUdp.h>
-#include "TrackLoopRelayHandler.h"
 
 #include <SPI.h>
 
@@ -34,10 +33,6 @@ char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet
 
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
-
-#define HANDLER_COUNT 1
-TrackLoopRelayHandler* handlers;
-
 
 
 void setup() {
@@ -79,13 +74,6 @@ void setup() {
   Udp.begin(localPort);
 
   
-  handlers = new TrackLoopRelayHandler[HANDLER_COUNT] {
-    TrackLoopRelayHandler(TrackLoopListener(TrackSection(4, 8), TrackSection(3, 2), TrackSection(3, 1), TrackSection(4, 5)), PIN_RELAY_1, PIN_RELAY_2)
-  };
-
-  for (int i = 0; i < HANDLER_COUNT; i++){
-    handlers[i].print();
-  }
 }
 
 void loop() {
@@ -131,8 +119,25 @@ void ReceiveResponse() {
             for (int i = 0; i < 10; i++) {
                 occupancybuffer[i] = (byte)packetBuffer[5 + i];
             }
-            for (int i = 0; i < HANDLER_COUNT; i++){
-                handlers[i].updateRelays(occupancybuffer);
+
+            // Loop 1
+            if((occupancybuffer[2] & (1 << 0)) != 0 ||
+              (occupancybuffer[6] & (1 << 0)) != 0){
+              digitalWrite(PIN_RELAY_1, HIGH);
+              digitalWrite(PIN_RELAY_2, HIGH);
+            } else {              
+              digitalWrite(PIN_RELAY_1, LOW);
+              digitalWrite(PIN_RELAY_2, LOW);
+            }
+
+            // Loop 2
+            if((occupancybuffer[8] & (1 << 1)) != 0 ||
+              (occupancybuffer[7] & (1 << 3)) != 0){
+              digitalWrite(PIN_RELAY_3, HIGH);
+              digitalWrite(PIN_RELAY_4, HIGH);
+            } else {              
+              digitalWrite(PIN_RELAY_3, LOW);
+              digitalWrite(PIN_RELAY_4, LOW);
             }
         }
     }
