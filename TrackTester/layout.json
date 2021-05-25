@@ -568,12 +568,35 @@
           "TurnoutMode": "Left"
         }
       ]
-    }
+    },
+    {"Id": 38, "SectionId": 31, "Turnouts": []},
+    {"Id": 39, "SectionId": 17, "Turnouts": []},
+    {"Id": 40, "SectionId": 16, "Turnouts": []},
+    {"Id": 41, "SectionId": 48, "Turnouts": []},
+    {"Id": 42, "SectionId": 30, "Turnouts": []},
+    {"Id": 43, "SectionId": 29, "Turnouts": []},
+    {"Id": 44, "SectionId": 49, "Turnouts": []},
+    {"Id": 45, "SectionId": 51, "Turnouts": [{"TurnoutId": 5, "TurnoutMode":"Left"}]},
+    {"Id": 46, "SectionId": 51, "Turnouts": [{"TurnoutId": 5, "TurnoutMode":"Right"}, {"TurnoutId":4, "TurnoutMode":"Left"}]},
+    {"Id": 47, "SectionId": 51, "Turnouts": [{"TurnoutId": 5, "TurnoutMode":"Right"}, {"TurnoutId":4, "TurnoutMode":"Right"}]},
+    {"Id": 48, "SectionId":55, "Turnouts":[]},
+    {"Id": 49, "SectionId":56, "Turnouts":[]},
+    {"Id":50, "SectionId":37, "Turnouts":[]},
+    {"Id": 51, "SectionId": 54, "Turnouts":[]},
+    {"Id": 52, "SectionId": 36, "Turnouts":[]},
+    {"Id": 53, "SectionId": 35, "Turnouts":[]},
+    {"Id": 54, "SectionId":39, "Turnouts":[{"TurnoutId": 13, "TurnoutMode": "Right"}, {"TurnoutId":22, "TurnoutMode":"Left"}]},
+    {"Id": 55, "SectionId":39, "Turnouts":[{"TurnoutId": 13, "TurnoutMode": "Right"}, {"TurnoutId":22, "TurnoutMode":"Right"}]},
+    {"Id": 56, "SectionId":39, "Turnouts":[{"TurnoutId": 13, "TurnoutMode": "Left"}]}, // Orphaned
+    {"Id": 57, "SectionId":50, "Turnouts":[{"TurnoutId": 17, "TurnoutMode":"Left"}, {"TurnoutId":18, "TurnoutMode":"Left"}]},
+    {"Id": 58, "SectionId":50, "Turnouts":[{"TurnoutId": 17, "TurnoutMode":"Left"}, {"TurnoutId":18, "TurnoutMode":"Right"}]},
+    {"Id": 59, "SectionId":50, "Turnouts":[{"TurnoutId": 17, "TurnoutMode":"Right"}, {"TurnoutId":18, "TurnoutMode":"Left"}]},
+    {"Id": 60, "SectionId":50, "Turnouts":[{"TurnoutId": 17, "TurnoutMode":"Right"}, {"TurnoutId":18, "TurnoutMode":"Right"}]}
   ],
   "Boundaries": [
     {
       "Id": 1,
-      "ConnectedSections": [ 1, 2, 3, 4 ]
+      "ConnectedSections": [ 1, 2, 3, 4, 42 ]
     },
     {
       "Id": 2,
@@ -661,7 +684,21 @@
     },
     {
       "Id": 23,
-      "ConnectedSections": [ 34, 35, 36, 37 ]
-    }
+      "ConnectedSections": [ 34, 35, 36, 37, 38 ]
+    },
+    {"Id": 24, "ConnectedSections":[38, 39]},
+    {"Id": 25, "ConnectedSections":[39, 40]},
+    {"Id": 26, "ConnectedSections":[40, 41]},
+    {"Id": 27, "ConnectedSections":[42, 43]},
+    {"Id": 28, "ConnectedSections":[43, 44]},
+    {"Id": 29, "ConnectedSections":[44,45,46,47]},
+    {"Id": 30,"ConnectedSections": [46, 48]},
+    {"Id": 31, "ConnectedSections": [48, 49]},
+    {"Id": 32, "ConnectedSections":[49, 50]},
+    {"Id": 33, "ConnectedSections":[47, 51]},
+    {"Id":34, "ConnectedSections":[51, 52]},
+    {"Id": 35, "ConnectedSections":[52, 53]},
+    {"Id": 36, "ConnectedSections":[53, 54]},
+    {"Id": 37, "ConnectedSections":[50, 55]}
   ]
 }
