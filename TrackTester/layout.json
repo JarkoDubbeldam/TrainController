@@ -1,0 +1,667 @@
+{
+  "Sections": [
+    {
+      "Id": 1,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 9,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 9,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "SectionId": 10,
+      "Turnouts": []
+    },
+    {
+      "Id": 6,
+      "SectionId": 12,
+      "Turnouts": []
+    },
+    {
+      "Id": 7,
+      "SectionId": 9,
+      "Turnouts": []
+    },
+    {
+      "Id": 8,
+      "SectionId": 13,
+      "Turnouts": []
+    },
+    {
+      "Id": 9,
+      "SectionId": 8,
+      "Turnouts": []
+    },
+    {
+      "Id": 10,
+      "SectionId": 14,
+      "Turnouts": []
+    },
+    {
+      "Id": 11,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 12,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 13,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 14,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 15,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 16,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 17,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 18,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 19,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 20,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 21,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 22,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 23,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 24,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 25,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 26,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": "Left"
+        }
+      ]
+    },
+    {
+      "Id": 27,
+      "SectionId": 6,
+      "Turnouts": []
+    },
+    {
+      "Id": 28,
+      "SectionId": 5,
+      "Turnouts": []
+    },
+    {
+      "Id": 29,
+      "SectionId": 4,
+      "Turnouts": []
+    },
+    {
+      "Id": 30,
+      "SectionId": 3,
+      "Turnouts": []
+    },
+    {
+      "Id": 31,
+      "SectionId": 2,
+      "Turnouts": []
+    },
+    {
+      "Id": 32,
+      "SectionId": 1,
+      "Turnouts": []
+    },
+    {
+      "Id": 33,
+      "SectionId": 0,
+      "Turnouts": []
+    },
+    {
+      "Id": 34,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 16,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 35,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 16,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": "Left"
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 36,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": "Right"
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": "Right"
+        }
+      ]
+    },
+    {
+      "Id": 37,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": "Left"
+        }
+      ]
+    }
+  ],
+  "Boundaries": [
+    {
+      "Id": 1,
+      "ConnectedSections": [ 1, 2, 3, 4 ]
+    },
+    {
+      "Id": 2,
+      "ConnectedSections": [ 3, 5 ]
+    },
+    {
+      "Id": 3,
+      "ConnectedSections": [ 5, 6 ]
+    },
+    {
+      "Id": 4,
+      "ConnectedSections": [ 2, 7 ]
+    },
+    {
+      "Id": 5,
+      "ConnectedSections": [ 7, 8 ]
+    },
+    {
+      "Id": 6,
+      "ConnectedSections": [ 3, 9 ]
+    },
+    {
+      "Id": 7,
+      "ConnectedSections": [ 9, 10 ]
+    },
+    {
+      "Id": 8,
+      "ConnectedSections": [ 6, 11, 12, 13, 14 ]
+    },
+    {
+      "Id": 9,
+      "ConnectedSections": [ 8, 15, 16, 17, 18 ]
+    },
+    {
+      "Id": 10,
+      "ConnectedSections": [ 10, 19, 20, 21, 22 ]
+    },
+    {
+      "Id": 11,
+      "ConnectedSections": [ 1, 23, 24, 25, 26 ]
+    },
+    {
+      "Id": 12,
+      "ConnectedSections": [ 11, 15, 19, 23, 27 ]
+    },
+    {
+      "Id": 13,
+      "ConnectedSections": [ 12, 16, 20, 24, 28 ]
+    },
+    {
+      "Id": 14,
+      "ConnectedSections": [ 13, 17, 21, 25, 29 ]
+    },
+    {
+      "Id": 15,
+      "ConnectedSections": [ 14, 18, 22, 26, 30 ]
+    },
+    {
+      "Id": 16,
+      "ConnectedSections": [ 27, 31 ]
+    },
+    {
+      "Id": 17,
+      "ConnectedSections": [ 28, 32 ]
+    },
+    {
+      "Id": 18,
+      "ConnectedSections": [ 29, 33 ]
+    },
+    {
+      "Id": 19,
+      "ConnectedSections": [ 31, 34 ]
+    },
+    {
+      "Id": 20,
+      "ConnectedSections": [ 32, 35 ]
+    },
+    {
+      "Id": 21,
+      "ConnectedSections": [ 33, 36 ]
+    },
+    {
+      "Id": 22,
+      "ConnectedSections": [ 30, 37 ]
+    },
+    {
+      "Id": 23,
+      "ConnectedSections": [ 34, 35, 36, 37 ]
+    }
+  ]
+}
