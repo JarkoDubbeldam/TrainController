@@ -1,79 +1,80 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Track;
-using Track.Graph;
 
 namespace TrackTester {
   class Program {
     static void Main(string[] args) {
-      var json = File.ReadAllText("layout.json");
+      //var dict = halfParsed["Sections"]
+      //  .ToDictionary(x => x["Id"], y => new TrackSection {
+      //    Id = y["Id"].ToObject<int>(),
+      //    SectionId = y["SectionId"].ToObject<int>(),
+      //    Turnouts = y["Turnouts"].ToObject<List<TurnoutConfiguration>>()
+      //  });
+      //foreach(var section in halfParsed["Sections"]) {
+      //  TrackSection trackSection = dict[section["Id"]];
+      //  trackSection.ConnectedSections = section["ConnectedSections"]
+      //    .Select(x => dict[x])
+      //    .Where(x => x.SectionId != trackSection.SectionId)
+      //    .ToList();
+      //}
+
+      //CreateLayoutV3json();
+      var x = ParseLayoutV3json();
+      var sw = Stopwatch.StartNew();
+      WayFinder.FindRoute(x, 1, 20).ForEach(x => Console.WriteLine(x));
+      Console.WriteLine(sw.Elapsed);
+    }
+
+    //private static void CreateLayoutV3json() {
+    //  var json = File.ReadAllText("layout.json");
+    //  var halfParsed = JObject.Parse(json);
+    //  var sectionDict = halfParsed["Sections"].ToDictionary(x => x["Id"], y => y.ToObject<TrackSection>());
+    //  var boundaries = halfParsed["Boundaries"].Select(y => new TrackSectionBoundary {
+    //    Id = y["Id"].ToObject<int>(),
+    //    ConnectedTrackSections = y["ConnectedSections"].Select(x => sectionDict[x]).ToList()
+    //  })
+    //  .ToList();
+
+    //  var sectionBoundaryLookup = boundaries.SelectMany(x => x.ConnectedTrackSections.Select(y => (Section: y, Boundary: x)))
+    //    .ToLookup(x => x.Section);
+
+    //  var stuff = boundaries.Select(x => new {
+    //    x.Id,
+    //    Connections = x.ConnectedTrackSections.Select(y => new {
+    //      ViaSection = y,
+    //      ToBoundaryId = sectionBoundaryLookup[y].Single(z => z.Boundary != x).Boundary.Id
+    //    }).ToList()
+    //  }).ToList();
+    //  File.WriteAllText("layoutv3.json", JsonConvert.SerializeObject(new { Boundaries = stuff }));
+    //}
+
+    private static ICollection<TrackSectionBoundary> ParseLayoutV3json() {
+      var json = File.ReadAllText("layoutV3.json");
+
       var halfParsed = JObject.Parse(json);
-      var sections = halfParsed["Sections"].ToDictionary(x => x["Id"].ToObject<int>(), x => x.ToObject<TrackSection>());
-      var boundaries = halfParsed["Boundaries"]
-        .Select(x => new TrackSectionBoundary {
-          Id = x["Id"].ToObject<int>(),
-          ConnectedTrackSections = x["ConnectedSections"].Select(y => sections[y.ToObject<int>()]).ToList()
-        })
-        .ToList();
+      var boundariesDict = halfParsed["Boundaries"].ToDictionary(x => x["Id"], y => new TrackSectionBoundary {
+        Id = y["Id"].ToObject<int>()
+      });
 
-
-      var originId = 2;
-      var destinationId = 4;
-
-      var distances = boundaries.ToDictionary(x => x.Id, x => x.Id == originId ? 0 : int.MaxValue);
-      var shortestParents = new Dictionary<int, (int, TrackSection)> { { originId, (int.MinValue, null) } };
-      var queue = boundaries.Select(x => x.Id).ToHashSet();
-
-      var current = originId;
-      while (true) {
-        var neighbors = boundaries[current - 1]
-          .ConnectedTrackSections
-          .SelectMany(x => boundaries
-            .Where(y => y.ConnectedTrackSections.Contains(x))
-            .Select(y => (Boundary: y, Section: x)))
-          .Where(x => x.Boundary.Id != current)
-          .Where(x => x.Section.SectionId != shortestParents[current].Item2?.SectionId) // To avoid backtracking
-          .ToHashSet();
-
-        foreach(var neighbor in neighbors) {
-          if (queue.Contains(neighbor.Boundary.Id)) {
-            var tentativeDistance = distances[current] + 1;
-            if(tentativeDistance < distances[neighbor.Boundary.Id]) {
-              distances[neighbor.Boundary.Id] = tentativeDistance;
-              shortestParents[neighbor.Boundary.Id] = (current, neighbor.Section);
-            }
-          }
-        }
-
-        queue.Remove(current);
-        if(current == destinationId) {
-          break;
-        }
-
-        current = distances.OrderBy(x => x.Value).Select(x => x.Key).Intersect(queue).First();
-        if(distances[current] == int.MaxValue) {
-          throw new Exception("Couldn't find path.");
-        }
+      foreach (var item in halfParsed["Boundaries"]) {
+        var boundary = boundariesDict[item["Id"]];
+        boundary.Connections = item["Connections"]
+          .Select(x => new TrackConnection {
+            ViaSection = x["ViaSection"].ToObject<TrackSection>(),
+            ToBoundary = boundariesDict[x["ToBoundaryId"]]
+          })
+          .ToList();
       }
 
-      var stack = new Stack<(int, TrackSection)>();
-      stack.Push((current, null));
-      while (current != originId) { 
-        stack.Push(shortestParents[current]);
-        current = shortestParents[current].Item1;
-      }
-
-      Console.WriteLine($"From Id {originId} to {destinationId}, visits sections {string.Join(", ", stack.Select(x => x.Item2?.SectionId))}");
-      foreach(var turnout in stack.Where(x => x.Item2 != null).SelectMany(x => x.Item2.Turnouts)) {
-        Console.WriteLine($"Turnout {turnout.TurnoutId} in setting {turnout.TurnoutMode}");
-      }
+      return boundariesDict.Values;
     }
   }
 }
