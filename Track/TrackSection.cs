@@ -9,5 +9,6 @@ namespace Track {
     public int Id { get; set; }
     public int SectionId { get; set; }
     public List<TurnoutConfiguration> Turnouts { get; set; }
+    public List<TrackSectionBoundary> ConnectedBoundaries { get; set; } = new List<TrackSectionBoundary>();
   }
 }
