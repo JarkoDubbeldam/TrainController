@@ -7,10 +7,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TrainUI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TrainUI">
+        Title="TrainUI"
+        WindowState="Maximized">
 
   <DockPanel>
     <UserControl DockPanel.Dock="Bottom" Content="{Binding ConnectionStatus}"></UserControl>
     <UserControl DockPanel.Dock="Left" Content="{Binding Content}"></UserControl>
+    <UserControl DockPanel.Dock="Right" Content="{Binding Track}"></UserControl>
+      
   </DockPanel>
 </Window>

@@ -11,14 +11,19 @@ namespace TrainUI.ViewModels {
   public class MainWindowViewModel : ReactiveObject, IActivatableViewModel {
     private ReactiveObject content;
     private ConnectionStatusViewModel connectionStatus;
+    private TrackViewModel track;
 
     public MainWindowViewModel() {
       Activator = new ViewModelActivator();
       Content = new TrainOverviewViewModel();
+      Track = new TrackViewModel();
       ConnectionStatus = new ConnectionStatusViewModel();
       this.WhenActivated((CompositeDisposable d) => {
       });
     }
+
+    [DataMember]
+    public TrackViewModel Track { get => track; set => this.RaiseAndSetIfChanged(ref track, value); }
 
     [DataMember]
     public ReactiveObject Content { get => content; set => this.RaiseAndSetIfChanged(ref content, value); }
