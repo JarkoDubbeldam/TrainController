@@ -21,7 +21,7 @@ namespace TrainUI.ViewModels {
   [DataContract]
   public class TrackViewModel : ReactiveObject, IActivatableViewModel {
     private ObservableCollection<TrackSectionViewModel> trackSections;
-    private PathFigures trackSectionFigures;
+    private ILookup<IPen, PathFigure> trackSectionFigures;
     private bool editMode;
     private TrackSectionViewModel focus;
     private Rect focusedTrackSectionRect;
@@ -35,10 +35,12 @@ namespace TrainUI.ViewModels {
         this.WhenAnyValue(x => x.TrackSections)
           .Subscribe(x => {
             foreach (var item in x) {
+              item.Activator.Activate().DisposeWith(c);
               item.WhenAnyValue(x => x.TrackSectionModel.ControlPoint1,
                 x => x.TrackSectionModel.ControlPoint2,
                 x => x.TrackSectionModel.Boundary1.Location,
-                x => x.TrackSectionModel.Boundary2.Location)
+                x => x.TrackSectionModel.Boundary2.Location,
+                x => x.Pen)
                 .Subscribe(_ => {
                   RecalculateFigures();
                   RecalculateFocusFigures();
@@ -62,7 +64,7 @@ namespace TrainUI.ViewModels {
           .DisposeWith(c);
       });
       TrackSections = new ObservableCollection<TrackSectionViewModel>();
-      TrackSectionFigures = new PathFigures();
+      TrackSectionFigures = null;
       FocusedTrackSectionCircles = new List<EllipseGeometry>();
     }
 
@@ -85,8 +87,7 @@ namespace TrainUI.ViewModels {
     }
 
     private void RecalculateFigures() {
-      var newFigures = new PathFigures();
-      newFigures.AddRange(TrackSections.Select(x => new PathFigure {
+      TrackSectionFigures = TrackSections.ToLookup(x => x.Pen, x => new PathFigure {
         IsClosed = false,
         StartPoint = x.TrackSectionModel.Boundary1.Location,
         Segments = new PathSegments {
@@ -96,8 +97,7 @@ namespace TrainUI.ViewModels {
             Control2 = x.TrackSectionModel.ControlPoint2
           }
         }
-      }));
-      TrackSectionFigures = newFigures;
+      });
     }
     private void RecalculateFocusFigures() {
       using var holdOn = DelayChangeNotifications();
@@ -200,7 +200,7 @@ namespace TrainUI.ViewModels {
 
     public ViewModelActivator Activator { get; }
     public ObservableCollection<TrackSectionViewModel> TrackSections { get => trackSections; set => this.RaiseAndSetIfChanged(ref trackSections, value); }
-    public PathFigures TrackSectionFigures { get => trackSectionFigures; set => this.RaiseAndSetIfChanged(ref trackSectionFigures, value); }
+    public ILookup<IPen, PathFigure> TrackSectionFigures { get => trackSectionFigures; set => this.RaiseAndSetIfChanged(ref trackSectionFigures, value); }
     public Rect FocusedTrackSectionRect { get => focusedTrackSectionRect; set => this.RaiseAndSetIfChanged(ref focusedTrackSectionRect, value); }
     public List<EllipseGeometry> FocusedTrackSectionCircles { get => focusedTrackSectionCircles; set => this.RaiseAndSetIfChanged(ref focusedTrackSectionCircles, value); }
     public TrackSectionViewModel Focus { get => focus; set => this.RaiseAndSetIfChanged(ref focus, value); }
