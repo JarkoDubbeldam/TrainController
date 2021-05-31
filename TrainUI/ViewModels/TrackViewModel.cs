@@ -192,7 +192,7 @@ namespace TrainUI.ViewModels {
           Boundary2 = boundaries[x.ConnectedBoundaries[1].Id],
           ControlPoint1 = new Point(random.Next(100, 200), random.Next(100, 200)),
           ControlPoint2 = new Point(random.Next(100, 200), random.Next(100, 200)),
-          Id = x.Id
+          TrackSection = x
         }
       }));
     }

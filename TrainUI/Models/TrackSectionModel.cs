@@ -6,6 +6,8 @@ using Avalonia;
 
 using ReactiveUI;
 
+using Track;
+
 namespace TrainUI.Models {
   public class TrackSectionModel : ReactiveObject {
     private TrackSectionBoundaryModel boundary1;
@@ -19,7 +21,6 @@ namespace TrainUI.Models {
 
     public Point ControlPoint1 { get => controlPoint1; set => this.RaiseAndSetIfChanged(ref controlPoint1, value); }
     public Point ControlPoint2 { get => controlPoint2; set => this.RaiseAndSetIfChanged(ref controlPoint2, value); }
-    public int Id { get; internal set; }
-    public int SectionId { get; internal set; }
+    public TrackSection TrackSection { get; set; }
   }
 }
