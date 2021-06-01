@@ -29,11 +29,12 @@ namespace TrainUI.ViewModels {
     private PathFigure sectionLine;
     private IPen pen;
     private bool occupied;
-    private IObservable<IList<Turnout>> turnouts;
+    private List<TurnoutModel> turnouts;
 
-    private static IPen UnoccupiedPen = new Pen(Brushes.Black, 2);
-    private static IPen DisabledPen = new Pen(Brushes.Gray, 2);
-    private static IPen OccupiedPen = new Pen(Brushes.DarkRed, 2);
+    private const int PenWidth = 5;
+    private static IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth);
+    private static IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth);
+    private static IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth);
     private bool turnoutsActivated;
 
     public TrackSectionViewModel() {
@@ -52,25 +53,29 @@ namespace TrainUI.ViewModels {
           .Subscribe(UpdatePen)
           .DisposeWith(c);
 
-        var turnouts = Locator.Current.GetService<IRepository<Turnout>>();
         this.turnouts = TrackSectionModel.TrackSection.Turnouts
-          .ToObservable()
-          .SelectMany(x => turnouts.RegisterObject(x.TurnoutId, "Whatever").ToObservable())
+          .Select(x => new TurnoutModel {
+            Id = x.TurnoutId,
+            Mode = (TurnoutMode?)null
+          })
           .ToList();
         foreach(var turnoutPosition in TrackSectionModel.TrackSection.Turnouts) {
-          turnouts.RegisterObject(turnoutPosition.TurnoutId, "Whatever")
-            .ToObservable()
-            .SelectMany(x => Observable.FromEvent<PropertyChangedEventHandler, Turnout>(
-              handler => (o, e) => handler(x),
-              handler => x.PropertyChanged += handler,
-              handler => x.PropertyChanged -= handler))
-            .Subscribe(_ => UpdateTurnoutStatus())
+          z21client.TurnoutInformationChanged
+            .Where(x => x.Address == turnoutPosition.TurnoutId)
+            .Subscribe(x => {
+              this.turnouts.Single(y => y.Id == x.Address).Mode = x.TurnoutPosition switch {
+                TurnoutPosition.Position1 => TurnoutMode.Right,
+                TurnoutPosition.Position2 => TurnoutMode.Left,
+                _ => null
+              };
+              UpdateTurnoutStatus();
+            })
             .DisposeWith(c);
         }
       });
 
 
-
+      TurnoutsActivated = true;
       pen = UnoccupiedPen;
     }
 
@@ -84,11 +89,10 @@ namespace TrainUI.ViewModels {
     }
 
     private async void UpdateTurnoutStatus() {
-      var turnouts = await this.turnouts;
-      TurnoutsActivated = turnouts.Zip(TrackSectionModel.TrackSection.Turnouts, (actual, required) => (actual.TurnoutPosition, required.TurnoutMode) switch {
-        (TurnoutPosition.Unknown, _) => true,
-        (TurnoutPosition.Position1, TurnoutMode.Left) => true,
-        (TurnoutPosition.Position2, TurnoutMode.Right) => true,
+      TurnoutsActivated = turnouts.Zip(TrackSectionModel.TrackSection.Turnouts, (actual, required) => (actual.Mode, required.TurnoutMode) switch {
+        (null, _) => true,
+        (TurnoutMode.Left, TurnoutMode.Left) => true,
+        (TurnoutMode.Right, TurnoutMode.Right) => true,
         _ => false
       }).All(x => x);
     }

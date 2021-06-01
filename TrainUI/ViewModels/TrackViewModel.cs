@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Threading;
 
 using ReactiveUI;
 
@@ -87,16 +88,19 @@ namespace TrainUI.ViewModels {
     }
 
     private void RecalculateFigures() {
-      TrackSectionFigures = TrackSections.ToLookup(x => x.Pen, x => new PathFigure {
-        IsClosed = false,
-        StartPoint = x.TrackSectionModel.Boundary1.Location,
-        Segments = new PathSegments {
-          new CubicBezierSegment {
-            End = x.TrackSectionModel.Boundary2.Location,
-            Control1 = x.TrackSectionModel.ControlPoint1,
-            Control2 = x.TrackSectionModel.ControlPoint2
+      Dispatcher.UIThread.InvokeAsync(() => {
+        var lookup = TrackSections.ToLookup(x => x.Pen, x => new PathFigure {
+          IsClosed = false,
+          StartPoint = x.TrackSectionModel.Boundary1.Location,
+          Segments = new PathSegments {
+            new CubicBezierSegment {
+              End = x.TrackSectionModel.Boundary2.Location,
+              Control1 = x.TrackSectionModel.ControlPoint1,
+              Control2 = x.TrackSectionModel.ControlPoint2
+            }
           }
-        }
+        });
+        TrackSectionFigures = lookup;
       });
     }
     private void RecalculateFocusFigures() {
