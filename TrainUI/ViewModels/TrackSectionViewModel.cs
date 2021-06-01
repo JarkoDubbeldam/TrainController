@@ -32,9 +32,9 @@ namespace TrainUI.ViewModels {
     private List<TurnoutModel> turnouts;
 
     private const int PenWidth = 5;
-    private static IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth);
-    private static IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth);
-    private static IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth);
+    private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth);
+    private static readonly IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth);
+    private static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth);
     private bool turnoutsActivated;
 
     public TrackSectionViewModel() {
@@ -83,6 +83,7 @@ namespace TrainUI.ViewModels {
       Dispatcher.UIThread.InvokeAsync(() => {
         if (!status.Turnouts) {
           Pen = DisabledPen;
+          return;
         }
         Pen = status.Occupied ? OccupiedPen : UnoccupiedPen;
       });
