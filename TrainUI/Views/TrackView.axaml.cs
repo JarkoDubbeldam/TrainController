@@ -66,26 +66,29 @@ namespace TrainUI.Views {
     }
 
     public async void OnPointerPressed(object sender, PointerPressedEventArgs args) {
-      if (!ViewModel.EditMode) {
-        args.Handled = true;
-        return;
-      }
       var canvas = this.Find<Canvas>("Map");
       var position = args.GetPosition(canvas);
-
-      if (ViewModel.TryMatchFocusedPoints(position, out var dataObject)) {
-        // do stuff;
-        void UpdatePoint(object sender, DragEventArgs e) {
-          var pointerPosition = e.GetPosition(canvas);
-          ViewModel.UpdatePoint(pointerPosition, e.Data);
-          e.Handled = true;
+      if (!ViewModel.EditMode) {
+        var section = ViewModel.FindTrackSection(position);
+        if(section != null) {
+          section.ActivateTurnouts();
         }
-        using var _ = AddHandler(DragDrop.DragOverEvent, UpdatePoint);
-        await DragDrop.DoDragDrop(args, dataObject, DragDropEffects.Move);
-        return;
-      }
+      } else {
+        if (ViewModel.TryMatchFocusedPoints(position, out var dataObject)) {
+          // do stuff;
+          void UpdatePoint(object sender, DragEventArgs e) {
+            var pointerPosition = e.GetPosition(canvas);
+            ViewModel.UpdatePoint(pointerPosition, e.Data);
+            e.Handled = true;
+          }
+          using var _ = AddHandler(DragDrop.DragOverEvent, UpdatePoint);
+          await DragDrop.DoDragDrop(args, dataObject, DragDropEffects.Move);
+          return;
+        }
 
-      ViewModel.UpdateFocus(position);
+        ViewModel.Focus = ViewModel.FindTrackSection(position);
+      }
+      args.Handled = true;
     }
 
     public async void HandleLoadClick(object sender, EventArgs e) {

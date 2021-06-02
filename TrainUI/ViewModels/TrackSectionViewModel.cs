@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using System.Threading.Tasks;
 
 using Avalonia;
 using Avalonia.Media;
@@ -16,12 +17,11 @@ using Splat;
 
 using Track;
 
-using TrainRepository;
-
 using TrainUI.Models;
 using TrainUI.Tools;
 
 using Z21;
+using Z21.API;
 using Z21.Domain;
 
 namespace TrainUI.ViewModels {
@@ -32,9 +32,9 @@ namespace TrainUI.ViewModels {
     private List<TurnoutModel> turnouts;
 
     private const int PenWidth = 5;
-    private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth);
-    private static readonly IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth);
-    private static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth);
+    private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth, lineCap: PenLineCap.Round);
+    private static readonly IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth, lineCap: PenLineCap.Round);
+    private static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth, lineCap: PenLineCap.Round);
     private bool turnoutsActivated;
 
     public TrackSectionViewModel() {
@@ -60,14 +60,14 @@ namespace TrainUI.ViewModels {
           })
           .ToList();
         foreach(var turnoutPosition in TrackSectionModel.TrackSection.Turnouts) {
+          z21client.GetTurnoutInformation(new Z21.API.TurnoutInformationRequest { Address = (short)turnoutPosition.TurnoutId })
+            .ToObservable()
+            .Subscribe(HandleTurnoutStatus)
+            .DisposeWith(c);
           z21client.TurnoutInformationChanged
             .Where(x => x.Address == turnoutPosition.TurnoutId)
             .Subscribe(x => {
-              this.turnouts.Single(y => y.Id == x.Address).Mode = x.TurnoutPosition switch {
-                TurnoutPosition.Position1 => TurnoutMode.Right,
-                TurnoutPosition.Position2 => TurnoutMode.Left,
-                _ => null
-              };
+              HandleTurnoutStatus(x);
               UpdateTurnoutStatus();
             })
             .DisposeWith(c);
@@ -77,6 +77,31 @@ namespace TrainUI.ViewModels {
 
       TurnoutsActivated = true;
       pen = UnoccupiedPen;
+    }
+
+    private void HandleTurnoutStatus(TurnoutInformation turnoutInformation) {
+      this.turnouts.Single(y => y.Id == turnoutInformation.Address).Mode = turnoutInformation.TurnoutPosition switch {
+        TurnoutPosition.Position1 => TurnoutMode.Right,
+        TurnoutPosition.Position2 => TurnoutMode.Left,
+        _ => null
+      };
+    }
+
+    public void ActivateTurnouts() {
+      var z21client = Locator.Current.GetService<IZ21Client>();
+      Observable.Interval(TimeSpan.FromMilliseconds(200))
+        .Take(TrackSectionModel.TrackSection.Turnouts.Count)
+        .Zip(TrackSectionModel.TrackSection.Turnouts)
+        .Subscribe(x => z21client.SetTurnout(new SetTurnoutRequest {
+          Address = (short)x.Second.TurnoutId,
+          TurnoutPosition = x.Second.TurnoutMode switch {
+            TurnoutMode.Right => TurnoutPosition.Position1,
+            TurnoutMode.Left => TurnoutPosition.Position2,
+            _ => throw new ArgumentOutOfRangeException()
+          },
+          Activation = Activation.Activate,
+          QueueMode = true
+        }));
     }
 
     private void UpdatePen((bool Occupied, bool Turnouts) status) {

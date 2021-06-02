@@ -69,7 +69,7 @@ namespace TrainUI.ViewModels {
       FocusedTrackSectionCircles = new List<EllipseGeometry>();
     }
 
-    public void UpdateFocus(Point position) {
+    public TrackSectionViewModel FindTrackSection(Point position) {
       var closest = TrackSections.Select(trackSection => new {
         TrackSection = trackSection,
         Distance = new CubicBezierSegment {
@@ -81,9 +81,9 @@ namespace TrainUI.ViewModels {
         .OrderBy(x => x.Distance)
         .FirstOrDefault();
       if (closest?.Distance <= 15) {
-        Focus = closest.TrackSection;
+        return closest.TrackSection;
       } else {
-        Focus = null;
+        return null;
       }
     }
 
