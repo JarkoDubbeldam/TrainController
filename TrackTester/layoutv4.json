@@ -10,17 +10,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 9
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 8
               }
             ]
@@ -34,12 +34,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 9
               }
             ]
@@ -53,7 +53,7 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 10
               }
             ]
@@ -67,17 +67,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 9
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 8
               }
             ]
@@ -104,7 +104,7 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 10
               }
             ]
@@ -152,12 +152,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 9
               }
             ]
@@ -205,12 +205,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 9
               },
               {
@@ -271,22 +271,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -300,27 +300,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -334,32 +334,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -373,32 +373,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -425,22 +425,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -454,27 +454,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -488,32 +488,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -527,32 +527,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -579,17 +579,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -603,22 +603,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -632,27 +632,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -666,27 +666,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -705,17 +705,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 11,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 10
               },
               {
                 "TurnoutId": 10,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 9
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 8
               }
             ]
@@ -729,12 +729,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -748,17 +748,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -772,22 +772,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -801,22 +801,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -835,22 +835,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -864,22 +864,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -893,17 +893,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -917,12 +917,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 7
               }
             ]
@@ -949,27 +949,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -983,27 +983,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -1017,22 +1017,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -1046,17 +1046,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 6
               }
             ]
@@ -1083,32 +1083,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -1122,32 +1122,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -1161,27 +1161,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -1195,22 +1195,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 5
               }
             ]
@@ -1237,32 +1237,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -1276,32 +1276,32 @@
             "Turnouts": [
               {
                 "TurnoutId": 3,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 2
               },
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -1315,27 +1315,27 @@
             "Turnouts": [
               {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -1349,22 +1349,22 @@
             "Turnouts": [
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 0
               },
               {
                 "TurnoutId": 8,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 7
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 6
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 5
               }
             ]
@@ -1462,17 +1462,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 16,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 15
               },
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1499,17 +1499,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 16,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 15
               },
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1536,12 +1536,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1568,7 +1568,7 @@
             "Turnouts": [
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 13
               }
             ]
@@ -1587,17 +1587,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 16,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 15
               },
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1611,17 +1611,17 @@
             "Turnouts": [
               {
                 "TurnoutId": 16,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 15
               },
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1635,12 +1635,12 @@
             "Turnouts": [
               {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 14
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 1,
+                "TurnoutMode": 0,
                 "Id": 13
               }
             ]
@@ -1654,7 +1654,7 @@
             "Turnouts": [
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
+                "TurnoutMode": 1,
                 "Id": 13
               }
             ]
