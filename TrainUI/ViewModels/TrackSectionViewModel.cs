@@ -33,7 +33,7 @@ namespace TrainUI.ViewModels {
 
     private const int PenWidth = 5;
     private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth, lineCap: PenLineCap.Round);
-    private static readonly IPen DisabledPen = new Pen(Brushes.LightGray, PenWidth, lineCap: PenLineCap.Round);
+    private static readonly IPen DisabledPen = new Pen(Brushes.Gray, PenWidth, lineCap: PenLineCap.Round);
     private static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth, lineCap: PenLineCap.Round);
     private bool turnoutsActivated;
 
