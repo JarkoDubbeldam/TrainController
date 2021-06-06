@@ -49,7 +49,9 @@ namespace TrainUI.ViewModels {
           .DisposeWith(disposables);
 
         this.WhenAnyValue(t => t.Speed)
+
           .DistinctUntilChanged()
+          .Skip(1)
           .Select(ParseIntToSpeed)
           .Subscribe(speed => z21Client.SetTrainSpeed(new TrainSpeedRequest { TrainAddress = address, TrainSpeed = speed }))
           .DisposeWith(disposables);
@@ -99,7 +101,7 @@ namespace TrainUI.ViewModels {
     }
 
     private static TrainSpeed ParseIntToSpeed(int speed) {
-      var direction = speed > 0 ? DrivingDirection.Forward : DrivingDirection.Backward;
+      var direction = speed >= 0 ? DrivingDirection.Forward : DrivingDirection.Backward;
       return new TrainSpeed(SpeedStepSetting.Step128, direction, (Speed)Math.Abs(speed));
     }
   }

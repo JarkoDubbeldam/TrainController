@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TrainUI.Views.TrackView"
+             TrackFigures="{Binding TrackSectionFigures}" 
+             FocusedTrackSectionRect="{Binding FocusedTrackSectionRect}"
+             FocusedTrackSectionCircles="{Binding FocusedTrackSectionCircles}"
+             DragDrop.AllowDrop="true"
+             Background="Transparent"
+             PointerPressed="OnPointerPressed">
+  <DockPanel>
+    <Canvas Name="Map">
+      <ToggleButton Name="EditMode" IsChecked="{Binding EditMode}" Canvas.Top="0" Canvas.Left="0">Edit</ToggleButton>
+      <Button Name="Load" Canvas.Top="0" Canvas.Left="50" IsEnabled="{Binding #EditMode.IsChecked}">Load</Button> 
+    </Canvas>
+  </DockPanel>
+</UserControl>

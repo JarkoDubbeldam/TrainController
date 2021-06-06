@@ -1,38 +1,54 @@
 {
-  "Trains": [
-    {
-      "Name": "Db loc",
-      "Address": 3,
-      "TrainFunctions": [
-        {
-          "Name": "Lights",
-          "Mask": 16
-        }
-      ]
-    },
-    {
-      "Name": "NS 6466",
-      "Address": 4,
-      "TrainFunctions": [
-        {
-          "Name": "Lights",
-          "Mask": 16
-        }
-      ]
-    },
-    {
-      "Name": "Valleilijn",
-      "Address": 24,
-      "TrainFunctions": [
-        {
-          "Name": "Headlights",
-          "Mask": 16
-        },
-        {
-          "Name": "All lights",
-          "Mask": 17
-        }
-      ]
+  "$type": "TrainUI.ViewModels.MainWindowViewModel, TrainUI",
+  "Content": {
+    "$type": "TrainUI.ViewModels.TrainOverviewViewModel, TrainUI",
+    "TrainList": {
+      "$type": "TrainUI.ViewModels.TrainListViewModel, TrainUI",
+      "Trains": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainViewModel, TrainUI]], System.ObjectModel",
+        "$values": [
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "DB Loc",
+            "Address": 3,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": []
+            },
+            "Id": "6c54696e-3583-4f04-a3f7-d4785d60c5fd"
+          },
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "NS 6466",
+            "Address": 4,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": []
+            },
+            "Id": "640e5460-bdf7-470b-8a3d-937970179f47"
+          },
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "NS Traxx",
+            "Address": 5,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": []
+            },
+            "Id": "8769e02d-10fa-44df-b697-1a093d70775b"
+          },
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "Valleilijn",
+            "Address": 24,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": []
+            },
+            "Id": "c1537868-197e-4ea2-90b5-dc32a2564cd9"
+          }
+        ]
+      }
     }
-  ]
+  }
 }

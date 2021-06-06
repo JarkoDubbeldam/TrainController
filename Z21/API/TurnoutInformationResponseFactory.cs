@@ -28,7 +28,7 @@ namespace Z21.API {
     internal override TurnoutInformation ParseResponseBytes(byte[] response) {
       CheckXORByte(response, 4);
 
-      var address = ByteArrayToShort(response[5], response[6]);
+      var address = ByteArrayToShort(response[6], response[5]);
       var position = (TurnoutPosition)response[7];
 
       return new TurnoutInformation {

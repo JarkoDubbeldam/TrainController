@@ -1,0 +1,1448 @@
+{
+  "Sections": [
+    {
+      "Id": 1,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 9,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        2,
+        3,
+        4,
+        42,
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    {
+      "Id": 2,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        3,
+        4,
+        42,
+        7
+      ]
+    },
+    {
+      "Id": 3,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        2,
+        4,
+        42,
+        5
+      ]
+    },
+    {
+      "Id": 4,
+      "SectionId": 11,
+      "Turnouts": [
+        {
+          "TurnoutId": 11,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 10,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 9,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        2,
+        3,
+        42,
+        9
+      ]
+    },
+    {
+      "Id": 42,
+      "SectionId": 30,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        1,
+        2,
+        3,
+        4,
+        43
+      ]
+    },
+    {
+      "Id": 5,
+      "SectionId": 10,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        3,
+        6
+      ]
+    },
+    {
+      "Id": 6,
+      "SectionId": 12,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        5,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "Id": 7,
+      "SectionId": 9,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        2,
+        8
+      ]
+    },
+    {
+      "Id": 8,
+      "SectionId": 13,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        7,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "Id": 9,
+      "SectionId": 8,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        4,
+        10
+      ]
+    },
+    {
+      "Id": 10,
+      "SectionId": 14,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        9,
+        19,
+        20,
+        21,
+        22
+      ]
+    },
+    {
+      "Id": 11,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        6,
+        12,
+        13,
+        14,
+        15,
+        19,
+        23,
+        27
+      ]
+    },
+    {
+      "Id": 12,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        6,
+        11,
+        13,
+        14,
+        16,
+        20,
+        24,
+        28
+      ]
+    },
+    {
+      "Id": 13,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        6,
+        11,
+        12,
+        14,
+        17,
+        21,
+        25,
+        29
+      ]
+    },
+    {
+      "Id": 14,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        6,
+        11,
+        12,
+        13,
+        18,
+        22,
+        26,
+        30
+      ]
+    },
+    {
+      "Id": 15,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        8,
+        16,
+        17,
+        18,
+        11,
+        19,
+        23,
+        27
+      ]
+    },
+    {
+      "Id": 16,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        8,
+        15,
+        17,
+        18,
+        12,
+        20,
+        24,
+        28
+      ]
+    },
+    {
+      "Id": 17,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        8,
+        15,
+        16,
+        18,
+        13,
+        21,
+        25,
+        29
+      ]
+    },
+    {
+      "Id": 18,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 3,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        8,
+        15,
+        16,
+        17,
+        14,
+        22,
+        26,
+        30
+      ]
+    },
+    {
+      "Id": 19,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        10,
+        20,
+        21,
+        22,
+        11,
+        15,
+        23,
+        27
+      ]
+    },
+    {
+      "Id": 20,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        10,
+        19,
+        21,
+        22,
+        12,
+        16,
+        24,
+        28
+      ]
+    },
+    {
+      "Id": 21,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        10,
+        19,
+        20,
+        22,
+        13,
+        17,
+        25,
+        29
+      ]
+    },
+    {
+      "Id": 22,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 2,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        10,
+        19,
+        20,
+        21,
+        14,
+        18,
+        26,
+        30
+      ]
+    },
+    {
+      "Id": 23,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        24,
+        25,
+        26,
+        11,
+        15,
+        19,
+        27
+      ]
+    },
+    {
+      "Id": 24,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        23,
+        25,
+        26,
+        12,
+        16,
+        20,
+        28
+      ]
+    },
+    {
+      "Id": 25,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        23,
+        24,
+        26,
+        13,
+        17,
+        21,
+        29
+      ]
+    },
+    {
+      "Id": 26,
+      "SectionId": 7,
+      "Turnouts": [
+        {
+          "TurnoutId": 1,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 8,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 7,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 6,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        1,
+        23,
+        24,
+        25,
+        14,
+        18,
+        22,
+        30
+      ]
+    },
+    {
+      "Id": 27,
+      "SectionId": 6,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        11,
+        15,
+        19,
+        23,
+        31
+      ]
+    },
+    {
+      "Id": 28,
+      "SectionId": 5,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        12,
+        16,
+        20,
+        24,
+        32
+      ]
+    },
+    {
+      "Id": 29,
+      "SectionId": 4,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        13,
+        17,
+        21,
+        25,
+        33
+      ]
+    },
+    {
+      "Id": 30,
+      "SectionId": 3,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        14,
+        18,
+        22,
+        26,
+        37
+      ]
+    },
+    {
+      "Id": 31,
+      "SectionId": 2,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        27,
+        34
+      ]
+    },
+    {
+      "Id": 32,
+      "SectionId": 1,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        28,
+        35
+      ]
+    },
+    {
+      "Id": 33,
+      "SectionId": 0,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        29,
+        36
+      ]
+    },
+    {
+      "Id": 34,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 16,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        31,
+        35,
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "Id": 35,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 16,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        32,
+        34,
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "Id": 36,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 15,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        33,
+        34,
+        35,
+        37,
+        38
+      ]
+    },
+    {
+      "Id": 37,
+      "SectionId": 15,
+      "Turnouts": [
+        {
+          "TurnoutId": 14,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        30,
+        34,
+        35,
+        36,
+        38
+      ]
+    },
+    {
+      "Id": 38,
+      "SectionId": 31,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        34,
+        35,
+        36,
+        37,
+        39
+      ]
+    },
+    {
+      "Id": 39,
+      "SectionId": 17,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        38,
+        40
+      ]
+    },
+    {
+      "Id": 40,
+      "SectionId": 16,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        39,
+        41
+      ]
+    },
+    {
+      "Id": 41,
+      "SectionId": 48,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        40,
+        58,
+        60
+      ]
+    },
+    {
+      "Id": 43,
+      "SectionId": 29,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        42,
+        44
+      ]
+    },
+    {
+      "Id": 44,
+      "SectionId": 49,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        43,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "Id": 45,
+      "SectionId": 51,
+      "Turnouts": [
+        {
+          "TurnoutId": 5,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        44,
+        46,
+        47,
+        57,
+        59
+      ]
+    },
+    {
+      "Id": 46,
+      "SectionId": 51,
+      "Turnouts": [
+        {
+          "TurnoutId": 5,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 4,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        44,
+        45,
+        47,
+        48
+      ]
+    },
+    {
+      "Id": 47,
+      "SectionId": 51,
+      "Turnouts": [
+        {
+          "TurnoutId": 5,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 4,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        44,
+        45,
+        46,
+        51
+      ]
+    },
+    {
+      "Id": 48,
+      "SectionId": 55,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        46,
+        49
+      ]
+    },
+    {
+      "Id": 49,
+      "SectionId": 56,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        48,
+        50
+      ]
+    },
+    {
+      "Id": 50,
+      "SectionId": 37,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        49,
+        55
+      ]
+    },
+    {
+      "Id": 51,
+      "SectionId": 54,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        47,
+        52
+      ]
+    },
+    {
+      "Id": 52,
+      "SectionId": 36,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        51,
+        53
+      ]
+    },
+    {
+      "Id": 53,
+      "SectionId": 35,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        52,
+        54
+      ]
+    },
+    {
+      "Id": 54,
+      "SectionId": 38,
+      "Turnouts": [
+        {
+          "TurnoutId": 13,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 22,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        53,
+        77,
+        55,
+        56
+      ]
+    },
+    {
+      "Id": 55,
+      "SectionId": 38,
+      "Turnouts": [
+        {
+          "TurnoutId": 13,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 22,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        50,
+        77,
+        54,
+        56
+      ]
+    },
+    {
+      "Id": 57,
+      "SectionId": 50,
+      "Turnouts": [
+        {
+          "TurnoutId": 17,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 18,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        45,
+        59,
+        58,
+        64
+      ]
+    },
+    {
+      "Id": 59,
+      "SectionId": 50,
+      "Turnouts": [
+        {
+          "TurnoutId": 17,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 18,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        57,
+        45,
+        60,
+        61
+      ]
+    },
+    {
+      "Id": 58,
+      "SectionId": 50,
+      "Turnouts": [
+        {
+          "TurnoutId": 17,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 18,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        41,
+        60,
+        57,
+        64
+      ]
+    },
+    {
+      "Id": 60,
+      "SectionId": 50,
+      "Turnouts": [
+        {
+          "TurnoutId": 17,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 18,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        58,
+        41,
+        59,
+        61
+      ]
+    },
+    {
+      "Id": 61,
+      "SectionId": 52,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        59,
+        60,
+        62
+      ]
+    },
+    {
+      "Id": 62,
+      "SectionId": 33,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        61,
+        63
+      ]
+    },
+    {
+      "Id": 63,
+      "SectionId": 32,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        62,
+        69,
+        70
+      ]
+    },
+    {
+      "Id": 64,
+      "SectionId": 53,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        57,
+        58,
+        65
+      ]
+    },
+    {
+      "Id": 65,
+      "SectionId": 57,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        64,
+        66
+      ]
+    },
+    {
+      "Id": 66,
+      "SectionId": 58,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        65,
+        67,
+        68
+      ]
+    },
+    {
+      "Id": 67,
+      "SectionId": 34,
+      "Turnouts": [
+        {
+          "TurnoutId": 21,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 24,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 19,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 23,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        66,
+        68,
+        69,
+        71
+      ]
+    },
+    {
+      "Id": 68,
+      "SectionId": 34,
+      "Turnouts": [
+        {
+          "TurnoutId": 21,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 24,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 19,
+          "TurnoutMode": 1
+        },
+        {
+          "TurnoutId": 23,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        66,
+        67,
+        70,
+        56
+      ]
+    },
+    {
+      "Id": 69,
+      "SectionId": 34,
+      "Turnouts": [
+        {
+          "TurnoutId": 19,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 23,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        63,
+        70,
+        67,
+        71
+      ]
+    },
+    {
+      "Id": 70,
+      "SectionId": 34,
+      "Turnouts": [
+        {
+          "TurnoutId": 19,
+          "TurnoutMode": 0
+        },
+        {
+          "TurnoutId": 23,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        63,
+        69,
+        68,
+        56
+      ]
+    },
+    {
+      "Id": 56,
+      "SectionId": 38,
+      "Turnouts": [
+        {
+          "TurnoutId": 13,
+          "TurnoutMode": 0
+        }
+      ],
+      "ConnectedSections": [
+        68,
+        70,
+        77,
+        54,
+        55
+      ]
+    },
+    {
+      "Id": 71,
+      "SectionId": 46,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        67,
+        69,
+        72
+      ]
+    },
+    {
+      "Id": 72,
+      "SectionId": 47,
+      "Turnouts": [
+        {
+          "TurnoutId": 12,
+          "TurnoutMode": 1
+        }
+      ],
+      "ConnectedSections": [
+        71,
+        73
+      ]
+    },
+    {
+      "Id": 73,
+      "SectionId": 45,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        72,
+        74
+      ]
+    },
+    {
+      "Id": 74,
+      "SectionId": 64,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        73,
+        75
+      ]
+    },
+    {
+      "Id": 75,
+      "SectionId": 65,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        74,
+        76
+      ]
+    },
+    {
+      "Id": 76,
+      "SectionId": 59,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        75,
+        77
+      ]
+    },
+    {
+      "Id": 77,
+      "SectionId": 44,
+      "Turnouts": [
+      ],
+      "ConnectedSections": [
+        76,
+        54,
+        55,
+        56
+      ]
+    }
+  ]
+}
