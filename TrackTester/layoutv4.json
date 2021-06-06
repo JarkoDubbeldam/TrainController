@@ -9,19 +9,16 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
-              },
-              {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
-                "Id": 9
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 1,
-                "Id": 8
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 8,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -33,14 +30,12 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
+                "TurnoutId": 10,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 10,
-                "TurnoutMode": 0,
-                "Id": 9
+                "TurnoutId": 9,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -52,9 +47,8 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 1,
-                "Id": 10
+                "TurnoutId": 10,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -66,19 +60,16 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
-              },
-              {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
-                "Id": 9
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 0,
-                "Id": 8
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 8,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -103,9 +94,8 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 1,
-                "Id": 10
+                "TurnoutId": 10,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -151,14 +141,12 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
+                "TurnoutId": 10,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 10,
-                "TurnoutMode": 0,
-                "Id": 9
+                "TurnoutId": 9,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -204,19 +192,16 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
-              },
-              {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
-                "Id": 9
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 1,
-                "Id": 8
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 8,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -270,24 +255,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -299,29 +280,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -333,34 +309,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -372,34 +342,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -424,24 +388,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -453,29 +413,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -487,34 +442,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -526,34 +475,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -578,19 +521,16 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -602,24 +542,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -631,29 +567,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -665,29 +596,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -704,19 +630,16 @@
             "SectionId": 11,
             "Turnouts": [
               {
-                "TurnoutId": 11,
-                "TurnoutMode": 0,
-                "Id": 10
-              },
-              {
                 "TurnoutId": 10,
-                "TurnoutMode": 1,
-                "Id": 9
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 9,
-                "TurnoutMode": 1,
-                "Id": 8
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 8,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -728,14 +651,12 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -747,19 +668,16 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -771,24 +689,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -800,24 +714,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -834,24 +744,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -863,24 +769,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -892,19 +794,16 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -916,14 +815,12 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 1,
-                "Id": 7
+                "TurnoutId": 7,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -948,29 +845,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -982,29 +874,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1016,24 +903,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1045,19 +928,16 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 0,
-                "Id": 6
+                "TurnoutMode": 0
+              },
+              {
+                "TurnoutId": 6,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1082,34 +962,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1121,34 +995,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1160,29 +1028,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1194,24 +1057,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 0,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1236,34 +1095,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 1,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1275,34 +1128,28 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 3,
-                "TurnoutMode": 0,
-                "Id": 2
-              },
-              {
                 "TurnoutId": 2,
-                "TurnoutMode": 1,
-                "Id": 1
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1314,29 +1161,24 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 2,
-                "TurnoutMode": 0,
-                "Id": 1
-              },
-              {
                 "TurnoutId": 1,
-                "TurnoutMode": 0,
-                "Id": 0
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1348,24 +1190,20 @@
             "SectionId": 7,
             "Turnouts": [
               {
-                "TurnoutId": 1,
-                "TurnoutMode": 1,
-                "Id": 0
-              },
-              {
-                "TurnoutId": 8,
-                "TurnoutMode": 0,
-                "Id": 7
+                "TurnoutId": 0,
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 7,
-                "TurnoutMode": 1,
-                "Id": 6
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 6,
-                "TurnoutMode": 1,
-                "Id": 5
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 5,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1461,19 +1299,16 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 16,
-                "TurnoutMode": 1,
-                "Id": 15
-              },
-              {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
-                "Id": 14
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1498,19 +1333,16 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 16,
-                "TurnoutMode": 0,
-                "Id": 15
-              },
-              {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
-                "Id": 14
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1535,14 +1367,12 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 15,
-                "TurnoutMode": 0,
-                "Id": 14
+                "TurnoutId": 14,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1567,9 +1397,8 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 14,
-                "TurnoutMode": 1,
-                "Id": 13
+                "TurnoutId": 13,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1586,19 +1415,16 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 16,
-                "TurnoutMode": 1,
-                "Id": 15
-              },
-              {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
-                "Id": 14
+                "TurnoutMode": 1
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1610,19 +1436,16 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 16,
-                "TurnoutMode": 0,
-                "Id": 15
-              },
-              {
                 "TurnoutId": 15,
-                "TurnoutMode": 1,
-                "Id": 14
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1634,14 +1457,12 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 15,
-                "TurnoutMode": 0,
-                "Id": 14
+                "TurnoutId": 14,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 14,
-                "TurnoutMode": 0,
-                "Id": 13
+                "TurnoutId": 13,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1653,9 +1474,8 @@
             "SectionId": 15,
             "Turnouts": [
               {
-                "TurnoutId": 14,
-                "TurnoutMode": 1,
-                "Id": 13
+                "TurnoutId": 13,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1793,9 +1613,8 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 0,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1807,14 +1626,12 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 1,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 4,
-                "TurnoutMode": 0,
-                "Id": 3
+                "TurnoutId": 3,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1826,14 +1643,12 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 1,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 4,
-                "TurnoutMode": 1,
-                "Id": 3
+                "TurnoutId": 3,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -1850,14 +1665,12 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 1,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 4,
-                "TurnoutMode": 0,
-                "Id": 3
+                "TurnoutId": 3,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -1924,14 +1737,12 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 1,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 4,
-                "TurnoutMode": 1,
-                "Id": 3
+                "TurnoutId": 3,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2006,14 +1817,12 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 1,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 22,
-                "TurnoutMode": 0,
-                "Id": 21
+                "TurnoutId": 21,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2038,14 +1847,12 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 1,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 22,
-                "TurnoutMode": 1,
-                "Id": 21
+                "TurnoutId": 21,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2062,14 +1869,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 0,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 0,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2081,9 +1886,8 @@
             "SectionId": 51,
             "Turnouts": [
               {
-                "TurnoutId": 5,
-                "TurnoutMode": 0,
-                "Id": 4
+                "TurnoutId": 4,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2095,14 +1899,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 1,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 0,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2119,14 +1921,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 0,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 1,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2146,14 +1946,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 1,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 1,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2170,14 +1968,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 1,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 0,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2189,14 +1985,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 1,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 1,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2263,14 +2057,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 0,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 0,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2282,14 +2074,12 @@
             "SectionId": 50,
             "Turnouts": [
               {
-                "TurnoutId": 17,
-                "TurnoutMode": 0,
-                "Id": 16
+                "TurnoutId": 16,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 18,
-                "TurnoutMode": 1,
-                "Id": 17
+                "TurnoutId": 17,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2364,24 +2154,20 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 21,
-                "TurnoutMode": 0,
-                "Id": 20
-              },
-              {
-                "TurnoutId": 24,
-                "TurnoutMode": 1,
-                "Id": 23
-              },
-              {
-                "TurnoutId": 19,
-                "TurnoutMode": 1,
-                "Id": 18
+                "TurnoutId": 20,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 23,
-                "TurnoutMode": 1,
-                "Id": 22
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 18,
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 22,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2393,24 +2179,20 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 21,
-                "TurnoutMode": 0,
-                "Id": 20
-              },
-              {
-                "TurnoutId": 24,
-                "TurnoutMode": 1,
-                "Id": 23
-              },
-              {
-                "TurnoutId": 19,
-                "TurnoutMode": 1,
-                "Id": 18
+                "TurnoutId": 20,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 23,
-                "TurnoutMode": 0,
-                "Id": 22
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 18,
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 22,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2435,14 +2217,12 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 19,
-                "TurnoutMode": 0,
-                "Id": 18
+                "TurnoutId": 18,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 23,
-                "TurnoutMode": 1,
-                "Id": 22
+                "TurnoutId": 22,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2454,14 +2234,12 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 19,
-                "TurnoutMode": 0,
-                "Id": 18
+                "TurnoutId": 18,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 23,
-                "TurnoutMode": 0,
-                "Id": 22
+                "TurnoutId": 22,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2478,24 +2256,20 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 21,
-                "TurnoutMode": 0,
-                "Id": 20
-              },
-              {
-                "TurnoutId": 24,
-                "TurnoutMode": 1,
-                "Id": 23
-              },
-              {
-                "TurnoutId": 19,
-                "TurnoutMode": 1,
-                "Id": 18
+                "TurnoutId": 20,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 23,
-                "TurnoutMode": 0,
-                "Id": 22
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 18,
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 22,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2507,14 +2281,12 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 19,
-                "TurnoutMode": 0,
-                "Id": 18
+                "TurnoutId": 18,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 23,
-                "TurnoutMode": 0,
-                "Id": 22
+                "TurnoutId": 22,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2526,9 +2298,8 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 0,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2545,24 +2316,20 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 21,
-                "TurnoutMode": 0,
-                "Id": 20
-              },
-              {
-                "TurnoutId": 24,
-                "TurnoutMode": 1,
-                "Id": 23
-              },
-              {
-                "TurnoutId": 19,
-                "TurnoutMode": 1,
-                "Id": 18
+                "TurnoutId": 20,
+                "TurnoutMode": 0
               },
               {
                 "TurnoutId": 23,
-                "TurnoutMode": 1,
-                "Id": 22
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 18,
+                "TurnoutMode": 1
+              },
+              {
+                "TurnoutId": 22,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2574,14 +2341,12 @@
             "SectionId": 34,
             "Turnouts": [
               {
-                "TurnoutId": 19,
-                "TurnoutMode": 0,
-                "Id": 18
+                "TurnoutId": 18,
+                "TurnoutMode": 0
               },
               {
-                "TurnoutId": 23,
-                "TurnoutMode": 1,
-                "Id": 22
+                "TurnoutId": 22,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2614,9 +2379,8 @@
             "SectionId": 47,
             "Turnouts": [
               {
-                "TurnoutId": 12,
-                "TurnoutMode": 1,
-                "Id": 11
+                "TurnoutId": 11,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2633,9 +2397,8 @@
             "SectionId": 47,
             "Turnouts": [
               {
-                "TurnoutId": 12,
-                "TurnoutMode": 1,
-                "Id": 11
+                "TurnoutId": 11,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2752,14 +2515,12 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 1,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 22,
-                "TurnoutMode": 0,
-                "Id": 21
+                "TurnoutId": 21,
+                "TurnoutMode": 0
               }
             ]
           },
@@ -2771,14 +2532,12 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 1,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 1
               },
               {
-                "TurnoutId": 22,
-                "TurnoutMode": 1,
-                "Id": 21
+                "TurnoutId": 21,
+                "TurnoutMode": 1
               }
             ]
           },
@@ -2790,9 +2549,8 @@
             "SectionId": 38,
             "Turnouts": [
               {
-                "TurnoutId": 13,
-                "TurnoutMode": 0,
-                "Id": 12
+                "TurnoutId": 12,
+                "TurnoutMode": 0
               }
             ]
           },
