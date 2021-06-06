@@ -7,12 +7,10 @@ using Avalonia;
 namespace TrainUI.Tools {
   public class Interpolator {
     private readonly Point a;
-    private readonly Point b;
     private readonly (double dx, double dy) deltas;
 
     public Interpolator(Point a, Point b) {
       this.a = a;
-      this.b = b;
       deltas = Utils.GetEquation(a, b);
     }
 

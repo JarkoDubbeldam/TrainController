@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Threading;
 
 using ReactiveUI;
 
@@ -21,7 +22,7 @@ namespace TrainUI.ViewModels {
   [DataContract]
   public class TrackViewModel : ReactiveObject, IActivatableViewModel {
     private ObservableCollection<TrackSectionViewModel> trackSections;
-    private PathFigures trackSectionFigures;
+    private ILookup<IPen, PathFigure> trackSectionFigures;
     private bool editMode;
     private TrackSectionViewModel focus;
     private Rect focusedTrackSectionRect;
@@ -35,10 +36,12 @@ namespace TrainUI.ViewModels {
         this.WhenAnyValue(x => x.TrackSections)
           .Subscribe(x => {
             foreach (var item in x) {
+              item.Activator.Activate().DisposeWith(c);
               item.WhenAnyValue(x => x.TrackSectionModel.ControlPoint1,
                 x => x.TrackSectionModel.ControlPoint2,
                 x => x.TrackSectionModel.Boundary1.Location,
-                x => x.TrackSectionModel.Boundary2.Location)
+                x => x.TrackSectionModel.Boundary2.Location,
+                x => x.Pen)
                 .Subscribe(_ => {
                   RecalculateFigures();
                   RecalculateFocusFigures();
@@ -62,11 +65,11 @@ namespace TrainUI.ViewModels {
           .DisposeWith(c);
       });
       TrackSections = new ObservableCollection<TrackSectionViewModel>();
-      TrackSectionFigures = new PathFigures();
+      TrackSectionFigures = null;
       FocusedTrackSectionCircles = new List<EllipseGeometry>();
     }
 
-    public void UpdateFocus(Point position) {
+    public TrackSectionViewModel FindTrackSection(Point position) {
       var closest = TrackSections.Select(trackSection => new {
         TrackSection = trackSection,
         Distance = new CubicBezierSegment {
@@ -78,26 +81,27 @@ namespace TrainUI.ViewModels {
         .OrderBy(x => x.Distance)
         .FirstOrDefault();
       if (closest?.Distance <= 15) {
-        Focus = closest.TrackSection;
+        return closest.TrackSection;
       } else {
-        Focus = null;
+        return null;
       }
     }
 
     private void RecalculateFigures() {
-      var newFigures = new PathFigures();
-      newFigures.AddRange(TrackSections.Select(x => new PathFigure {
-        IsClosed = false,
-        StartPoint = x.TrackSectionModel.Boundary1.Location,
-        Segments = new PathSegments {
-          new CubicBezierSegment {
-            End = x.TrackSectionModel.Boundary2.Location,
-            Control1 = x.TrackSectionModel.ControlPoint1,
-            Control2 = x.TrackSectionModel.ControlPoint2
+      Dispatcher.UIThread.InvokeAsync(() => {
+        var lookup = TrackSections.ToLookup(x => x.Pen, x => new PathFigure {
+          IsClosed = false,
+          StartPoint = x.TrackSectionModel.Boundary1.Location,
+          Segments = new PathSegments {
+            new CubicBezierSegment {
+              End = x.TrackSectionModel.Boundary2.Location,
+              Control1 = x.TrackSectionModel.ControlPoint1,
+              Control2 = x.TrackSectionModel.ControlPoint2
+            }
           }
-        }
-      }));
-      TrackSectionFigures = newFigures;
+        });
+        TrackSectionFigures = lookup;
+      });
     }
     private void RecalculateFocusFigures() {
       using var holdOn = DelayChangeNotifications();
@@ -192,7 +196,7 @@ namespace TrainUI.ViewModels {
           Boundary2 = boundaries[x.ConnectedBoundaries[1].Id],
           ControlPoint1 = new Point(random.Next(100, 200), random.Next(100, 200)),
           ControlPoint2 = new Point(random.Next(100, 200), random.Next(100, 200)),
-          Id = x.Id
+          TrackSection = x
         }
       }));
     }
@@ -200,7 +204,7 @@ namespace TrainUI.ViewModels {
 
     public ViewModelActivator Activator { get; }
     public ObservableCollection<TrackSectionViewModel> TrackSections { get => trackSections; set => this.RaiseAndSetIfChanged(ref trackSections, value); }
-    public PathFigures TrackSectionFigures { get => trackSectionFigures; set => this.RaiseAndSetIfChanged(ref trackSectionFigures, value); }
+    public ILookup<IPen, PathFigure> TrackSectionFigures { get => trackSectionFigures; set => this.RaiseAndSetIfChanged(ref trackSectionFigures, value); }
     public Rect FocusedTrackSectionRect { get => focusedTrackSectionRect; set => this.RaiseAndSetIfChanged(ref focusedTrackSectionRect, value); }
     public List<EllipseGeometry> FocusedTrackSectionCircles { get => focusedTrackSectionCircles; set => this.RaiseAndSetIfChanged(ref focusedTrackSectionCircles, value); }
     public TrackSectionViewModel Focus { get => focus; set => this.RaiseAndSetIfChanged(ref focus, value); }

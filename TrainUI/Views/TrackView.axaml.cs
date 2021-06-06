@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Avalonia;
 using Avalonia.Controls;
@@ -32,9 +33,9 @@ namespace TrainUI.Views {
       AvaloniaXamlLoader.Load(this);
     }
 
-    public static StyledProperty<PathFigures> TrackFiguresProperty =
-      AvaloniaProperty.Register<TrackView, PathFigures>(nameof(TrackFigures));
-    public PathFigures TrackFigures { get => GetValue(TrackFiguresProperty); set => SetValue(TrackFiguresProperty, value); }
+    public static StyledProperty<ILookup<IPen, PathFigure>> TrackFiguresProperty =
+      AvaloniaProperty.Register<TrackView, ILookup<IPen, PathFigure>>(nameof(TrackFigures));
+    public ILookup<IPen, PathFigure> TrackFigures { get => GetValue(TrackFiguresProperty); set => SetValue(TrackFiguresProperty, value); }
     public static StyledProperty<Rect> FocusedTrackSectionRectProperty =
       AvaloniaProperty.Register<TrackView, Rect>(nameof(FocusedTrackSectionRect));
     public Rect FocusedTrackSectionRect { get => GetValue(FocusedTrackSectionRectProperty); set => SetValue(FocusedTrackSectionRectProperty, value); }
@@ -47,8 +48,12 @@ namespace TrainUI.Views {
     public override void Render(DrawingContext context) {
       base.Render(context);
 
-      var pen = new Pen(Brushes.Black, 2, lineCap: PenLineCap.Square);
-      context.DrawGeometry(Brushes.Transparent, pen, new PathGeometry { Figures = TrackFigures });
+      foreach(var grouping in TrackFigures ?? Enumerable.Empty<IGrouping<IPen, PathFigure>>()) {
+        var pen = grouping.Key;
+        var figures = new PathFigures();
+        figures.AddRange(grouping);
+        context.DrawGeometry(Brushes.Transparent, pen, new PathGeometry { Figures = figures });
+      }
 
       if (FocusedTrackSectionRect != Rect.Empty) {
         var focusRectPen = new Pen(Brushes.Black, 1, DashStyle.Dash);
@@ -61,26 +66,29 @@ namespace TrainUI.Views {
     }
 
     public async void OnPointerPressed(object sender, PointerPressedEventArgs args) {
-      if (!ViewModel.EditMode) {
-        args.Handled = true;
-        return;
-      }
       var canvas = this.Find<Canvas>("Map");
       var position = args.GetPosition(canvas);
-
-      if (ViewModel.TryMatchFocusedPoints(position, out var dataObject)) {
-        // do stuff;
-        void UpdatePoint(object sender, DragEventArgs e) {
-          var pointerPosition = e.GetPosition(canvas);
-          ViewModel.UpdatePoint(pointerPosition, e.Data);
-          e.Handled = true;
+      if (!ViewModel.EditMode) {
+        var section = ViewModel.FindTrackSection(position);
+        if(section != null) {
+          section.ActivateTurnouts();
         }
-        using var _ = AddHandler(DragDrop.DragOverEvent, UpdatePoint);
-        await DragDrop.DoDragDrop(args, dataObject, DragDropEffects.Move);
-        return;
-      }
+      } else {
+        if (ViewModel.TryMatchFocusedPoints(position, out var dataObject)) {
+          // do stuff;
+          void UpdatePoint(object sender, DragEventArgs e) {
+            var pointerPosition = e.GetPosition(canvas);
+            ViewModel.UpdatePoint(pointerPosition, e.Data);
+            e.Handled = true;
+          }
+          using var _ = AddHandler(DragDrop.DragOverEvent, UpdatePoint);
+          await DragDrop.DoDragDrop(args, dataObject, DragDropEffects.Move);
+          return;
+        }
 
-      ViewModel.UpdateFocus(position);
+        ViewModel.Focus = ViewModel.FindTrackSection(position);
+      }
+      args.Handled = true;
     }
 
     public async void HandleLoadClick(object sender, EventArgs e) {

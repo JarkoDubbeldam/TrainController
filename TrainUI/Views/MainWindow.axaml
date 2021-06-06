@@ -8,7 +8,8 @@
         x:Class="TrainUI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="TrainUI"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Background="LightGray">
 
   <DockPanel>
     <UserControl DockPanel.Dock="Bottom" Content="{Binding ConnectionStatus}"></UserControl>

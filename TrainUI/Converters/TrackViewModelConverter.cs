@@ -41,15 +41,17 @@ namespace TrainUI.Converters {
         });
 
       typedValue.TrackSections = new ObservableCollection<TrackSectionViewModel>(repos.Sections.Select(x => {
-        var section = sectionLocations[x.Id];
+        if (!sectionLocations.TryGetValue(x.Id, out var section)) {
+          section = new IntermediaryType2 { ControlPoint1 = GetDefaultPoint(), ControlPoint2 = GetDefaultPoint() };
+        }
+
         return new TrackSectionViewModel {
           TrackSectionModel = new TrackSectionModel {
-            Id = x.Id,
-            SectionId = x.SectionId,
+            TrackSection = x,
             ControlPoint1 = section.ControlPoint1,
             ControlPoint2 = section.ControlPoint2,
-            Boundary1 = boundaryLocations[x.ConnectedBoundaries[0].Id],
-            Boundary2 = boundaryLocations[x.ConnectedBoundaries[1].Id]
+            Boundary1 = GetBoundaryLocation(0, x, boundaryLocations),
+            Boundary2 = GetBoundaryLocation(1, x, boundaryLocations)
           }
         };
       }));
@@ -57,12 +59,20 @@ namespace TrainUI.Converters {
       return typedValue;
     }
 
+    private static TrackSectionBoundaryModel GetBoundaryLocation(int index, TrackSection x, Dictionary<int, TrackSectionBoundaryModel> boundaryLocations) {
+      var id = x.ConnectedBoundaries[index].Id;
+      if (!boundaryLocations.TryGetValue(id, out var location)){
+        return new TrackSectionBoundaryModel { Id = id, Location = GetDefaultPoint() };      
+      }
+      return location;
+    }
+
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
       var typedValue = (TrackViewModel)value;
       var boundaries = typedValue.TrackSections.SelectMany(x => new[] { x.TrackSectionModel.Boundary1, x.TrackSectionModel.Boundary2 })
         .Distinct()
         .ToDictionary(x => x.Id);
-      var sections = typedValue.TrackSections.ToDictionary(x => x.TrackSectionModel.Id, x => new IntermediaryType2 {
+      var sections = typedValue.TrackSections.ToDictionary(x => x.TrackSectionModel.TrackSection.Id, x => new IntermediaryType2 {
         ControlPoint1 = x.TrackSectionModel.ControlPoint1,
         ControlPoint2 = x.TrackSectionModel.ControlPoint2
       });
@@ -84,5 +94,7 @@ namespace TrainUI.Converters {
       public Point ControlPoint1 { get; internal set; }
       public Point ControlPoint2 { get; internal set; }
     }
+    private static readonly Random random = new Random();
+    private static Point GetDefaultPoint() => new Point(random.Next(100, 200), random.Next(100, 200));
   }
 }
