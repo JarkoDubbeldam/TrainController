@@ -6,5 +6,6 @@ namespace Track {
   public class TrackConnection {
     public TrackSection ViaSection { get; set; }
     public TrackSectionBoundary ToBoundary { get; set; }
+    public SignalConfiguration? Signal { get; set; }
   }
 }
