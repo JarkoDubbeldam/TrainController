@@ -33,5 +33,7 @@ namespace Z21 {
     public Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request) => SendRequestWithAddressSpecificResponse(request);
 
     public Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request) => SendRequestWithResponse(request);
+
+    public void SetSignal(SetSignalRequest request) => SendRequestWithoutResponse(request);
   }
 }
