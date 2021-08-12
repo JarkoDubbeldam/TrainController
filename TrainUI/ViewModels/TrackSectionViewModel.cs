@@ -28,8 +28,6 @@ namespace TrainUI.ViewModels {
   public class TrackSectionViewModel : ReactiveObject, IActivatableViewModel {
     private PathFigure sectionLine;
     private IPen pen;
-    private bool occupied;
-    private List<TurnoutModel> turnouts;
 
     private const int PenWidth = 5;
     private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth, lineCap: PenLineCap.Round);
@@ -44,34 +42,10 @@ namespace TrainUI.ViewModels {
         TrackSectionModel.WhenAnyValue(x => x.Boundary1.Location, x => x.Boundary2.Location, x => x.ControlPoint1, x => x.ControlPoint2)
           .Subscribe(HandleSectionUpdate)
           .DisposeWith(c);
-        var z21client = Locator.Current.GetService<IZ21Client>();
-        z21client.OccupancyStatusChanged
-          .Subscribe(o => Occupied = o.Occupancies[TrackSectionModel.TrackSection.SectionId])
-          .DisposeWith(c);
 
-        this.WhenAnyValue(x => x.Occupied, x=> x.TurnoutsActivated)
+        this.WhenAnyValue(x => x.TrackSectionModel.TrackSection.IsOccupied, x=> x.TrackSectionModel.TrackSection.IsActive)
           .Subscribe(UpdatePen)
           .DisposeWith(c);
-
-        this.turnouts = TrackSectionModel.TrackSection.Turnouts
-          .Select(x => new TurnoutModel {
-            Id = x.TurnoutId,
-            Mode = (TurnoutMode?)null
-          })
-          .ToList();
-        foreach(var turnoutPosition in TrackSectionModel.TrackSection.Turnouts) {
-          z21client.GetTurnoutInformation(new Z21.API.TurnoutInformationRequest { Address = (short)turnoutPosition.TurnoutId })
-            .ToObservable()
-            .Subscribe(HandleTurnoutStatus)
-            .DisposeWith(c);
-          z21client.TurnoutInformationChanged
-            .Where(x => x.Address == turnoutPosition.TurnoutId)
-            .Subscribe(x => {
-              HandleTurnoutStatus(x);
-              UpdateTurnoutStatus();
-            })
-            .DisposeWith(c);
-        }
       });
 
 
@@ -79,29 +53,10 @@ namespace TrainUI.ViewModels {
       pen = UnoccupiedPen;
     }
 
-    private void HandleTurnoutStatus(TurnoutInformation turnoutInformation) {
-      this.turnouts.Single(y => y.Id == turnoutInformation.Address).Mode = turnoutInformation.TurnoutPosition switch {
-        TurnoutPosition.Position1 => TurnoutMode.Right,
-        TurnoutPosition.Position2 => TurnoutMode.Left,
-        _ => null
-      };
-    }
 
     public void ActivateTurnouts() {
       var z21client = Locator.Current.GetService<IZ21Client>();
-      Observable.Interval(TimeSpan.FromMilliseconds(200))
-        .Take(TrackSectionModel.TrackSection.Turnouts.Count)
-        .Zip(TrackSectionModel.TrackSection.Turnouts)
-        .Subscribe(x => z21client.SetTurnout(new SetTurnoutRequest {
-          Address = (short)x.Second.TurnoutId,
-          TurnoutPosition = x.Second.TurnoutMode switch {
-            TurnoutMode.Right => TurnoutPosition.Position1,
-            TurnoutMode.Left => TurnoutPosition.Position2,
-            _ => throw new ArgumentOutOfRangeException()
-          },
-          Activation = Activation.Activate,
-          QueueMode = true
-        }));
+      TrackSectionModel.TrackSection.Activate(z21client);
     }
 
     private void UpdatePen((bool Occupied, bool Turnouts) status) {
@@ -114,14 +69,6 @@ namespace TrainUI.ViewModels {
       });
     }
 
-    private async void UpdateTurnoutStatus() {
-      TurnoutsActivated = turnouts.Zip(TrackSectionModel.TrackSection.Turnouts, (actual, required) => (actual.Mode, required.TurnoutMode) switch {
-        (null, _) => true,
-        (TurnoutMode.Left, TurnoutMode.Left) => true,
-        (TurnoutMode.Right, TurnoutMode.Right) => true,
-        _ => false
-      }).All(x => x);
-    }
 
     private void HandleSectionUpdate((Point Location1, Point Location2, Point Control1, Point Control2) points) {
       SectionLine = new PathFigure {
@@ -143,7 +90,6 @@ namespace TrainUI.ViewModels {
 
     public PathFigure SectionLine { get => sectionLine; set => this.RaiseAndSetIfChanged(ref sectionLine, value); }
     public IPen Pen { get => pen; set => this.RaiseAndSetIfChanged(ref pen, value); }
-    public bool Occupied { get => occupied; set => this.RaiseAndSetIfChanged(ref occupied, value); }
     public bool TurnoutsActivated { get => turnoutsActivated; set => this.RaiseAndSetIfChanged(ref turnoutsActivated, value); }
   }
 }

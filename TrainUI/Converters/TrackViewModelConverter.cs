@@ -56,6 +56,8 @@ namespace TrainUI.Converters {
         };
       }));
 
+      typedValue.TrackRepository = repos;
+
       return typedValue;
     }
 
