@@ -55,6 +55,8 @@ namespace Track {
       foreach( var connectionWithSignal in connectionsWithSignal) {
         var signal = connectionWithSignal.Signal;
         signal.SetupListener(connectionWithSignal).DisposeWith(disposer);
+        client.TurnoutChanging.Subscribe(signal.HandleTurnoutsChanging).DisposeWith(disposer);
+
         connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
           .DistinctUntilChanged()
           .Subscribe(colour => client.SetSignal(new SetSignalRequest {

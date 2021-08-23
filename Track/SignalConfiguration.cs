@@ -8,25 +8,32 @@ using System.Text;
 
 using ReactiveUI;
 
+using Z21.API;
 using Z21.Domain;
 
 namespace Track {
   public class SignalConfiguration : ReactiveObject {
-    const int MAX_SECTION_LENGTH = 6;
+
 
     private SignalColour signalState;
     public int Id { get; }
+    public int SectionLength { get; }
     public SignalColour SignalState { get => signalState; private set => this.RaiseAndSetIfChanged(ref signalState, value); }
 
-    public SignalConfiguration(int id) => Id = id;
+    public SignalConfiguration(int id, int sectionLength) {
+      Id = id;
+      SectionLength = sectionLength;
+    }
 
     internal IDisposable SetupListener(TrackConnection parent) {
+      Debug.Assert(parent.Signal == this);
+
       var d = new CompositeDisposable();
 
       var currents = parent.ToBoundary.Connections.Where(x => x.ViaSection.SectionId != parent.ViaSection.SectionId).ToList();
       var nextRound = new List<TrackConnection>();
       var currentDepth = 0;
-      while (currentDepth++ <= MAX_SECTION_LENGTH) {
+      while (currentDepth++ <= SectionLength) {
         foreach(var current in currents) {
           // Subscribe to section's occupancy and activeness fields.
           current.ViaSection.WhenAnyValue(x => x.IsOccupied, x => x.IsActive)
@@ -54,10 +61,21 @@ namespace Track {
       return d;
     }
 
+    public void HandleTurnoutsChanging(TurnoutChangingEventArgs args) {
+      if (args.Handled) {
+        return;
+      }
+      args.DelayChange = TimeSpan.FromMilliseconds(500);
+      args.Handled = true;
+      var newState = SignalColour.Red;
+      Debug.WriteLine($"Setting signal {Id} state to {newState}.");
+      SignalState = newState;
+    }
+
     private void UpdateSignalState(TrackConnection parentTrackConnection) {
       Debug.Assert(parentTrackConnection.Signal == this);
       var newState = GetSignalState(parentTrackConnection);
-      Debug.WriteLine($"Setting signal state to {newState}.");
+      Debug.WriteLine($"Setting signal {Id} state to {newState}.");
       SignalState = newState;
     }
 
@@ -65,7 +83,7 @@ namespace Track {
       var currentDepth = 0;
       SignalConfiguration nextSignal = null;
 
-      while (currentDepth++ <= MAX_SECTION_LENGTH) {
+      while (currentDepth++ <= SectionLength) {
         // Get next connection that's not the same sectionId as current (no backtracking)
         // There should be at most a single active section left over. If there are none, the section is unsafe due
         // to incompatible turnout placement.
