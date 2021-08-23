@@ -56,6 +56,7 @@ namespace Track {
         var signal = connectionWithSignal.Signal;
         signal.SetupListener(connectionWithSignal).DisposeWith(disposer);
         connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
+                    .Throttle(TimeSpan.FromMilliseconds(500))
           .DistinctUntilChanged()
           .Subscribe(colour => client.SetSignal(new SetSignalRequest {
             Address = (short)signal.Id,
