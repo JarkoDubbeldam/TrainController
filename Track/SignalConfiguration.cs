@@ -61,12 +61,31 @@ namespace Track {
       return d;
     }
 
-    public void HandleTurnoutsChanging(TurnoutChangingEventArgs args) {
+    public void HandleTurnoutsChanging(TurnoutChangingEventArgs args, TrackConnection parent) {
       if (args.Handled) {
         return;
       }
+      if (!parent.ViaSection.IsActive) {
+        return;
+      }
+      var currentSection = parent;
+      var currentDepth = 0;
+      while (currentDepth++ <= SectionLength) {
+        var nextSection = currentSection.GetNextActiveSection();
+        if(nextSection == null) {
+          return;
+        }
+
+        if(nextSection.ViaSection.Turnouts.Any(x => x.TurnoutId == args.Address)) {
+          // Do the rest of the stuff.
+          break;
+        }
+      }
+
+
       args.DelayChange = TimeSpan.FromMilliseconds(500);
       args.Handled = true;
+      
       var newState = SignalColour.Red;
       Debug.WriteLine($"Setting signal {Id} state to {newState}.");
       SignalState = newState;

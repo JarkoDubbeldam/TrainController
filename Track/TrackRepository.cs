@@ -55,7 +55,7 @@ namespace Track {
       foreach( var connectionWithSignal in connectionsWithSignal) {
         var signal = connectionWithSignal.Signal;
         signal.SetupListener(connectionWithSignal).DisposeWith(disposer);
-        client.TurnoutChanging.Subscribe(signal.HandleTurnoutsChanging).DisposeWith(disposer);
+        client.TurnoutChanging.Subscribe(x => signal.HandleTurnoutsChanging(x, connectionWithSignal)).DisposeWith(disposer);
 
         connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
                     .Throttle(TimeSpan.FromMilliseconds(500))
