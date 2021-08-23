@@ -58,7 +58,7 @@ namespace Track {
         client.TurnoutChanging.Subscribe(x => signal.HandleTurnoutsChanging(x, connectionWithSignal)).DisposeWith(disposer);
 
         connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
-                    .Throttle(TimeSpan.FromMilliseconds(500))
+          .Throttle(TimeSpan.FromMilliseconds(200))
           .DistinctUntilChanged()
           .Subscribe(colour => client.SetSignal(new SetSignalRequest {
             Address = (short)signal.Id,
@@ -105,8 +105,15 @@ namespace Track {
       return new TrackConnection {
         ViaSection = DeserializeTrackSection(token["ViaSection"]),
         ToBoundary = boundariesDict[token["ToBoundaryId"]],
-        Signal = token["Signal"]?.ToObject<SignalConfiguration>()
+        Signal = DeserializeSignalConfiguration(token["Signal"])
       };
+    }
+
+    private static SignalConfiguration DeserializeSignalConfiguration(JToken token) {
+      if (token == null) {
+        return null;
+      }
+      return new SignalConfiguration(token["Id"].ToObject<int>(), token["SectionLength"]?.ToObject<int>() ?? 7);
     }
 
     private static TrackSection DeserializeTrackSection(JToken token) {

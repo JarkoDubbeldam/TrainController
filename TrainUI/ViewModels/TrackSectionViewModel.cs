@@ -43,7 +43,7 @@ namespace TrainUI.ViewModels {
           .Subscribe(HandleSectionUpdate)
           .DisposeWith(c);
 
-        this.WhenAnyValue(x => x.TrackSectionModel.TrackSection.IsOccupied, x=> x.TrackSectionModel.TrackSection.IsActive)
+        this.WhenAnyValue(x => x.TrackSectionModel.TrackSection.IsOccupied, x => x.TrackSectionModel.TrackSection.IsActive)
           .Subscribe(UpdatePen)
           .DisposeWith(c);
       });
@@ -55,6 +55,9 @@ namespace TrainUI.ViewModels {
 
 
     public void ActivateTurnouts() {
+      if (TrackSectionModel.TrackSection.IsActive) {
+        return;
+      }
       var z21client = Locator.Current.GetService<IZ21Client>();
       TrackSectionModel.TrackSection.Activate(z21client);
     }
