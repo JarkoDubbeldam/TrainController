@@ -29,7 +29,7 @@ namespace Track {
     public void Activate(IZ21Client client) => Observable.Interval(TimeSpan.FromMilliseconds(200))
       .Take(Turnouts.Count)
       .Zip(Turnouts)
-      .Subscribe(x => client.SetTurnout(new SetTurnoutRequest {
+      .SelectMany(x => client.SetTurnout(new SetTurnoutRequest {
         Address = (short)x.Second.TurnoutId,
         TurnoutPosition = x.Second.TurnoutMode switch {
           TurnoutMode.Right => TurnoutPosition.Position1,
@@ -38,7 +38,8 @@ namespace Track {
         },
         Activation = Activation.Activate,
         QueueMode = true
-      }));
+      }))
+      .Subscribe();
 
     internal void AddTrackSectionBoundary(TrackSectionBoundary trackSectionBoundary) => connectedBoundaries.Add(trackSectionBoundary);
 
