@@ -58,6 +58,7 @@ namespace Track {
         client.TurnoutChanging.Subscribe(signal.HandleTurnoutsChanging).DisposeWith(disposer);
 
         connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
+                    .Throttle(TimeSpan.FromMilliseconds(500))
           .DistinctUntilChanged()
           .Subscribe(colour => client.SetSignal(new SetSignalRequest {
             Address = (short)signal.Id,
