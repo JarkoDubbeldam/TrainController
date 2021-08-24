@@ -45,7 +45,7 @@ namespace Track {
           if(current.Signal != null) {
             current.Signal.WhenAnyValue(x => x.SignalState)
               .DistinctUntilChanged()
-              .Subscribe(x => UpdateSignalState(x))
+              .Subscribe(x => UpdateSignalState(parent))
               .DisposeWith(d);
             continue;
           }
@@ -61,16 +61,6 @@ namespace Track {
       return d;
     }
 
-    /// <summary>
-    /// Update this signal based on the colour of a signal further upstream.
-    /// </summary>
-    private void UpdateSignalState(SignalColour signalColour) {
-      if (signalColour == SignalColour.Red) {
-        var newState = SignalColour.Yellow;
-        Debug.WriteLine($"Setting signal {Id} state to {newState}.");
-        SignalState = newState;
-      }
-    }
 
     public void HandleTurnoutsChanging(TurnoutChangingEventArgs args, TrackConnection parent) {
       if (args.Handled) {
@@ -120,14 +110,15 @@ namespace Track {
         if(nextSection.TrackConnectionState != TrackConnection.TrackConnectionIterator.TrackConnectionStateEnum.Active) {
           return SignalColour.Red;
         }
-        // If the next section is guarded by a signal, don't change the state directly, but instead change signal based on updates from linked signals.
-        if(nextSection.TrackConnection.Signal != null) {
-          return null;
-        }
 
         // If there is a section, check if it is occupied
         if (nextSection.TrackConnection.ViaSection.IsOccupied) {
           return SignalColour.Red;
+        }
+
+        // If the next section is guarded by a signal, don't change the state directly, but instead change signal based on updates from linked signals.
+        if(nextSection.TrackConnection.Signal != null) {
+          return nextSection.TrackConnection.Signal.SignalState == SignalColour.Red ? SignalColour.Yellow : SignalColour.Green;
         }
       }
 

@@ -15,7 +15,7 @@ namespace Track {
   [DebuggerDisplay("({SectionId})")]
   public class TrackSection : ReactiveObject {
     private readonly List<TrackSectionBoundary> connectedBoundaries = new List<TrackSectionBoundary>();
-    private bool isActive;
+    private bool isActive = true;
     private bool isOccupied;
 
     public int Id { get; internal set; }
