@@ -30,9 +30,9 @@ namespace TrainUI.ViewModels {
     private IPen pen;
 
     private const int PenWidth = 5;
-    private static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth, lineCap: PenLineCap.Round);
-    private static readonly IPen DisabledPen = new Pen(Brushes.Gray, PenWidth, lineCap: PenLineCap.Round);
-    private static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth, lineCap: PenLineCap.Round);
+    public static readonly IPen UnoccupiedPen = new Pen(Brushes.Black, PenWidth, lineCap: PenLineCap.Round);
+    public static readonly IPen DisabledPen = new Pen(Brushes.Gray, PenWidth, lineCap: PenLineCap.Round);
+    public static readonly IPen OccupiedPen = new Pen(Brushes.DarkRed, PenWidth, lineCap: PenLineCap.Round);
     private bool turnoutsActivated;
 
     public TrackSectionViewModel() {
