@@ -70,6 +70,7 @@ namespace Track {
       }
       var currentSection = parent;
       var currentDepth = 0;
+      var turnoutOnGuardedSectionChanged = false;
       while (currentDepth++ <= SectionLength) {
         var nextSection = currentSection.GetNextActiveSection();
         if(nextSection == null) {
@@ -78,12 +79,17 @@ namespace Track {
 
         if(nextSection.ViaSection.Turnouts.Any(x => x.TurnoutId == args.Address)) {
           // Do the rest of the stuff.
+          turnoutOnGuardedSectionChanged = true;
           break;
         }
+        currentSection = nextSection;
       }
 
+      if(!turnoutOnGuardedSectionChanged) {
+        return;
+      }
 
-      args.DelayChange = TimeSpan.FromMilliseconds(500);
+      args.DelayChange = TimeSpan.FromMilliseconds(1500);
       args.Handled = true;
       
       var newState = SignalColour.Red;
