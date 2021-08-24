@@ -91,9 +91,17 @@ namespace Track {
         .SelectMany(x => x.Connections.Select(y => y.ViaSection))
         .GroupBy(x => x.Id, (key, element) => element.First())
         .ToDictionary(x => x.Id);
+      var signals = boundariesDict.Values
+        .SelectMany(x => x.Connections.Select(y => y.Signal))
+        .Where(x => x != null)
+        .GroupBy(x => x.Id, (key, element) => element.First())
+        .ToDictionary(x => x.Id);
       foreach (var boundary in boundariesDict.Values) {
         foreach (var connection in boundary.Connections) {
           connection.ViaSection = sections[connection.ViaSection.Id];
+          if(connection.Signal != null) {
+            connection.Signal = signals[connection.Signal.Id];
+          }
           connection.ViaSection.AddTrackSectionBoundary(boundary);
         }
       }

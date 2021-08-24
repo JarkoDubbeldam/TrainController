@@ -45,13 +45,13 @@ namespace Track {
           if(current.Signal != null) {
             current.Signal.WhenAnyValue(x => x.SignalState)
               .DistinctUntilChanged()
-              .Subscribe(x => UpdateSignalState(parent))
+              .Subscribe(x => UpdateSignalState(x))
               .DisposeWith(d);
             continue;
           }
 
           // Otherwise, add all new sections to the list.
-          nextRound.AddRange(current.ToBoundary.Connections.Where(x => x.ViaSection.SectionId != current.ViaSection.SectionId));          
+          nextRound.AddRange(current.GetNextSections());          
         }
 
         currents = nextRound.Distinct().ToList();
@@ -61,84 +61,77 @@ namespace Track {
       return d;
     }
 
+    /// <summary>
+    /// Update this signal based on the colour of a signal further upstream.
+    /// </summary>
+    private void UpdateSignalState(SignalColour signalColour) {
+      if (signalColour == SignalColour.Red) {
+        var newState = SignalColour.Yellow;
+        Debug.WriteLine($"Setting signal {Id} state to {newState}.");
+        SignalState = newState;
+      }
+    }
+
     public void HandleTurnoutsChanging(TurnoutChangingEventArgs args, TrackConnection parent) {
       if (args.Handled) {
         return;
       }
+
       if (!parent.ViaSection.IsActive) {
         return;
       }
-      var currentSection = parent;
-      var currentDepth = 0;
-      var turnoutOnGuardedSectionChanged = false;
-      while (currentDepth++ <= SectionLength) {
-        var nextSection = currentSection.GetNextActiveSection();
-        if(nextSection == null) {
+
+      foreach(var nextSection in parent.WalkActiveSections().Take(SectionLength)) {
+        if(nextSection.TrackConnectionState != TrackConnection.TrackConnectionIterator.TrackConnectionStateEnum.Active) {
+          return;
+        } else if (nextSection.TrackConnection.ViaSection.Turnouts.Any(x => x.TurnoutId == args.Address)) {
+          args.DelayChange = TimeSpan.FromMilliseconds(1500);
+          args.Handled = true;
+
+          var newState = SignalColour.Red;
+          Debug.WriteLine($"Setting signal {Id} state to {newState}.");
+          SignalState = newState;
+          return;
+        } else if (nextSection.TrackConnection.Signal != null) {
+          // Stop iterating if there is a signal on the section.
           return;
         }
-
-        if(nextSection.ViaSection.Turnouts.Any(x => x.TurnoutId == args.Address)) {
-          // Do the rest of the stuff.
-          turnoutOnGuardedSectionChanged = true;
-          break;
-        }
-        currentSection = nextSection;
       }
-
-      if(!turnoutOnGuardedSectionChanged) {
-        return;
-      }
-
-      args.DelayChange = TimeSpan.FromMilliseconds(1500);
-      args.Handled = true;
-      
-      var newState = SignalColour.Red;
-      Debug.WriteLine($"Setting signal {Id} state to {newState}.");
-      SignalState = newState;
     }
 
     private void UpdateSignalState(TrackConnection parentTrackConnection) {
       Debug.Assert(parentTrackConnection.Signal == this);
       var newState = GetSignalState(parentTrackConnection);
-      Debug.WriteLine($"Setting signal {Id} state to {newState}.");
-      SignalState = newState;
+      if (newState.HasValue) {
+        Debug.WriteLine($"Setting signal {Id} state to {newState}.");
+        SignalState = newState.Value;
+      }
     }
 
-    private SignalColour GetSignalState(TrackConnection currentTrackConnection) {
-      var currentDepth = 0;
-      SignalConfiguration nextSignal = null;
+    private SignalColour? GetSignalState(TrackConnection currentTrackConnection) {
+      Debug.Assert(currentTrackConnection.Signal == this);
+      if (!currentTrackConnection.ViaSection.IsActive) {
+        // If current section is not active, another version of this section id has the lead over what happens with the signal.
+        return null;
+      }
 
-      while (currentDepth++ <= SectionLength) {
-        // Get next connection that's not the same sectionId as current (no backtracking)
-        // There should be at most a single active section left over. If there are none, the section is unsafe due
-        // to incompatible turnout placement.
-        var nextConnection = currentTrackConnection.ToBoundary.Connections
-          .Where(x => x.ViaSection.SectionId != currentTrackConnection.ViaSection.SectionId)
-          .FirstOrDefault(x => x.ViaSection.IsActive);
-        if (nextConnection == null) {
+      foreach (var nextSection in currentTrackConnection.WalkActiveSections().Take(SectionLength)) {
+        // If the next section is inactive or missing, return red.
+        if(nextSection.TrackConnectionState != TrackConnection.TrackConnectionIterator.TrackConnectionStateEnum.Active) {
           return SignalColour.Red;
+        }
+        // If the next section is guarded by a signal, don't change the state directly, but instead change signal based on updates from linked signals.
+        if(nextSection.TrackConnection.Signal != null) {
+          return null;
         }
 
         // If there is a section, check if it is occupied
-        if (nextConnection.ViaSection.IsOccupied) {
+        if (nextSection.TrackConnection.ViaSection.IsOccupied) {
           return SignalColour.Red;
         }
-
-        // If there is a signal guarding the section, we can stop looking.
-        if (nextConnection.Signal != null) {
-          nextSignal = nextConnection.Signal;
-          break;
-        }
-
-        currentTrackConnection = nextConnection;
       }
 
-      // If there is no signal, all is clear, else we maybe return yellow if next signal is red.
-      if (nextSignal?.SignalState == SignalColour.Red) {
-        return SignalColour.Yellow;
-      } else {
-        return SignalColour.Green;
-      }
+      return SignalColour.Green;
     }
   }
 }
