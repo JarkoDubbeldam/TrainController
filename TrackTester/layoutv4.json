@@ -2101,7 +2101,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 47
+          "ToBoundaryId": 47,
+          "Signal": {
+            "Id": 68,
+            "SectionLength": 5
+          }
         }
       ]
     },
@@ -2195,7 +2199,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 46
+          "ToBoundaryId": 46,
+          "Signal": {            
+            "Id": 72,
+            "SectionLength": 5
+          }
         }
       ]
     },
@@ -2587,7 +2595,7 @@
           },
           "ToBoundaryId": 36,
           "Signal": {
-            "Id": 48,
+            "Id": 64,
             "SectionLength": 6
           }
         },
@@ -2608,7 +2616,7 @@
           },
           "ToBoundaryId": 37,
           "Signal": {
-            "Id": 48,
+            "Id": 64,
             "SectionLength": 6
           }
         },
@@ -2625,7 +2633,7 @@
           },
           "ToBoundaryId": 48,
           "Signal": {
-            "Id": 48,
+            "Id": 64,
             "SectionLength": 6
           }
         }
@@ -2910,7 +2918,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 62
+          "ToBoundaryId": 62,
+          "Signal": {
+            "Id": 52,
+            "SectionLength": 5
+          }
         }
       ]
     },
@@ -2955,7 +2967,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 63
+          "ToBoundaryId": 63,
+          "Signal": {
+            "Id": 48,
+            "SectionLength": 5
+          }
         }
       ]
     },
@@ -3125,7 +3141,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 66
+          "ToBoundaryId": 66,
+          "Signal": {
+            "Id": 56,
+            "SectionLength": 5
+          }
         }
       ]
     },
@@ -3139,7 +3159,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 67
+          "ToBoundaryId": 67,
+          "Signal": {
+            "Id": 60,
+            "SectionLength": 5
+          }
         }
       ]
     },
