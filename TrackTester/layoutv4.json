@@ -1736,7 +1736,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 30
+          "ToBoundaryId": 30,
+          "Signal": {
+            "Id": 84,
+            "SectionLength": 3
+          }
         },
         {
           "ViaSection": {
@@ -1813,7 +1817,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 33
+          "ToBoundaryId": 33,
+          "Signal": {
+            "Id": 80,
+            "SectionLength": 3
+          }
         },
         {
           "ViaSection": {
@@ -2069,7 +2077,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 40
+          "ToBoundaryId": 40,
+          "Signal": {
+            "Id": 88,
+            "SectionLength": 3
+          }
         },
         {
           "ViaSection": {
@@ -2167,7 +2179,11 @@
             "Turnouts": [
             ]
           },
-          "ToBoundaryId": 43
+          "ToBoundaryId": 43,
+          "Signal": {
+            "Id": 92,
+            "SectionLength": 3
+          }
         },
         {
           "ViaSection": {
