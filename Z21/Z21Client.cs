@@ -36,7 +36,7 @@ namespace Z21 {
 
   
 
-    public IObservable<bool> ConnectionStatus { get; } 
+    public IObservable<bool> ConnectionStatus { get; }     
     public IObservable<TrackStatus> TrackStatusChanged => GetStream(new TrackStatusResponseFactory());
     public IObservable<SystemState> SystemStateChanged => GetStream(new SystemStateResponseFactory(), BroadcastFlags.Z21SystemState);
     public IObservable<LocomotiveInformation> LocomotiveInformationChanged => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching);
