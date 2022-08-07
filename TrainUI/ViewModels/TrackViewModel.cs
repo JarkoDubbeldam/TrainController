@@ -13,10 +13,14 @@ using Avalonia.Threading;
 
 using ReactiveUI;
 
+using Splat;
+
 using Track;
 
 using TrainUI.Models;
 using TrainUI.Tools;
+
+using Z21;
 
 namespace TrainUI.ViewModels {
   [DataContract]
@@ -63,6 +67,9 @@ namespace TrainUI.ViewModels {
           .DistinctUntilChanged()
           .Subscribe(LoadTrackPieces)
           .DisposeWith(c);
+
+        var client = Locator.Current.GetService<IZ21Client>();
+        TrackRepository.SetupSubscriptions(client).DisposeWith(c);
       });
       TrackSections = new ObservableCollection<TrackSectionViewModel>();
       TrackSectionFigures = null;
@@ -103,6 +110,7 @@ namespace TrainUI.ViewModels {
         TrackSectionFigures = lookup;
       });
     }
+
     private void RecalculateFocusFigures() {
       using var holdOn = DelayChangeNotifications();
       if (Focus == null) {
@@ -187,6 +195,7 @@ namespace TrainUI.ViewModels {
       var repos = TrackRepository.FromJson(json);
       var random = new Random();
       var boundaries = repos.Boundaries.ToDictionary(x => x.Id, x => new TrackSectionBoundaryModel { Id = x.Id, Location = new Point(random.Next(100, 200), random.Next(100, 200)) });
+            
       using var _ = this.DelayChangeNotifications();
 
       Focus = null;
@@ -210,5 +219,6 @@ namespace TrainUI.ViewModels {
     public TrackSectionViewModel Focus { get => focus; set => this.RaiseAndSetIfChanged(ref focus, value); }
     public bool EditMode { get => editMode; set => this.RaiseAndSetIfChanged(ref editMode, value); }
     public string TrackPiecesJson { get => trackPiecesJson; set => this.RaiseAndSetIfChanged(ref trackPiecesJson, value); }
+    public TrackRepository TrackRepository { get; internal set; }
   }
 }

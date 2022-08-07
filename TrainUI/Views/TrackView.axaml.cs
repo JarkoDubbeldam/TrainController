@@ -48,11 +48,16 @@ namespace TrainUI.Views {
     public override void Render(DrawingContext context) {
       base.Render(context);
 
-      foreach(var grouping in TrackFigures ?? Enumerable.Empty<IGrouping<IPen, PathFigure>>()) {
-        var pen = grouping.Key;
-        var figures = new PathFigures();
-        figures.AddRange(grouping);
-        context.DrawGeometry(Brushes.Transparent, pen, new PathGeometry { Figures = figures });
+      var penOrder = new[] { TrackSectionViewModel.DisabledPen, TrackSectionViewModel.UnoccupiedPen, TrackSectionViewModel.OccupiedPen };
+      if (TrackFigures != null) {
+        foreach (var pen in penOrder) {
+          //foreach(var grouping in ) {
+          var sections = TrackFigures[pen];
+
+          var figures = new PathFigures();
+          figures.AddRange(sections);
+          context.DrawGeometry(Brushes.Transparent, pen, new PathGeometry { Figures = figures });
+        }
       }
 
       if (FocusedTrackSectionRect != Rect.Empty) {

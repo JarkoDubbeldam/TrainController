@@ -1,22 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Text;
 
 using Newtonsoft.Json.Linq;
 
+using ReactiveUI;
+
+using Z21;
+using Z21.API;
+using Z21.Domain;
+
 namespace Track {
   public class TrackRepository : ITrackRepository {
-    private readonly List<TrackSection> trackSections;
-    private readonly List<TrackSectionBoundary> boundaries;
+    private readonly Dictionary<int, TrackSection> trackSections;
+    private readonly Dictionary<int, TrackSectionBoundary> boundaries;
+    private readonly ILookup<int, TurnoutConfiguration> turnouts;
 
-    private TrackRepository(List<TrackSection> trackSections, List<TrackSectionBoundary> boundaries) {
+    private TrackRepository(Dictionary<int, TrackSection> trackSections, Dictionary<int, TrackSectionBoundary> boundaries) {
       this.trackSections = trackSections;
       this.boundaries = boundaries;
+      this.turnouts = Sections.SelectMany(x => x.Turnouts).Distinct().ToLookup(x => x.TurnoutId);
     }
 
-    public IReadOnlyCollection<TrackSection> Sections => trackSections;
-    public IReadOnlyCollection<TrackSectionBoundary> Boundaries => boundaries;
+    public IReadOnlyCollection<TrackSection> Sections => trackSections.Values;
+    public IReadOnlyCollection<TrackSectionBoundary> Boundaries => boundaries.Values;
+
+    public IDisposable SetupSubscriptions(IZ21Client client) {
+      var disposer = new CompositeDisposable();
+      client.TurnoutInformationChanged
+        .Subscribe(x => {
+          var turnouts = this.turnouts[x.Address];
+          foreach (var turnout in turnouts) {
+            turnout.CheckIfActive(x);
+          }
+        })
+        .DisposeWith(disposer);
+
+      client.OccupancyStatusChanged
+        .Subscribe(x => {
+          foreach (var section in Sections) {
+            section.CheckOccupied(x);
+          }
+        })
+        .DisposeWith(disposer);
+
+      foreach (var section in Sections) {
+        section.SetupListener().DisposeWith(disposer);
+      }
+
+      var connectionsWithSignal = Boundaries.SelectMany(x => x.Connections).Distinct().Where(x => x.Signal != null);
+      foreach( var connectionWithSignal in connectionsWithSignal) {
+        var signal = connectionWithSignal.Signal;
+        signal.SetupListener(connectionWithSignal).DisposeWith(disposer);
+        client.TurnoutChanging.Subscribe(x => signal.HandleTurnoutsChanging(x, connectionWithSignal)).DisposeWith(disposer);
+
+        connectionWithSignal.Signal.WhenAnyValue(x => x.SignalState)
+          .Throttle(TimeSpan.FromMilliseconds(200))
+          .DistinctUntilChanged()
+          .Subscribe(colour => client.SetSignal(new SetSignalRequest {
+            Address = (short)signal.Id,
+            SignalMode = new SignalMode {
+              SignalColour = signal.SignalState,
+              Blinking = false,
+              Number = false,
+              NightMode = false
+            }
+          }))
+          .DisposeWith(disposer);
+      }
+
+      return disposer;
+    }
 
     public static TrackRepository FromJson(string json) {
       var halfParsed = JObject.Parse(json);
@@ -27,24 +84,57 @@ namespace Track {
       foreach (var item in halfParsed["Boundaries"]) {
         var boundary = boundariesDict[item["Id"]];
         boundary.Connections = item["Connections"]
-          .Select(x => new TrackConnection {
-            ViaSection = x["ViaSection"].ToObject<TrackSection>(),
-            ToBoundary = boundariesDict[x["ToBoundaryId"]]
-          })
+          .Select(x => DeserializeTrackConnection(x, boundariesDict))
           .ToList();
       }
       var sections = boundariesDict.Values
         .SelectMany(x => x.Connections.Select(y => y.ViaSection))
         .GroupBy(x => x.Id, (key, element) => element.First())
         .ToDictionary(x => x.Id);
+      var signals = boundariesDict.Values
+        .SelectMany(x => x.Connections.Select(y => y.Signal))
+        .Where(x => x != null)
+        .GroupBy(x => x.Id, (key, element) => element.First())
+        .ToDictionary(x => x.Id);
       foreach (var boundary in boundariesDict.Values) {
         foreach (var connection in boundary.Connections) {
           connection.ViaSection = sections[connection.ViaSection.Id];
-          connection.ViaSection.ConnectedBoundaries.Add(boundary);
+          if(connection.Signal != null) {
+            connection.Signal = signals[connection.Signal.Id];
+          }
+          connection.ViaSection.AddTrackSectionBoundary(boundary);
         }
       }
 
-      return new TrackRepository(sections.Values.ToList(), boundariesDict.Values.ToList());
+      return new TrackRepository(sections, boundariesDict.ToDictionary(x => x.Key.ToObject<int>(), x => x.Value));
+    }
+
+    private static TrackConnection DeserializeTrackConnection(JToken token, Dictionary<JToken, TrackSectionBoundary> boundariesDict) {
+      return new TrackConnection {
+        ViaSection = DeserializeTrackSection(token["ViaSection"]),
+        ToBoundary = boundariesDict[token["ToBoundaryId"]],
+        Signal = DeserializeSignalConfiguration(token["Signal"])
+      };
+    }
+
+    private static SignalConfiguration DeserializeSignalConfiguration(JToken token) {
+      if (token == null) {
+        return null;
+      }
+      return new SignalConfiguration(token["Id"].ToObject<int>(), token["SectionLength"]?.ToObject<int>() ?? 7);
+    }
+
+    private static TrackSection DeserializeTrackSection(JToken token) {
+      var result = new TrackSection {
+        Id = token["Id"].ToObject<int>(),
+        SectionId = token["SectionId"].ToObject<int>(),
+        Turnouts = token["Turnouts"].Select(DeserializeTurnoutConfiguration).ToList()
+      };
+      return result;
+    }
+
+    private static TurnoutConfiguration DeserializeTurnoutConfiguration(JToken token) {
+      return new TurnoutConfiguration { TurnoutId = token["TurnoutId"].ToObject<int>(), TurnoutMode = token["TurnoutMode"].ToObject<TurnoutMode>() };
     }
   }
 }
