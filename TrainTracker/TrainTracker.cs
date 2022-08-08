@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Text;
 using ReactiveUI;
 using Track;
+using TrainRepository;
 
 namespace TrainTracker {
   public class TrainTracker : IDisposable {
@@ -33,5 +34,6 @@ namespace TrainTracker {
 
 
     public void Dispose() => subscription?.Dispose();
+    public void AddTrain(Train train, IEnumerable<TrackConnection> sections) => trainLocations.Add(new TrainLocation(train, sections));
   }
 }

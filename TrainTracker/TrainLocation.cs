@@ -7,6 +7,11 @@ namespace TrainTracker {
   public class TrainLocation {
     private readonly List<TrackConnection> occupiedConnections;
 
+    public TrainLocation(Train train, IEnumerable<TrackConnection> trackConnections) {
+      occupiedConnections = trackConnections.ToList();
+      Train = train;
+    }
+
     public Train Train { get; }
     public IReadOnlyList<TrackConnection> OccupiedConnections => occupiedConnections;
     public bool Update(TrackSection changedSection, bool newOccupancy) {
