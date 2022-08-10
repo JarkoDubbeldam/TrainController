@@ -64,12 +64,12 @@ namespace TrainTracker {
     }
 
     public void TurnAround() {
-      occupiedConnections = occupiedConnections.Select(occupiedSection => occupiedSection.ToBoundary.Connections
+      var newConnections = occupiedConnections.Select(occupiedSection => occupiedSection.ToBoundary.Connections
           .Where(x => x.ViaSection.SectionId == occupiedSection.ViaSection.SectionId)
           .Where(x => x.ViaSection.IsActive)
           .Single())
         .ToList();
-
+      occupiedConnections = newConnections;
     }
 
     public override string ToString() {
