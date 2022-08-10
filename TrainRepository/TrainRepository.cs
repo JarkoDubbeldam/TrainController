@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using Z21;
 using Z21.API;
@@ -17,8 +14,7 @@ namespace TrainRepository {
     }
 
     private void Z21Client_LocomotiveInformationChanged(LocomotiveInformation e) {
-      repos.TryGetValue(e.Address, out var train);
-      if (train.IsCompletedSuccessfully) {
+      if (repos.TryGetValue(e.Address, out var train) && train.IsCompletedSuccessfully) {
         train.Result.Update(e);
       }
     }
