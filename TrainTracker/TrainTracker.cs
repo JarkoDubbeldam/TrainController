@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -37,8 +38,12 @@ namespace TrainTracker {
     public void AddTrain(Train train, IEnumerable<TrackConnection> sections) {
       var location = new TrainLocation(train, sections);
       trainLocations.Add(location);
-      train.WhenAnyValue(x => x.Speed)
-        .Select(x => x.DrivingDirection)
+      Observable.FromEvent<PropertyChangedEventHandler, Train>(
+        handler => (sender, e) => handler((Train)sender), 
+        handler => train.PropertyChanged += handler,
+        handler => train.PropertyChanged -= handler
+      )
+        .Select(x => x.Speed.DrivingDirection)
         .DistinctUntilChanged()
         .Subscribe(_ => location.TurnAround())
         .DisposeWith(subscription);
