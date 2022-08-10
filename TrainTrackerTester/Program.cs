@@ -23,24 +23,23 @@ namespace TrainTrackerTester {
       var json = await File.ReadAllTextAsync("layoutv4.json");
       var trackRepository = TrackRepository.FromJson(json);
       var client = container.Resolve<IZ21Client>();
-      using (var disposable = new CompositeDisposable()) {
-        trackRepository.SetupSubscriptions(client).DisposeWith(disposable);
-        var trainRepository = container.Resolve<IRepository<Train>>();
-        var train = await trainRepository.RegisterObject(5, "NS Traxx");
-        var currentSection = trackRepository.Boundaries
-          .SelectMany(x => x.Connections)
-          .Distinct()
-          .Where(x => x.ViaSection.SectionId == startingSection);
-        var tracker = new TrainTracker.TrainTracker();
-        tracker.Setup(trackRepository);
-        tracker.DisposeWith(disposable);
-        await client.GetOccupancyStatus(new Z21.API.OccupancyStatusRequest{GroupIndex = 0});
-        await Task.Delay(10000);
-        tracker.AddTrain(train, currentSection);
+      using var disposable = new CompositeDisposable();
+      trackRepository.SetupSubscriptions(client).DisposeWith(disposable);
+      var trainRepository = container.Resolve<IRepository<Train>>();
+      var train = await trainRepository.RegisterObject(5, "NS Traxx");
+      var currentSection = trackRepository.Boundaries
+        .SelectMany(x => x.Connections)
+        .Distinct()
+        .Where(x => x.ViaSection.SectionId == startingSection);
+      var tracker = new TrainTracker.TrainTracker();
+      tracker.Setup(trackRepository);
+      tracker.DisposeWith(disposable);
+      await client.GetOccupancyStatus(new Z21.API.OccupancyStatusRequest { GroupIndex = 0 });
+      await Task.Delay(10000);
+      tracker.AddTrain(train, currentSection);
 
-        Console.WriteLine("Done setting up. Press any key to exit.");
-        Console.ReadLine();
-      }
+      Console.WriteLine("Done setting up. Press any key to exit.");
+      Console.ReadLine();
     }
   }
 }
