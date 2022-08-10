@@ -5,7 +5,7 @@ using TrainRepository;
 
 namespace TrainTracker {
   public class TrainLocation {
-    private readonly List<TrackConnection> occupiedConnections;
+    private List<TrackConnection> occupiedConnections;
 
     public TrainLocation(Train train, IEnumerable<TrackConnection> trackConnections) {
       occupiedConnections = trackConnections.ToList();
@@ -61,6 +61,15 @@ namespace TrainTracker {
           return true;
         }
       }
+    }
+
+    public void TurnAround() {
+      occupiedConnections = occupiedConnections.Select(occupiedSection => occupiedSection.ToBoundary.Connections
+          .Where(x => x.ViaSection.SectionId == occupiedSection.ViaSection.SectionId)
+          .Where(x => x.ViaSection.IsActive)
+          .Single())
+        .ToList();
+
     }
 
     public override string ToString() {

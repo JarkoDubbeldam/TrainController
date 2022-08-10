@@ -10,7 +10,7 @@ using TrainRepository;
 
 namespace TrainTracker {
   public class TrainTracker : IDisposable {
-    private IDisposable subscription;
+    private CompositeDisposable subscription;
     private readonly List<TrainLocation> trainLocations = new List<TrainLocation>();
 
     public void Setup(TrackRepository trackRepository) {
@@ -34,6 +34,14 @@ namespace TrainTracker {
 
 
     public void Dispose() => subscription?.Dispose();
-    public void AddTrain(Train train, IEnumerable<TrackConnection> sections) => trainLocations.Add(new TrainLocation(train, sections));
+    public void AddTrain(Train train, IEnumerable<TrackConnection> sections) {
+      var location = new TrainLocation(train, sections);
+      trainLocations.Add(location);
+      train.WhenAnyValue(x => x.Speed)
+        .Select(x => x.DrivingDirection)
+        .DistinctUntilChanged()
+        .Subscribe(_ => location.TurnAround())
+        .DisposeWith(subscription);
+    }
   }
 }
