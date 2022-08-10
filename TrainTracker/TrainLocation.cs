@@ -66,10 +66,10 @@ namespace TrainTracker {
     public override string ToString() {
       var trainname = Train.Name;
       var sections = string.Join(", ", OccupiedConnections.Select(x => x.ViaSection.SectionId));
+      var snippet = TrainLost ? "Last seen" : "Sections";
       return $@"for train {trainname}. 
 
-Sections:
-{sections}";
+{snippet}: {sections}";
     }
   }
 }
