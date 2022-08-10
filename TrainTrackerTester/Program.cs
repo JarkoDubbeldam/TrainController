@@ -15,7 +15,7 @@ namespace TrainTrackerTester {
       var containerBuilder = new ContainerBuilder();
       var ipAdress = new IPAddress(new byte[] { 192, 168, 0, 111 });
       var endpoint = new IPEndPoint(ipAdress, 21105);
-      var startingSection = 5;
+      var startingSection = 4;
 
       containerBuilder.RegisterModule(new TrainRepositoryModule(endpoint));
       var container = containerBuilder.Build();
@@ -32,9 +32,11 @@ namespace TrainTrackerTester {
           .Distinct()
           .Where(x => x.ViaSection.SectionId == startingSection);
         var tracker = new TrainTracker.TrainTracker();
-        tracker.AddTrain(train, currentSection);
         tracker.Setup(trackRepository);
         tracker.DisposeWith(disposable);
+        await client.GetOccupancyStatus(new Z21.API.OccupancyStatusRequest{GroupIndex = 0});
+        await Task.Delay(10000);
+        tracker.AddTrain(train, currentSection);
 
         Console.WriteLine("Done setting up. Press any key to exit.");
         Console.ReadLine();
