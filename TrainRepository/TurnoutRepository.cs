@@ -19,8 +19,7 @@ namespace TrainRepository {
     }
 
     private void Z21Client_LocomotiveInformationChanged(TurnoutInformation e) {
-      repos.TryGetValue(e.Address, out var turnout);
-      if (turnout.IsCompletedSuccessfully) {
+      if(repos.TryGetValue(e.Address, out var turnout) && turnout.IsCompletedSuccessfully) {
         turnout.Result.Update(e);
       }
     }
