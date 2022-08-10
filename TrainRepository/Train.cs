@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using ReactiveUI;
 using Z21.Domain;
 
 namespace TrainRepository {
-  public class Train : ReactiveObject {
-    private TrainSpeed speed;
-    private TrainFunctions functions;
+  public class Train : INotifyPropertyChanged {
+
+    public event PropertyChangedEventHandler PropertyChanged;
 
     public Train(int address, string name, TrainSpeed speed, TrainFunctions functions) {
       Address = address;
@@ -20,22 +19,28 @@ namespace TrainRepository {
     public int Address { get; }
     public string Name { get; }
 
-    public TrainSpeed Speed { get => speed; private set => this.RaiseAndSetIfChanged(ref speed, value); }
-    public TrainFunctions Functions { get => functions; private set => this.RaiseAndSetIfChanged(ref functions, value); }
+    public TrainSpeed Speed { get; private set; }
+    public TrainFunctions Functions { get; private set; }
 
     public override string ToString() {
       return $"Train {Name}\n{Speed}\n{Functions}";
     }
 
-    public void SetSpeed(TrainSpeed speed) => Speed = speed;
+    public void SetSpeed(TrainSpeed speed) {
+      Speed = speed;
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Speed)));
+    }
 
-    public void SetFunctions(TrainFunctions functions) => Functions = functions;
+    public void SetFunctions(TrainFunctions functions) {
+      Functions = functions;
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Functions)));
+    }
 
     internal void Update(LocomotiveInformation locomotiveInformation) {
-      if (Speed.Equals(locomotiveInformation.TrainSpeed) && Functions == locomotiveInformation.TrainFunctions) { return; }
-      using var x = DelayChangeNotifications();
+      if(Speed.Equals(locomotiveInformation.TrainSpeed) && Functions == locomotiveInformation.TrainFunctions) { return; }
       Speed = locomotiveInformation.TrainSpeed;
       Functions = locomotiveInformation.TrainFunctions;
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("All!"));
     }
   }
 }
