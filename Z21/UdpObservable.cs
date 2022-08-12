@@ -32,11 +32,11 @@ namespace Z21 {
     private async Task RunLoop(CancellationToken cancellationToken) {
       var number = 1;
       while (!cancellationToken.IsCancellationRequested) {
-        logger.LogInformation($"{number}: Starting Listening");
+        logger.LogDebug($"{number}: Starting Listening");
         var message = await sysClient.ReceiveAsync();
         var x = number;
         _ = Task.Run(() => {
-          logger.LogInformation($"{x}: Received {string.Join(' ', message.Buffer.Select(x => x.ToString()))}");
+          logger.LogDebug($"{x}: Received {string.Join(' ', message.Buffer.Select(x => x.ToString()))}");
           foreach (var observer in observers.Keys) {
             observer.OnNext(message.Buffer);
           }

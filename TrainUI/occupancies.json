@@ -2,6 +2,53 @@
   {
     "TrainId": 5,
     "TrainName": "NS Traxx",
-    "SectionIds": [ 4 ]
+    "SectionIds": [
+      4,
+      0
+    ]
+  },
+  {
+    "TrainId": 3,
+    "TrainName": "DB Loc",
+    "SectionIds": [
+      2,
+      6
+    ]
+  },
+  {
+    "TrainId": 24,
+    "TrainName": "Valleilijn",
+    "SectionIds": [
+      36
+    ]
+  },
+  {
+    "TrainId": 4,
+    "TrainName": "NS 6466",
+    "SectionIds": [
+      12
+    ]
+  },
+  {
+    "TrainId": 6,
+    "TrainName": "NS Wadloper",
+    "SectionIds": [
+      61
+    ]
+  },
+  {
+    "TrainId": 8,
+    "TrainName": "NS 1601",
+    "SectionIds": [
+      13
+    ]
+  },
+  {
+    "TrainID": 10,
+    "TrainName": "Rail Force One",
+    "SectionIds": [
+      1,
+      5
+    ]
   }
 ]
