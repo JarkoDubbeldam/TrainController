@@ -69,7 +69,7 @@ namespace TrainUI.ViewModels {
           .DisposeWith(c);
 
         var client = Locator.Current.GetService<IZ21Client>();
-        TrackRepository.SetupSubscriptions(client).DisposeWith(c);
+        //TrackRepository.SetupSubscriptions(client).DisposeWith(c);
       });
       TrackSections = new ObservableCollection<TrackSectionViewModel>();
       TrackSectionFigures = null;
@@ -192,7 +192,7 @@ namespace TrainUI.ViewModels {
 
 
     private void LoadTrackPieces(string json) {
-      var repos = TrackRepository.FromJson(json);
+      var repos = Locator.Current.GetService<Func<string, TrackRepository>>()(json);
       var random = new Random();
       var boundaries = repos.Boundaries.ToDictionary(x => x.Id, x => new TrackSectionBoundaryModel { Id = x.Id, Location = new Point(random.Next(100, 200), random.Next(100, 200)) });
             

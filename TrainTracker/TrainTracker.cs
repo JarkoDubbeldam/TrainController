@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using ReactiveUI;
 using Track;
 using TrainRepository;
@@ -11,7 +13,7 @@ using TrainRepository;
 namespace TrainTracker;
 public sealed class TrainTracker : IDisposable {
   private CompositeDisposable subscription;
-  private readonly List<TrainLocation> trainLocations = new List<TrainLocation>();
+  private readonly List<TrainLocation> trainLocations = new();
   private readonly ILogger<TrainTracker> logger;
 
   public TrainTracker(ILogger<TrainTracker> logger) {
@@ -36,7 +38,11 @@ public sealed class TrainTracker : IDisposable {
     subscription = disposer;
   }
 
-
+  internal string Serialize() => JsonConvert.SerializeObject(trainLocations.Select(x => new {
+    TrainId = x.Train.Address,
+    TrainName = x.Train.Name,
+    SectionIds = x.OccupiedConnections.Select(y => y.ViaSection.SectionId).ToHashSet()
+  }));
 
   public void Dispose() => subscription?.Dispose();
   public void AddTrain(Train train, IEnumerable<TrackConnection> sections) {

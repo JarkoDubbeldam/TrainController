@@ -20,26 +20,16 @@ namespace TrainTrackerTester {
 
       containerBuilder.RegisterModule(new TrainRepositoryModule(endpoint));
       containerBuilder.RegisterModule<TrainTrackerModule>();
+      containerBuilder.RegisterModule<TrackModule>();
       using var disposable = new CompositeDisposable();
       var container = containerBuilder.Build();
       container.DisposeWith(disposable);
 
       var json = await File.ReadAllTextAsync("layoutv4.json");
-      var trackRepository = TrackRepository.FromJson(json);
-      var client = container.Resolve<IZ21Client>();
-      trackRepository.SetupSubscriptions(client).DisposeWith(disposable);
-      var trainRepository = container.Resolve<IRepository<Train>>();
-      var train = await trainRepository.RegisterObject(5, "NS Traxx");
-      var currentSection = trackRepository.Boundaries
-        .SelectMany(x => x.Connections)
-        .Distinct()
-        .Where(x => x.ViaSection.SectionId == startingSection);
-      var tracker = container.Resolve<TrainTracker.TrainTracker>();
-      tracker.Setup(trackRepository);
-
-      await client.GetOccupancyStatus(new Z21.API.OccupancyStatusRequest { GroupIndex = 0 });
+      var trackRepository = container.Resolve<Func<string, TrackRepository>>()(json);
+      var trackerRepository = await container.Resolve<TrainTrackerFactory>().Build("occupancies.json");
+      
       await Task.Delay(10000);
-      tracker.AddTrain(train, currentSection);
 
       Console.WriteLine("Done setting up. Press any key to exit.");
       Console.ReadLine();

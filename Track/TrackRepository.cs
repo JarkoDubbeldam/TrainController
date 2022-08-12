@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
-
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 using ReactiveUI;
@@ -14,10 +14,11 @@ using Z21.API;
 using Z21.Domain;
 
 namespace Track {
-  public class TrackRepository : ITrackRepository {
+  public class TrackRepository : ITrackRepository, IDisposable {
     private readonly Dictionary<int, TrackSection> trackSections;
     private readonly Dictionary<int, TrackSectionBoundary> boundaries;
     private readonly ILookup<int, TurnoutConfiguration> turnouts;
+    private CompositeDisposable subscription;
 
     private TrackRepository(Dictionary<int, TrackSection> trackSections, Dictionary<int, TrackSectionBoundary> boundaries) {
       this.trackSections = trackSections;
@@ -28,7 +29,7 @@ namespace Track {
     public IReadOnlyCollection<TrackSection> Sections => trackSections.Values;
     public IReadOnlyCollection<TrackSectionBoundary> Boundaries => boundaries.Values;
 
-    public IDisposable SetupSubscriptions(IZ21Client client) {
+    private void SetupSubscriptions(IZ21Client client) {
       var disposer = new CompositeDisposable();
       client.TurnoutInformationChanged
         .Subscribe(x => {
@@ -72,10 +73,10 @@ namespace Track {
           .DisposeWith(disposer);
       }
 
-      return disposer;
+      subscription = disposer;
     }
 
-    public static TrackRepository FromJson(string json) {
+    internal static TrackRepository FromJson(string json, IZ21Client client, ILogger<SignalConfiguration> logger) {
       var halfParsed = JObject.Parse(json);
       var boundariesDict = halfParsed["Boundaries"].ToDictionary(x => x["Id"], y => new TrackSectionBoundary {
         Id = y["Id"].ToObject<int>()
@@ -84,7 +85,7 @@ namespace Track {
       foreach (var item in halfParsed["Boundaries"]) {
         var boundary = boundariesDict[item["Id"]];
         boundary.Connections = item["Connections"]
-          .Select(x => DeserializeTrackConnection(x, boundariesDict))
+          .Select(x => DeserializeTrackConnection(x, boundariesDict, logger))
           .ToList();
       }
       var sections = boundariesDict.Values
@@ -106,22 +107,24 @@ namespace Track {
         }
       }
 
-      return new TrackRepository(sections, boundariesDict.ToDictionary(x => x.Key.ToObject<int>(), x => x.Value));
+      var repos = new TrackRepository(sections, boundariesDict.ToDictionary(x => x.Key.ToObject<int>(), x => x.Value));
+      repos.SetupSubscriptions(client);
+      return repos;
     }
 
-    private static TrackConnection DeserializeTrackConnection(JToken token, Dictionary<JToken, TrackSectionBoundary> boundariesDict) {
+    private static TrackConnection DeserializeTrackConnection(JToken token, Dictionary<JToken, TrackSectionBoundary> boundariesDict, ILogger<SignalConfiguration> logger) {
       return new TrackConnection {
         ViaSection = DeserializeTrackSection(token["ViaSection"]),
         ToBoundary = boundariesDict[token["ToBoundaryId"]],
-        Signal = DeserializeSignalConfiguration(token["Signal"])
+        Signal = DeserializeSignalConfiguration(token["Signal"], logger)
       };
     }
 
-    private static SignalConfiguration DeserializeSignalConfiguration(JToken token) {
+    private static SignalConfiguration DeserializeSignalConfiguration(JToken token, ILogger<SignalConfiguration> logger) {
       if (token == null) {
         return null;
       }
-      return new SignalConfiguration(token["Id"].ToObject<int>(), token["SectionLength"]?.ToObject<int>() ?? 7);
+      return new SignalConfiguration(token["Id"].ToObject<int>(), token["SectionLength"]?.ToObject<int>() ?? 7, logger);
     }
 
     private static TrackSection DeserializeTrackSection(JToken token) {
@@ -136,5 +139,7 @@ namespace Track {
     private static TurnoutConfiguration DeserializeTurnoutConfiguration(JToken token) {
       return new TurnoutConfiguration { TurnoutId = token["TurnoutId"].ToObject<int>(), TurnoutMode = token["TurnoutMode"].ToObject<TurnoutMode>() };
     }
+
+    public void Dispose() => subscription.Dispose();
   }
 }

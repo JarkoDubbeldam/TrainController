@@ -23,6 +23,9 @@ namespace TrainUI.ViewModels {
     }
 
     [DataMember]
+    public string OccupancyFileName { get; set; }
+
+    [DataMember]
     public TrackViewModel Track { get => track; set => this.RaiseAndSetIfChanged(ref track, value); }
 
     [DataMember]

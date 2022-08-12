@@ -8,7 +8,10 @@ using Autofac;
 namespace TrainTracker;
 public class TrainTrackerModule : Module {
   protected override void Load(ContainerBuilder builder) {
-    builder.RegisterType<TrainTracker>();
+    builder.RegisterType<TrainTrackerFactory>().SingleInstance();
+    builder.Register<Func<string, Task<TrainTracker>>>(c => {
+      return s => c.Resolve<TrainTrackerFactory>().Build(s);
+    });
     base.Load(builder);
   }
 }
