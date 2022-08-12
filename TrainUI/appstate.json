@@ -1,5 +1,6 @@
 {
   "$type": "TrainUI.ViewModels.MainWindowViewModel, TrainUI",
+  "OccupancyFileName": "occupancies.json",
   "Track": {
     "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType, TrainUI",
     "BoundaryLocations": {

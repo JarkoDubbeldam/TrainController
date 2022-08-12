@@ -7,7 +7,7 @@ using Avalonia;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using Splat;
 using Track;
 
 using TrainUI.Models;
@@ -30,7 +30,7 @@ namespace TrainUI.Converters {
       using (var _ = typedValue.SuppressChangeNotifications()) {
         typedValue.TrackPiecesJson = json;
       }
-      var repos = TrackRepository.FromJson(json);
+      var repos = Locator.Current.GetService<Func<string, TrackRepository>>()(json);
       var boundaryLocations = jobject["BoundaryLocations"].ToObject<Dictionary<int, TrackSectionBoundaryModel>>();
       var sectionLocations = jobject["SectionLocations"]
         .Skip(1)
