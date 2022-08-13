@@ -49,21 +49,6 @@ public sealed class TrainStopper : IDisposable {
       logger.LogDebug("Train {train} is standing still.", trainLocation.Train.Name);
       return false;
     } else {
-      // Check if any sections contain a red signal.
-      var redSignals = trainLocation
-        .OccupiedConnections
-        .Select(connection => connection.Signal)
-        .Where(signal => signal != null)
-        .Where(signal => signal!.SignalState == SignalColour.Red)
-        .ToList();
-      if (redSignals.Any()) {
-        logger.LogInformation(
-          "Train {train} is in front of a red signal. {signalId}",
-          trainLocation.Train.Name, redSignals.First()!.Id
-        );
-        // return true;
-      }  
-
       // Check if all possible next segments are active and unoccupied
       foreach(var occupiedSection in trainLocation.OccupiedConnections) {
         var nextSection = occupiedSection.WalkActiveSections().First();
@@ -78,15 +63,23 @@ public sealed class TrainStopper : IDisposable {
         }
         // Check if next section is occupied by another train than current.
         var isOccupied = nextSection.TrackConnection.ViaSection.IsOccupied;
+        var hasRedSignal = occupiedSection.Signal?.SignalState == SignalColour.Red;
         var isNotAlreadyOccupiedByThisTrain = !trainLocation.OccupiedConnections
           .Select(o => o.ViaSection.SectionId)
           .Contains(nextSection.TrackConnection.ViaSection.SectionId);
         var isOccupiedByAnotherTrain = isOccupied && isNotAlreadyOccupiedByThisTrain;
+        var hasRedSignalNotDueToThisTrain = hasRedSignal && isNotAlreadyOccupiedByThisTrain;
         if(isOccupiedByAnotherTrain) {
           logger.LogInformation(
             "Next section {section} for train {train} is occupied.",
             nextSection.TrackConnection.ViaSection.SectionId,
             trainLocation.Train.Name
+          );
+          return true;
+        } else if (hasRedSignalNotDueToThisTrain) {
+          logger.LogInformation(
+            "Train {train} is in front of a red signal. {signalId}",
+            trainLocation.Train.Name, occupiedSection.Signal!.Id
           );
           return true;
         }
