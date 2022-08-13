@@ -7,6 +7,7 @@ using Autofac;
 
 using Newtonsoft.Json;
 using Track;
+using TrainController;
 using TrainRepository;
 using TrainTracker;
 using TrainUI.Converters;
@@ -22,6 +23,7 @@ namespace TrainUI {
       builder.RegisterModule(new TrainRepositoryModule(endpoint));
       builder.RegisterModule<TrainTrackerModule>();
       builder.RegisterModule<TrackModule>();
+      builder.RegisterModule<TrainControllerModule>();
       builder.RegisterAssemblyTypes(ThisAssembly).Where(x => x.Namespace == typeof(MainWindowViewModel).Namespace);
       builder.RegisterAssemblyTypes(ThisAssembly).Where(x => x.IsAssignableTo<JsonConverter>()).As<JsonConverter>().AsSelf();
       builder.RegisterType<JsonSuspensionDriver>();

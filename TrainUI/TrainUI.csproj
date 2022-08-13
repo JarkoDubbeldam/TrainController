@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Track\Track.csproj" />
+    <ProjectReference Include="..\TrainController\TrainController.csproj" />
     <ProjectReference Include="..\TrainRepository\TrainRepository.csproj" />
     <ProjectReference Include="..\TrainTracker\TrainTracker.csproj" />
     <ProjectReference Include="..\Z21\Z21.csproj" />

@@ -39,10 +39,12 @@ namespace Z21.Domain {
       }
     }
 
+
     public SpeedStepSetting SpeedStepSetting => speedStepSetting;
     public DrivingDirection DrivingDirection => drivingDirection;
     public Speed Speed => speed;
 
+    public TrainSpeed WithSpeed(Speed speed) => new(speedStepSetting, drivingDirection, speed);
 
     internal byte ToSpeedByte() {
       var directionByte = ((byte)DrivingDirection << 7);

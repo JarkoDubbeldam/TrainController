@@ -42,6 +42,8 @@ public sealed class TrainTracker : IDisposable {
     SectionIds = x.OccupiedConnections.Select(y => y.ViaSection.SectionId).ToHashSet()
   }));
 
+  public IReadOnlyCollection<TrainLocation> TrainLocations => trainLocations;
+
   public void Dispose() => subscription?.Dispose();
   public void AddTrain(Train train, IEnumerable<TrackConnection> sections) {
     var location = new TrainLocation(train, sections);
