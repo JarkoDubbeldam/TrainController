@@ -42,7 +42,7 @@ public sealed class TrainTrackerFactory : IAsyncDisposable {
     }
   });
 
-  public TrainTracker GetAny() => cache.Values.First().GetAwaiter().GetResult();
+  public Task<TrainTracker> GetAny() => cache.Values.First();
 
   public async ValueTask DisposeAsync() {
     foreach(var element in cache) {
