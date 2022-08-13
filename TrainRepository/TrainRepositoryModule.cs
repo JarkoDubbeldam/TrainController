@@ -20,7 +20,7 @@ namespace TrainRepository {
     protected override void Load(ContainerBuilder builder) {
       var serviceCollection = new ServiceCollection();
       serviceCollection.AddLogging(b => {
-        b.SetMinimumLevel(LogLevel.Debug);
+        b.SetMinimumLevel(LogLevel.Information);
         b.AddConsole();
       });
       builder.Populate(serviceCollection);

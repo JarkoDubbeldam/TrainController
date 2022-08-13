@@ -12,7 +12,7 @@ using TrainRepository;
 
 namespace TrainTracker;
 public sealed class TrainTracker : IDisposable {
-  private CompositeDisposable subscription;
+  private CompositeDisposable subscription = new();
   private readonly List<TrainLocation> trainLocations = new();
   private readonly ILogger<TrainTracker> logger;
 
@@ -21,7 +21,6 @@ public sealed class TrainTracker : IDisposable {
   }
 
   public void Setup(TrackRepository trackRepository) {
-    var disposer = new CompositeDisposable();
     foreach (var section in trackRepository.Sections) {
       section.WhenAnyValue(x => x.IsOccupied)
         .DistinctUntilChanged()
@@ -33,9 +32,8 @@ public sealed class TrainTracker : IDisposable {
             }
           }
         })
-        .DisposeWith(disposer);
+        .DisposeWith(subscription);
     }
-    subscription = disposer;
   }
 
   internal string Serialize() => JsonConvert.SerializeObject(trainLocations.Select(x => new {

@@ -20,6 +20,7 @@ public sealed class TrainTrackerFactory : IAsyncDisposable {
   }
 
   public Task<TrainTracker> Build(string fileName) => cache.GetOrAdd(fileName, async f => {
+    try{
     var json = await File.ReadAllTextAsync(f);
     var tracker = new TrainTracker(lifetimeScope.Resolve<ILogger<TrainTracker>>());
     var data = JsonConvert.DeserializeObject<IEnumerable<JsonData>>(json);
@@ -35,6 +36,10 @@ public sealed class TrainTrackerFactory : IAsyncDisposable {
     }
     tracker.Setup(track);
     return tracker;
+    } catch(Exception e){
+      lifetimeScope.Resolve<ILogger<TrainTrackerFactory>>().LogError(e, "Oops");
+      throw;
+    }
   });
 
   public TrainTracker GetAny() => cache.Values.First().GetAwaiter().GetResult();

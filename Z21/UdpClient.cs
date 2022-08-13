@@ -39,7 +39,7 @@ namespace Z21 {
     }
 
     public void SendBytes(byte[] bytes) {
-      logger.LogInformation($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
+      logger.LogDebug($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
       sysClient.Send(bytes, bytes.Length, endpoint);
     }
 
