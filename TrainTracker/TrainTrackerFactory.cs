@@ -36,6 +36,9 @@ public sealed class TrainTrackerFactory : IAsyncDisposable {
     tracker.Setup(track);
     return tracker;
   });
+
+  public TrainTracker GetAny() => cache.Values.First().GetAwaiter().GetResult();
+
   public async ValueTask DisposeAsync() {
     foreach(var element in cache) {
       await File.WriteAllTextAsync(element.Key, (await element.Value).Serialize());

@@ -12,6 +12,10 @@ public class TrainTrackerModule : Module {
     builder.Register<Func<string, Task<TrainTracker>>>(c => {
       return s => c.Resolve<TrainTrackerFactory>().Build(s);
     });
+    builder.Register(c => {
+      var factory = c.Resolve<TrainTrackerFactory>();
+      return factory.GetAny();
+    });
     base.Load(builder);
   }
 }
