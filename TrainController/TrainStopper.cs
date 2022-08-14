@@ -9,6 +9,7 @@ public sealed class TrainStopper : IDisposable {
   private readonly ILogger<TrainStopper> logger;
   private readonly CancellationTokenSource cts;
   private readonly TimeSpan checkInterval = TimeSpan.FromMilliseconds(100);
+  private readonly Dictionary<int, bool> previousCheck = new();
 
   public TrainStopper(Task<TrainTracker.TrainTracker> trainTracker, ILogger<TrainStopper> logger) {
     this.trainTracker = trainTracker;
@@ -34,10 +35,14 @@ public sealed class TrainStopper : IDisposable {
   private void CheckAll(TrainTracker.TrainTracker trainTracker) {
     foreach(var trainLocation in trainTracker.TrainLocations) {
       try {
-        if (DetermineIfStopNeeded(trainLocation)) {
+        var stopNeeded = DetermineIfStopNeeded(trainLocation);
+        previousCheck.TryGetValue(trainLocation.Train.Address, out var lastRound);
+        // Stop if this check and previous check returned true. This is to smooth over racey conditions.
+        if (lastRound && stopNeeded) {
           logger.LogInformation("Stopping train {train}.", trainLocation.Train.Name);
           trainLocation.Train.SetSpeed(trainLocation.Train.Speed.WithSpeed(Speed.Stop));
         }
+        previousCheck[trainLocation.Train.Address] = stopNeeded;
       } catch(Exception e){
         logger.LogError(e, "oops");
       }
