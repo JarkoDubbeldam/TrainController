@@ -5,13 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReactiveUI" Version="14.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Z21\Z21.csproj" />
+    <ProjectReference Include="..\Track\Track.csproj" />
+    <ProjectReference Include="..\TrainRepository\TrainRepository.csproj" />
   </ItemGroup>
 
 </Project>

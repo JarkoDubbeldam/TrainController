@@ -14,9 +14,9 @@ using Newtonsoft.Json;
 using ReactiveUI;
 
 using Splat;
-
+using TrainController;
 using TrainRepository;
-
+using TrainTracker;
 using TrainUI.Converters;
 using TrainUI.ViewModels;
 using TrainUI.Views;
@@ -43,6 +43,8 @@ namespace TrainUI {
 
       // Load the saved view model state.
       var state = RxApp.SuspensionHost.GetAppState<MainWindowViewModel>();
+      Locator.Current.GetService<TrainTrackerFactory>().Build(state.OccupancyFileName);
+      Locator.Current.GetService<TrainStopper>();
       new MainWindow { DataContext = state }.Show();
       base.OnFrameworkInitializationCompleted();
     }

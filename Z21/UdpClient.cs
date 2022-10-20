@@ -6,20 +6,22 @@ using System.Net;
 using System.Net.Sockets;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 using SysClient = System.Net.Sockets.UdpClient;
 
 namespace Z21 {
   public class UdpClient : IUdpClient {
     private readonly SysClient sysClient;
     private IPEndPoint endpoint;
+    private readonly ILogger<UdpClient> logger;
     private readonly UdpObservable listener;
     private readonly IObservable<byte[]> instream;
 
-    public UdpClient(SysClient sysClient, IPEndPoint endpoint) {
+    public UdpClient(SysClient sysClient, IPEndPoint endpoint, ILogger<UdpClient> logger) {
       this.sysClient = sysClient;
       this.endpoint = endpoint;
-      listener = new UdpObservable(sysClient);
+      this.logger = logger;
+      listener = new UdpObservable(sysClient, logger);
       instream = listener.SelectMany(SplitMessages);
     }
 
@@ -37,7 +39,7 @@ namespace Z21 {
     }
 
     public void SendBytes(byte[] bytes) {
-      Debug.WriteLine($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
+      logger.LogDebug($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
       sysClient.Send(bytes, bytes.Length, endpoint);
     }
 

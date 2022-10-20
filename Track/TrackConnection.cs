@@ -11,7 +11,7 @@ namespace Track {
     internal List<TrackConnection> GetNextSections() =>
       ToBoundary.Connections.Where(x => x.ViaSection.SectionId != ViaSection.SectionId).ToList();
     
-    internal IEnumerable<TrackConnectionIterator> WalkActiveSections() {
+    public IEnumerable<TrackConnectionIterator> WalkActiveSections() {
       var current = new TrackConnectionIterator(this);
       while(current.TrackConnectionState == TrackConnectionIterator.TrackConnectionStateEnum.Active) {
         current = current.Next();
@@ -19,7 +19,7 @@ namespace Track {
       }
     }
 
-    internal class TrackConnectionIterator {
+    public class TrackConnectionIterator {
       private readonly TrackConnection trackConnection;
 
       internal TrackConnectionIterator(TrackConnection trackConnection) {

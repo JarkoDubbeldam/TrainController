@@ -6,19 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 using SysClient = System.Net.Sockets.UdpClient;
 
 namespace Z21 {
   internal class UdpObservable : IObservable<byte[]>, IDisposable {
     private readonly SysClient sysClient;
+    private readonly ILogger<UdpClient> logger;
     private readonly ConcurrentDictionary<IObserver<byte[]>, IDisposable> observers = new ConcurrentDictionary<IObserver<byte[]>, IDisposable>();
     private readonly CancellationTokenSource cts;
     private readonly Task listenTask;
     private bool disposedValue;
 
-    public UdpObservable(SysClient sysClient) {
+    public UdpObservable(SysClient sysClient, ILogger<UdpClient> logger) {
       this.sysClient = sysClient;
+      this.logger = logger;
       cts = new CancellationTokenSource();
       listenTask = Task.Run(() => RunLoop(cts.Token), cts.Token);
     }
@@ -30,11 +32,11 @@ namespace Z21 {
     private async Task RunLoop(CancellationToken cancellationToken) {
       var number = 1;
       while (!cancellationToken.IsCancellationRequested) {
-        Debug.WriteLine($"{number}: Starting Listening");
+        logger.LogDebug($"{number}: Starting Listening");
         var message = await sysClient.ReceiveAsync();
         var x = number;
         _ = Task.Run(() => {
-          Debug.WriteLine($"{x}: Received {string.Join(' ', message.Buffer.Select(x => x.ToString()))}");
+          logger.LogDebug($"{x}: Received {string.Join(' ', message.Buffer.Select(x => x.ToString()))}");
           foreach (var observer in observers.Keys) {
             observer.OnNext(message.Buffer);
           }

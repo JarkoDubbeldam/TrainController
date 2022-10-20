@@ -1,5 +1,1881 @@
 {
   "$type": "TrainUI.ViewModels.MainWindowViewModel, TrainUI",
+  "OccupancyFileName": "occupancies.json",
+  "Track": {
+    "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType, TrainUI",
+    "BoundaryLocations": {
+      "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, System.Private.CoreLib],[TrainUI.Models.TrackSectionBoundaryModel, TrainUI]], System.Private.CoreLib",
+      "1": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1201.0,
+          "Y": 156.0
+        },
+        "Id": 1
+      },
+      "11": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 842.0,
+          "Y": 147.0
+        },
+        "Id": 11
+      },
+      "4": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1149.0,
+          "Y": 89.0
+        },
+        "Id": 4
+      },
+      "2": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1168.0,
+          "Y": 66.0
+        },
+        "Id": 2
+      },
+      "6": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1147.0,
+          "Y": 108.0
+        },
+        "Id": 6
+      },
+      "27": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 685.0,
+          "Y": 249.0
+        },
+        "Id": 27
+      },
+      "3": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 921.0,
+          "Y": 56.0
+        },
+        "Id": 3
+      },
+      "8": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 849.0,
+          "Y": 53.0
+        },
+        "Id": 8
+      },
+      "5": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 922.0,
+          "Y": 83.0
+        },
+        "Id": 5
+      },
+      "9": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 848.0,
+          "Y": 86.0
+        },
+        "Id": 9
+      },
+      "7": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 887.0,
+          "Y": 114.0
+        },
+        "Id": 7
+      },
+      "10": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 839.0,
+          "Y": 117.0
+        },
+        "Id": 10
+      },
+      "12": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 637.0,
+          "Y": 44.0
+        },
+        "Id": 12
+      },
+      "13": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 642.0,
+          "Y": 71.0
+        },
+        "Id": 13
+      },
+      "14": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 635.0,
+          "Y": 110.0
+        },
+        "Id": 14
+      },
+      "15": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 621.0,
+          "Y": 152.0
+        },
+        "Id": 15
+      },
+      "16": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 247.0,
+          "Y": 104.0
+        },
+        "Id": 16
+      },
+      "17": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 263.0,
+          "Y": 124.0
+        },
+        "Id": 17
+      },
+      "18": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 274.0,
+          "Y": 154.0
+        },
+        "Id": 18
+      },
+      "22": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 213.0,
+          "Y": 200.0
+        },
+        "Id": 22
+      },
+      "19": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 155.0,
+          "Y": 133.0
+        },
+        "Id": 19
+      },
+      "20": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 168.0,
+          "Y": 157.0
+        },
+        "Id": 20
+      },
+      "21": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 199.0,
+          "Y": 171.0
+        },
+        "Id": 21
+      },
+      "23": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 66.0,
+          "Y": 264.0
+        },
+        "Id": 23
+      },
+      "24": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 31.0,
+          "Y": 303.0
+        },
+        "Id": 24
+      },
+      "25": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 32.0,
+          "Y": 346.0
+        },
+        "Id": 25
+      },
+      "26": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 109.0,
+          "Y": 421.0
+        },
+        "Id": 26
+      },
+      "39": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 228.0,
+          "Y": 431.0
+        },
+        "Id": 39
+      },
+      "28": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 191.0,
+          "Y": 331.0
+        },
+        "Id": 28
+      },
+      "29": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 233.0,
+          "Y": 393.0
+        },
+        "Id": 29
+      },
+      "38": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 264.0,
+          "Y": 421.0
+        },
+        "Id": 38
+      },
+      "30": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 321.0,
+          "Y": 414.0
+        },
+        "Id": 30
+      },
+      "33": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 320.0,
+          "Y": 391.0
+        },
+        "Id": 33
+      },
+      "31": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 383.0,
+          "Y": 461.0
+        },
+        "Id": 31
+      },
+      "32": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 473.0,
+          "Y": 522.0
+        },
+        "Id": 32
+      },
+      "37": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 524.0,
+          "Y": 543.0
+        },
+        "Id": 37
+      },
+      "34": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 387.0,
+          "Y": 414.0
+        },
+        "Id": 34
+      },
+      "35": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 461.0,
+          "Y": 465.0
+        },
+        "Id": 35
+      },
+      "36": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 526.0,
+          "Y": 508.0
+        },
+        "Id": 36
+      },
+      "56": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 660.0,
+          "Y": 547.0
+        },
+        "Id": 56
+      },
+      "43": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 288.0,
+          "Y": 451.0
+        },
+        "Id": 43
+      },
+      "40": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 300.0,
+          "Y": 430.0
+        },
+        "Id": 40
+      },
+      "41": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 321.0,
+          "Y": 443.0
+        },
+        "Id": 41
+      },
+      "42": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 418.0,
+          "Y": 520.0
+        },
+        "Id": 42
+      },
+      "47": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 476.0,
+          "Y": 562.0
+        },
+        "Id": 47
+      },
+      "44": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 311.0,
+          "Y": 475.0
+        },
+        "Id": 44
+      },
+      "45": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 383.0,
+          "Y": 539.0
+        },
+        "Id": 45
+      },
+      "46": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 440.0,
+          "Y": 582.0
+        },
+        "Id": 46
+      },
+      "70": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 550.0,
+          "Y": 611.0
+        },
+        "Id": 70
+      },
+      "57": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 529.0,
+          "Y": 633.0
+        },
+        "Id": 57
+      },
+      "49": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 618.0,
+          "Y": 602.0
+        },
+        "Id": 49
+      },
+      "48": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 622.0,
+          "Y": 572.0
+        },
+        "Id": 48
+      },
+      "50": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 739.0,
+          "Y": 599.0
+        },
+        "Id": 50
+      },
+      "51": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 820.0,
+          "Y": 578.0
+        },
+        "Id": 51
+      },
+      "52": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 915.0,
+          "Y": 502.0
+        },
+        "Id": 52
+      },
+      "60": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 776.0,
+          "Y": 610.0
+        },
+        "Id": 60
+      },
+      "53": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 891.0,
+          "Y": 390.0
+        },
+        "Id": 53
+      },
+      "54": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 781.0,
+          "Y": 379.0
+        },
+        "Id": 54
+      },
+      "55": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 747.0,
+          "Y": 476.0
+        },
+        "Id": 55
+      },
+      "58": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 426.0,
+          "Y": 616.0
+        },
+        "Id": 58
+      },
+      "59": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 679.0,
+          "Y": 647.0
+        },
+        "Id": 59
+      },
+      "61": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 396.0,
+          "Y": 632.0
+        },
+        "Id": 61
+      },
+      "62": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 279.0,
+          "Y": 609.0
+        },
+        "Id": 62
+      },
+      "63": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 281.0,
+          "Y": 587.0
+        },
+        "Id": 63
+      },
+      "66": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 292.0,
+          "Y": 650.0
+        },
+        "Id": 66
+      },
+      "67": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 307.0,
+          "Y": 673.0
+        },
+        "Id": 67
+      },
+      "64": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 75.0,
+          "Y": 609.0
+        },
+        "Id": 64
+      },
+      "65": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 74.0,
+          "Y": 580.0
+        },
+        "Id": 65
+      },
+      "68": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 76.0,
+          "Y": 647.0
+        },
+        "Id": 68
+      },
+      "69": {
+        "$type": "TrainUI.Models.TrackSectionBoundaryModel, TrainUI",
+        "Location": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 72.0,
+          "Y": 673.0
+        },
+        "Id": 69
+      }
+    },
+    "LayoutJson": "{  \"Boundaries\": [    {      \"Id\": 1,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 1,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 8,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 11        },        {          \"ViaSection\": {            \"Id\": 2,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 4        },        {          \"ViaSection\": {            \"Id\": 3,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 2        },        {          \"ViaSection\": {            \"Id\": 4,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 8,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 6        },        {          \"ViaSection\": {            \"Id\": 42,            \"SectionId\": 30,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 27        }      ]    },    {      \"Id\": 2,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 3,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 1        },        {          \"ViaSection\": {            \"Id\": 5,            \"SectionId\": 10,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 3        }      ]    },    {      \"Id\": 3,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 5,            \"SectionId\": 10,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 2        },        {          \"ViaSection\": {            \"Id\": 6,            \"SectionId\": 12,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 8        }      ]    },    {      \"Id\": 4,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 2,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 1        },        {          \"ViaSection\": {            \"Id\": 7,            \"SectionId\": 9,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 5        }      ]    },    {      \"Id\": 5,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 7,            \"SectionId\": 9,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 4        },        {          \"ViaSection\": {            \"Id\": 8,            \"SectionId\": 13,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 9        }      ]    },    {      \"Id\": 6,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 4,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 8,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 1        },        {          \"ViaSection\": {            \"Id\": 9,            \"SectionId\": 8,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 7        }      ]    },    {      \"Id\": 7,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 9,            \"SectionId\": 8,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 6        },        {          \"ViaSection\": {            \"Id\": 10,            \"SectionId\": 14,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 10        }      ]    },    {      \"Id\": 8,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 6,            \"SectionId\": 12,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 3        },        {          \"ViaSection\": {            \"Id\": 11,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 12        },        {          \"ViaSection\": {            \"Id\": 12,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 13        },        {          \"ViaSection\": {            \"Id\": 13,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 14        },        {          \"ViaSection\": {            \"Id\": 14,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 15        }      ]    },    {      \"Id\": 9,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 8,            \"SectionId\": 13,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 5        },        {          \"ViaSection\": {            \"Id\": 15,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 12        },        {          \"ViaSection\": {            \"Id\": 16,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 13        },        {          \"ViaSection\": {            \"Id\": 17,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 14        },        {          \"ViaSection\": {            \"Id\": 18,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 15        }      ]    },    {      \"Id\": 10,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 10,            \"SectionId\": 14,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 7        },        {          \"ViaSection\": {            \"Id\": 19,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 12        },        {          \"ViaSection\": {            \"Id\": 20,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 13        },        {          \"ViaSection\": {            \"Id\": 21,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 14        },        {          \"ViaSection\": {            \"Id\": 22,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 15        }      ]    },    {      \"Id\": 11,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 1,            \"SectionId\": 11,            \"Turnouts\": [              {                \"TurnoutId\": 10,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 9,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 8,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 1        },        {          \"ViaSection\": {            \"Id\": 23,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 12        },        {          \"ViaSection\": {            \"Id\": 24,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 13        },        {          \"ViaSection\": {            \"Id\": 25,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 14        },        {          \"ViaSection\": {            \"Id\": 26,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 15        }      ]    },    {      \"Id\": 12,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 11,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 8        },        {          \"ViaSection\": {            \"Id\": 15,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 9        },        {          \"ViaSection\": {            \"Id\": 19,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 10        },        {          \"ViaSection\": {            \"Id\": 23,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 11        },        {          \"ViaSection\": {            \"Id\": 27,            \"SectionId\": 6,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 16        }      ]    },    {      \"Id\": 13,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 12,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 8        },        {          \"ViaSection\": {            \"Id\": 16,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 9        },        {          \"ViaSection\": {            \"Id\": 20,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 10        },        {          \"ViaSection\": {            \"Id\": 24,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 11        },        {          \"ViaSection\": {            \"Id\": 28,            \"SectionId\": 5,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 17        }      ]    },    {      \"Id\": 14,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 13,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 8        },        {          \"ViaSection\": {            \"Id\": 17,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 9        },        {          \"ViaSection\": {            \"Id\": 21,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 10        },        {          \"ViaSection\": {            \"Id\": 25,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 11        },        {          \"ViaSection\": {            \"Id\": 29,            \"SectionId\": 4,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 18        }      ]    },    {      \"Id\": 15,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 14,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 8        },        {          \"ViaSection\": {            \"Id\": 18,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 2,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 1,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 9        },        {          \"ViaSection\": {            \"Id\": 22,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 1,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 0,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 10        },        {          \"ViaSection\": {            \"Id\": 26,            \"SectionId\": 7,            \"Turnouts\": [              {                \"TurnoutId\": 0,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 7,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 6,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 5,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 11        },        {          \"ViaSection\": {            \"Id\": 30,            \"SectionId\": 3,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 22        }      ]    },    {      \"Id\": 16,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 27,            \"SectionId\": 6,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 12        },        {          \"ViaSection\": {            \"Id\": 31,            \"SectionId\": 2,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 19        }      ]    },    {      \"Id\": 17,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 28,            \"SectionId\": 5,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 13        },        {          \"ViaSection\": {            \"Id\": 32,            \"SectionId\": 1,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 20        }      ]    },    {      \"Id\": 18,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 29,            \"SectionId\": 4,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 14        },        {          \"ViaSection\": {            \"Id\": 33,            \"SectionId\": 0,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 21        }      ]    },    {      \"Id\": 19,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 31,            \"SectionId\": 2,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 16        },        {          \"ViaSection\": {            \"Id\": 34,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 15,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 14,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 23        }      ]    },    {      \"Id\": 20,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 32,            \"SectionId\": 1,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 17        },        {          \"ViaSection\": {            \"Id\": 35,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 15,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 14,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 23        }      ]    },    {      \"Id\": 21,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 33,            \"SectionId\": 0,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 18        },        {          \"ViaSection\": {            \"Id\": 36,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 14,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 23        }      ]    },    {      \"Id\": 22,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 30,            \"SectionId\": 3,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 15        },        {          \"ViaSection\": {            \"Id\": 37,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 13,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 23        }      ]    },    {      \"Id\": 23,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 34,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 15,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 14,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 19        },        {          \"ViaSection\": {            \"Id\": 35,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 15,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 14,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 20        },        {          \"ViaSection\": {            \"Id\": 36,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 14,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 13,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 21        },        {          \"ViaSection\": {            \"Id\": 37,            \"SectionId\": 15,            \"Turnouts\": [              {                \"TurnoutId\": 13,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 22        },        {          \"ViaSection\": {            \"Id\": 38,            \"SectionId\": 31,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 24        }      ]    },    {      \"Id\": 24,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 38,            \"SectionId\": 31,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 23        },        {          \"ViaSection\": {            \"Id\": 39,            \"SectionId\": 17,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 25        }      ]    },    {      \"Id\": 25,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 39,            \"SectionId\": 17,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 24        },        {          \"ViaSection\": {            \"Id\": 40,            \"SectionId\": 16,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 26        }      ]    },    {      \"Id\": 26,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 40,            \"SectionId\": 16,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 25        },        {          \"ViaSection\": {            \"Id\": 41,            \"SectionId\": 48,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 39        }      ]    },    {      \"Id\": 27,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 42,            \"SectionId\": 30,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 1        },        {          \"ViaSection\": {            \"Id\": 43,            \"SectionId\": 29,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 28        }      ]    },    {      \"Id\": 28,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 43,            \"SectionId\": 29,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 27        },        {          \"ViaSection\": {            \"Id\": 44,            \"SectionId\": 49,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 29        }      ]    },    {      \"Id\": 29,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 44,            \"SectionId\": 49,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 28        },        {          \"ViaSection\": {            \"Id\": 45,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 38        },        {          \"ViaSection\": {            \"Id\": 46,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 3,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 30        },        {          \"ViaSection\": {            \"Id\": 47,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 3,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 33        }      ]    },    {      \"Id\": 30,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 46,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 3,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 29        },        {          \"ViaSection\": {            \"Id\": 48,            \"SectionId\": 55,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 31        }      ]    },    {      \"Id\": 31,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 48,            \"SectionId\": 55,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 30,          \"Signal\": {            \"Id\": 84,            \"SectionLength\": 3          }        },        {          \"ViaSection\": {            \"Id\": 49,            \"SectionId\": 56,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 32        }      ]    },    {      \"Id\": 32,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 49,            \"SectionId\": 56,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 31        },        {          \"ViaSection\": {            \"Id\": 50,            \"SectionId\": 37,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 37        }      ]    },    {      \"Id\": 33,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 47,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 3,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 29        },        {          \"ViaSection\": {            \"Id\": 51,            \"SectionId\": 54,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 34        }      ]    },    {      \"Id\": 34,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 51,            \"SectionId\": 54,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 33,          \"Signal\": {            \"Id\": 80,            \"SectionLength\": 3          }        },        {          \"ViaSection\": {            \"Id\": 52,            \"SectionId\": 36,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 35        }      ]    },    {      \"Id\": 35,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 52,            \"SectionId\": 36,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 34        },        {          \"ViaSection\": {            \"Id\": 53,            \"SectionId\": 35,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 36        }      ]    },    {      \"Id\": 36,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 53,            \"SectionId\": 35,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 35        },        {          \"ViaSection\": {            \"Id\": 54,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 21,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 56        }      ]    },    {      \"Id\": 37,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 50,            \"SectionId\": 37,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 32        },        {          \"ViaSection\": {            \"Id\": 55,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 21,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 56        }      ]    },    {      \"Id\": 38,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 57,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 43        },        {          \"ViaSection\": {            \"Id\": 45,            \"SectionId\": 51,            \"Turnouts\": [              {                \"TurnoutId\": 4,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 29        },        {          \"ViaSection\": {            \"Id\": 59,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 40        }      ]    },    {      \"Id\": 39,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 58,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 43        },        {          \"ViaSection\": {            \"Id\": 41,            \"SectionId\": 48,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 26        },        {          \"ViaSection\": {            \"Id\": 60,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 40        }      ]    },    {      \"Id\": 40,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 59,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 38        },        {          \"ViaSection\": {            \"Id\": 60,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 39        },        {          \"ViaSection\": {            \"Id\": 61,            \"SectionId\": 52,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 41        }      ]    },    {      \"Id\": 41,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 61,            \"SectionId\": 52,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 40,          \"Signal\": {            \"Id\": 88,            \"SectionLength\": 3          }        },        {          \"ViaSection\": {            \"Id\": 62,            \"SectionId\": 33,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 42        }      ]    },    {      \"Id\": 42,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 62,            \"SectionId\": 33,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 41        },        {          \"ViaSection\": {            \"Id\": 63,            \"SectionId\": 32,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 47,          \"Signal\": {            \"Id\": 68,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 43,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 57,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 38        },        {          \"ViaSection\": {            \"Id\": 58,            \"SectionId\": 50,            \"Turnouts\": [              {                \"TurnoutId\": 16,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 17,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 39        },        {          \"ViaSection\": {            \"Id\": 64,            \"SectionId\": 53,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 44        }      ]    },    {      \"Id\": 44,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 64,            \"SectionId\": 53,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 43,          \"Signal\": {            \"Id\": 92,            \"SectionLength\": 3          }        },        {          \"ViaSection\": {            \"Id\": 65,            \"SectionId\": 57,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 45        }      ]    },    {      \"Id\": 45,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 65,            \"SectionId\": 57,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 44        },        {          \"ViaSection\": {            \"Id\": 66,            \"SectionId\": 58,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 46,          \"Signal\": {                        \"Id\": 72,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 46,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 66,            \"SectionId\": 58,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 45        },        {          \"ViaSection\": {            \"Id\": 67,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 20,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 23,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 70        },        {          \"ViaSection\": {            \"Id\": 78,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 57        }      ]    },    {      \"Id\": 47,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 63,            \"SectionId\": 32,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 42        },        {          \"ViaSection\": {            \"Id\": 69,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 49        },        {          \"ViaSection\": {            \"Id\": 70,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 48        }      ]    },    {      \"Id\": 48,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 68,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 70        },        {          \"ViaSection\": {            \"Id\": 70,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 47        },        {          \"ViaSection\": {            \"Id\": 56,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 56        }      ]    },    {      \"Id\": 49,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 99,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 70        },        {          \"ViaSection\": {            \"Id\": 69,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 47        },        {          \"ViaSection\": {            \"Id\": 71,            \"SectionId\": 46,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 50,          \"Signal\": {            \"Id\": 44,            \"SectionLength\": 7          }        }      ]    },    {      \"Id\": 50,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 71,            \"SectionId\": 46,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 49        },        {          \"ViaSection\": {            \"Id\": 72,            \"SectionId\": 47,            \"Turnouts\": [              {                \"TurnoutId\": 11,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 51        }      ]    },    {      \"Id\": 51,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 72,            \"SectionId\": 47,            \"Turnouts\": [              {                \"TurnoutId\": 11,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 50        },        {          \"ViaSection\": {            \"Id\": 73,            \"SectionId\": 45,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 52        },        {          \"ViaSection\": {            \"Id\": 85,            \"SectionId\": 47,            \"Turnouts\": [              {                \"TurnoutId\": 11,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 60        }      ]    },    {      \"Id\": 52,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 73,            \"SectionId\": 45,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 51        },        {          \"ViaSection\": {            \"Id\": 74,            \"SectionId\": 64,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 53        }      ]    },    {      \"Id\": 53,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 74,            \"SectionId\": 64,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 52        },        {          \"ViaSection\": {            \"Id\": 75,            \"SectionId\": 65,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 54        }      ]    },    {      \"Id\": 54,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 75,            \"SectionId\": 65,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 53        },        {          \"ViaSection\": {            \"Id\": 76,            \"SectionId\": 59,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 55        }      ]    },    {      \"Id\": 55,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 76,            \"SectionId\": 59,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 54        },        {          \"ViaSection\": {            \"Id\": 77,            \"SectionId\": 44,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 56        }      ]    },    {      \"Id\": 56,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 77,            \"SectionId\": 44,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 55        },        {          \"ViaSection\": {            \"Id\": 54,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 21,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 36,          \"Signal\": {            \"Id\": 64,            \"SectionLength\": 6          }        },        {          \"ViaSection\": {            \"Id\": 55,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 21,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 37,          \"Signal\": {            \"Id\": 64,            \"SectionLength\": 6          }        },        {          \"ViaSection\": {            \"Id\": 56,            \"SectionId\": 38,            \"Turnouts\": [              {                \"TurnoutId\": 12,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 48,          \"Signal\": {            \"Id\": 64,            \"SectionLength\": 6          }        }      ]    },    {      \"Id\": 57,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 78,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 46        },        {          \"ViaSection\": {            \"Id\": 79,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 58        },        {          \"ViaSection\": {            \"Id\": 80,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 59        }      ]    },    {      \"Id\": 58,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 79,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 57        },        {          \"ViaSection\": {            \"Id\": 82,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 70        },        {          \"ViaSection\": {            \"Id\": 86,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 61        },        {          \"ViaSection\": {            \"Id\": 87,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 28,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 62        },        {          \"ViaSection\": {            \"Id\": 88,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 28,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 63        }      ]    },    {      \"Id\": 59,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 80,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 57        },        {          \"ViaSection\": {            \"Id\": 84,            \"SectionId\": 39,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 60,          \"Signal\": {            \"Id\": 36,            \"SectionLength\": 7          }        },        {          \"ViaSection\": {            \"Id\": 93,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 26,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 66        },        {          \"ViaSection\": {            \"Id\": 94,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 26,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 67        }      ]    },    {      \"Id\": 60,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 84,            \"SectionId\": 39,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 59        },        {          \"ViaSection\": {            \"Id\": 85,            \"SectionId\": 47,            \"Turnouts\": [              {                \"TurnoutId\": 11,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 51        }      ]    },    {      \"Id\": 62,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 87,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 28,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 58        },        {          \"ViaSection\": {            \"Id\": 89,            \"SectionId\": 60,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 64        }      ]    },    {      \"Id\": 64,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 89,            \"SectionId\": 60,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 62,          \"Signal\": {            \"Id\": 52,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 63,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 88,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 28,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 58        },        {          \"ViaSection\": {            \"Id\": 90,            \"SectionId\": 42,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 65        }      ]    },    {      \"Id\": 65,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 90,            \"SectionId\": 42,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 63,          \"Signal\": {            \"Id\": 48,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 61,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 91,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 26,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 66        },        {          \"ViaSection\": {            \"Id\": 92,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 26,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 67        },        {          \"ViaSection\": {            \"Id\": 86,            \"SectionId\": 40,            \"Turnouts\": [              {                \"TurnoutId\": 27,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 58        }      ]    },    {      \"Id\": 66,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 91,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 26,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 61        },        {          \"ViaSection\": {            \"Id\": 93,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 26,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 59        },        {          \"ViaSection\": {            \"Id\": 95,            \"SectionId\": 61,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 68        }      ]    },    {      \"Id\": 67,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 92,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 26,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 61        },        {          \"ViaSection\": {            \"Id\": 94,            \"SectionId\": 43,            \"Turnouts\": [              {                \"TurnoutId\": 19,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 26,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 25,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 59        },        {          \"ViaSection\": {            \"Id\": 96,            \"SectionId\": 41,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 69        }      ]    },    {      \"Id\": 68,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 95,            \"SectionId\": 61,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 66,          \"Signal\": {            \"Id\": 56,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 69,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 96,            \"SectionId\": 41,            \"Turnouts\": [            ]          },          \"ToBoundaryId\": 67,          \"Signal\": {            \"Id\": 60,            \"SectionLength\": 5          }        }      ]    },    {      \"Id\": 70,      \"Connections\": [        {          \"ViaSection\": {            \"Id\": 67,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 20,                \"TurnoutMode\": 0              },              {                \"TurnoutId\": 23,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 46        },        {          \"ViaSection\": {            \"Id\": 99,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 49        },        {          \"ViaSection\": {            \"Id\": 68,            \"SectionId\": 62,            \"Turnouts\": [              {                \"TurnoutId\": 18,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 22,                \"TurnoutMode\": 0              }            ]          },          \"ToBoundaryId\": 48        },        {          \"ViaSection\": {            \"Id\": 82,            \"SectionId\": 34,            \"Turnouts\": [              {                \"TurnoutId\": 23,                \"TurnoutMode\": 1              },              {                \"TurnoutId\": 20,                \"TurnoutMode\": 1              }            ]          },          \"ToBoundaryId\": 58        }      ]    }  ]}",
+    "SectionLocations": {
+      "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, System.Private.CoreLib],[TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI]], System.Private.CoreLib",
+      "1": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1152.0,
+          "Y": 121.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1152.0,
+          "Y": 119.0
+        }
+      },
+      "2": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1203.0,
+          "Y": 113.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1203.0,
+          "Y": 93.0
+        }
+      },
+      "3": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1228.0,
+          "Y": 103.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1228.0,
+          "Y": 69.0
+        }
+      },
+      "4": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1186.0,
+          "Y": 122.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1186.0,
+          "Y": 114.0
+        }
+      },
+      "42": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1187.0,
+          "Y": 257.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1187.0,
+          "Y": 239.0
+        }
+      },
+      "5": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1095.0,
+          "Y": 64.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1095.0,
+          "Y": 55.0
+        }
+      },
+      "6": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 897.0,
+          "Y": 55.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 897.0,
+          "Y": 55.0
+        }
+      },
+      "7": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1090.0,
+          "Y": 86.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1090.0,
+          "Y": 84.0
+        }
+      },
+      "8": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 896.0,
+          "Y": 86.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 896.0,
+          "Y": 84.0
+        }
+      },
+      "9": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1090.0,
+          "Y": 106.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 1090.0,
+          "Y": 107.0
+        }
+      },
+      "10": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 859.0,
+          "Y": 115.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 859.0,
+          "Y": 116.0
+        }
+      },
+      "11": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 769.0,
+          "Y": 47.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 769.0,
+          "Y": 45.0
+        }
+      },
+      "12": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 798.0,
+          "Y": 44.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 798.0,
+          "Y": 71.0
+        }
+      },
+      "13": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 50.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 106.0
+        }
+      },
+      "14": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 791.0,
+          "Y": 49.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 791.0,
+          "Y": 149.0
+        }
+      },
+      "15": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 773.0,
+          "Y": 77.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 773.0,
+          "Y": 37.0
+        }
+      },
+      "16": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 780.0,
+          "Y": 75.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 780.0,
+          "Y": 72.0
+        }
+      },
+      "17": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 789.0,
+          "Y": 79.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 789.0,
+          "Y": 110.0
+        }
+      },
+      "18": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 775.0,
+          "Y": 83.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 775.0,
+          "Y": 150.0
+        }
+      },
+      "19": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 109.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 45.0
+        }
+      },
+      "20": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 789.0,
+          "Y": 114.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 789.0,
+          "Y": 72.0
+        }
+      },
+      "21": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 769.0,
+          "Y": 108.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 769.0,
+          "Y": 104.0
+        }
+      },
+      "22": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 787.0,
+          "Y": 110.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 787.0,
+          "Y": 149.0
+        }
+      },
+      "23": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 146.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 788.0,
+          "Y": 55.0
+        }
+      },
+      "24": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 797.0,
+          "Y": 148.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 797.0,
+          "Y": 68.0
+        }
+      },
+      "25": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 783.0,
+          "Y": 150.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 783.0,
+          "Y": 102.0
+        }
+      },
+      "26": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 796.0,
+          "Y": 148.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 796.0,
+          "Y": 151.0
+        }
+      },
+      "27": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 564.0,
+          "Y": 42.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 564.0,
+          "Y": 58.0
+        }
+      },
+      "28": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 589.0,
+          "Y": 72.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 589.0,
+          "Y": 78.0
+        }
+      },
+      "29": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 596.0,
+          "Y": 115.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 596.0,
+          "Y": 141.0
+        }
+      },
+      "30": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 453.0,
+          "Y": 172.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 453.0,
+          "Y": 185.0
+        }
+      },
+      "31": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 227.0,
+          "Y": 107.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 227.0,
+          "Y": 111.0
+        }
+      },
+      "32": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 234.0,
+          "Y": 130.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 234.0,
+          "Y": 138.0
+        }
+      },
+      "33": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 249.0,
+          "Y": 157.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 249.0,
+          "Y": 160.0
+        }
+      },
+      "34": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 98.0,
+          "Y": 173.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 98.0,
+          "Y": 244.0
+        }
+      },
+      "35": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 121.0,
+          "Y": 183.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 121.0,
+          "Y": 238.0
+        }
+      },
+      "36": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 140.0,
+          "Y": 194.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 140.0,
+          "Y": 229.0
+        }
+      },
+      "37": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 158.0,
+          "Y": 215.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 158.0,
+          "Y": 228.0
+        }
+      },
+      "38": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 46.0,
+          "Y": 274.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 46.0,
+          "Y": 285.0
+        }
+      },
+      "39": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 30.0,
+          "Y": 320.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 30.0,
+          "Y": 334.0
+        }
+      },
+      "40": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 51.0,
+          "Y": 383.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 51.0,
+          "Y": 417.0
+        }
+      },
+      "41": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 143.0,
+          "Y": 429.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 143.0,
+          "Y": 433.0
+        }
+      },
+      "43": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 418.0,
+          "Y": 250.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 418.0,
+          "Y": 238.0
+        }
+      },
+      "44": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 185.0,
+          "Y": 355.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 185.0,
+          "Y": 379.0
+        }
+      },
+      "45": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 244.0,
+          "Y": 404.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 244.0,
+          "Y": 412.0
+        }
+      },
+      "46": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 261.0,
+          "Y": 393.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 261.0,
+          "Y": 393.0
+        }
+      },
+      "47": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 259.0,
+          "Y": 394.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 259.0,
+          "Y": 395.0
+        }
+      },
+      "48": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 340.0,
+          "Y": 425.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 340.0,
+          "Y": 441.0
+        }
+      },
+      "49": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 411.0,
+          "Y": 481.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 411.0,
+          "Y": 497.0
+        }
+      },
+      "50": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 487.0,
+          "Y": 537.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 487.0,
+          "Y": 541.0
+        }
+      },
+      "51": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 350.0,
+          "Y": 394.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 350.0,
+          "Y": 400.0
+        }
+      },
+      "52": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 417.0,
+          "Y": 429.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 417.0,
+          "Y": 443.0
+        }
+      },
+      "53": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 488.0,
+          "Y": 481.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 488.0,
+          "Y": 493.0
+        }
+      },
+      "54": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 570.0,
+          "Y": 543.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 570.0,
+          "Y": 544.0
+        }
+      },
+      "55": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 569.0,
+          "Y": 548.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 569.0,
+          "Y": 546.0
+        }
+      },
+      "57": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 269.0,
+          "Y": 434.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 269.0,
+          "Y": 437.0
+        }
+      },
+      "59": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 274.0,
+          "Y": 429.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 274.0,
+          "Y": 433.0
+        }
+      },
+      "58": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 250.0,
+          "Y": 433.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 250.0,
+          "Y": 435.0
+        }
+      },
+      "60": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 251.0,
+          "Y": 433.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 251.0,
+          "Y": 433.0
+        }
+      },
+      "61": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 310.0,
+          "Y": 433.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 310.0,
+          "Y": 434.0
+        }
+      },
+      "62": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 333.0,
+          "Y": 458.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 333.0,
+          "Y": 487.0
+        }
+      },
+      "63": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 446.0,
+          "Y": 541.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 446.0,
+          "Y": 551.0
+        }
+      },
+      "64": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 299.0,
+          "Y": 461.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 299.0,
+          "Y": 465.0
+        }
+      },
+      "65": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 332.0,
+          "Y": 496.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 332.0,
+          "Y": 517.0
+        }
+      },
+      "66": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 402.0,
+          "Y": 554.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 402.0,
+          "Y": 565.0
+        }
+      },
+      "67": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 467.0,
+          "Y": 595.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 467.0,
+          "Y": 610.0
+        }
+      },
+      "78": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 460.0,
+          "Y": 600.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 460.0,
+          "Y": 610.0
+        }
+      },
+      "69": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 525.0,
+          "Y": 592.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 525.0,
+          "Y": 595.0
+        }
+      },
+      "70": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 547.0,
+          "Y": 582.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 547.0,
+          "Y": 594.0
+        }
+      },
+      "68": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 611.0,
+          "Y": 592.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 611.0,
+          "Y": 610.0
+        }
+      },
+      "56": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 633.0,
+          "Y": 561.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 633.0,
+          "Y": 540.0
+        }
+      },
+      "99": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 595.0,
+          "Y": 609.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 595.0,
+          "Y": 605.0
+        }
+      },
+      "71": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 680.0,
+          "Y": 605.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 680.0,
+          "Y": 602.0
+        }
+      },
+      "72": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 776.0,
+          "Y": 595.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 776.0,
+          "Y": 589.0
+        }
+      },
+      "73": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 861.0,
+          "Y": 568.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 861.0,
+          "Y": 542.0
+        }
+      },
+      "85": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 796.0,
+          "Y": 584.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 796.0,
+          "Y": 605.0
+        }
+      },
+      "74": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 927.0,
+          "Y": 450.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 927.0,
+          "Y": 413.0
+        }
+      },
+      "75": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 858.0,
+          "Y": 377.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 858.0,
+          "Y": 357.0
+        }
+      },
+      "76": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 729.0,
+          "Y": 418.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 729.0,
+          "Y": 436.0
+        }
+      },
+      "77": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 744.0,
+          "Y": 524.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 744.0,
+          "Y": 551.0
+        }
+      },
+      "79": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 488.0,
+          "Y": 622.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 488.0,
+          "Y": 614.0
+        }
+      },
+      "80": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 561.0,
+          "Y": 649.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 561.0,
+          "Y": 652.0
+        }
+      },
+      "82": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 479.0,
+          "Y": 608.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 479.0,
+          "Y": 609.0
+        }
+      },
+      "86": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 407.0,
+          "Y": 624.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 407.0,
+          "Y": 626.0
+        }
+      },
+      "87": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 345.0,
+          "Y": 610.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 345.0,
+          "Y": 607.0
+        }
+      },
+      "88": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 359.0,
+          "Y": 612.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 359.0,
+          "Y": 585.0
+        }
+      },
+      "84": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 729.0,
+          "Y": 623.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 729.0,
+          "Y": 617.0
+        }
+      },
+      "93": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 366.0,
+          "Y": 655.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 366.0,
+          "Y": 653.0
+        }
+      },
+      "94": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 508.0,
+          "Y": 652.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 508.0,
+          "Y": 655.0
+        }
+      },
+      "89": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 205.0,
+          "Y": 610.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 205.0,
+          "Y": 610.0
+        }
+      },
+      "90": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 205.0,
+          "Y": 586.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 205.0,
+          "Y": 585.0
+        }
+      },
+      "91": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 357.0,
+          "Y": 634.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 357.0,
+          "Y": 643.0
+        }
+      },
+      "92": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 359.0,
+          "Y": 663.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 359.0,
+          "Y": 662.0
+        }
+      },
+      "95": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 259.0,
+          "Y": 650.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 259.0,
+          "Y": 648.0
+        }
+      },
+      "96": {
+        "$type": "TrainUI.Converters.TrackViewModelConverter+IntermediaryType2, TrainUI",
+        "ControlPoint1": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 216.0,
+          "Y": 671.0
+        },
+        "ControlPoint2": {
+          "$type": "Avalonia.Point, Avalonia.Visuals",
+          "X": 216.0,
+          "Y": 670.0
+        }
+      }
+    }
+  },
   "Content": {
     "$type": "TrainUI.ViewModels.TrainOverviewViewModel, TrainUI",
     "TrainList": {
@@ -13,29 +1889,17 @@
             "Address": 3,
             "TrainFunctions": {
               "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
-              "$values": []
+              "$values": [
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Lights",
+                  "FunctionMask": 16,
+                  "Id": "6975e843-2e4b-47a6-b2b9-9f6cb3f8bdd1",
+                  "Address": 3
+                }
+              ]
             },
-            "Id": "6c54696e-3583-4f04-a3f7-d4785d60c5fd"
-          },
-          {
-            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
-            "Name": "NS 6466",
-            "Address": 4,
-            "TrainFunctions": {
-              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
-              "$values": []
-            },
-            "Id": "640e5460-bdf7-470b-8a3d-937970179f47"
-          },
-          {
-            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
-            "Name": "NS Traxx",
-            "Address": 5,
-            "TrainFunctions": {
-              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
-              "$values": []
-            },
-            "Id": "8769e02d-10fa-44df-b697-1a093d70775b"
+            "Id": "5732cb0a-e513-4871-84f9-7aca22fb18fd"
           },
           {
             "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
@@ -43,9 +1907,74 @@
             "Address": 24,
             "TrainFunctions": {
               "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
-              "$values": []
+              "$values": [
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Lights",
+                  "FunctionMask": 16,
+                  "Id": "af4445ff-80f5-4c46-9306-285ecf5695e6",
+                  "Address": 24
+                },
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "All Lights",
+                  "FunctionMask": 17,
+                  "Id": "bfc38f10-9d6e-4c32-a705-293f22366e9f",
+                  "Address": 24
+                }
+              ]
             },
-            "Id": "c1537868-197e-4ea2-90b5-dc32a2564cd9"
+            "Id": "89f7b1f0-d322-41f8-8a1e-924dc9c2da49"
+          },
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "NS 6466",
+            "Address": 4,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": [
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Lights",
+                  "FunctionMask": 16,
+                  "Id": "c2f80bb0-9192-48a2-acf0-aae9823d0920",
+                  "Address": 4
+                }
+              ]
+            },
+            "Id": "9f879c6d-f962-410a-911c-a8913716a4af"
+          },
+          {
+            "$type": "TrainUI.ViewModels.TrainViewModel, TrainUI",
+            "Name": "NS Traxx",
+            "Address": 5,
+            "TrainFunctions": {
+              "$type": "System.Collections.ObjectModel.ObservableCollection`1[[TrainUI.ViewModels.TrainFunctionViewModel, TrainUI]], System.ObjectModel",
+              "$values": [
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Lights",
+                  "FunctionMask": 20,
+                  "Id": "e7ec5988-facd-4e4e-ad10-1afb460bb419",
+                  "Address": 5
+                },
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Cabin Light",
+                  "FunctionMask": 1,
+                  "Id": "330dc0d7-18f6-4c61-a72e-e7b83708059b",
+                  "Address": 5
+                },
+                {
+                  "$type": "TrainUI.ViewModels.TrainFunctionViewModel, TrainUI",
+                  "Name": "Whistle",
+                  "FunctionMask": 131072,
+                  "Id": "20e3ef1f-897b-4150-b298-6fd48406d871",
+                  "Address": 5
+                }
+              ]
+            },
+            "Id": "4a2acdc6-4643-4d5b-9cd0-ad3baf2c1cd6"
           }
         ]
       }

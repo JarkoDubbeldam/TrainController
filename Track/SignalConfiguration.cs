@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
-
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 
 using Z21.API;
@@ -16,13 +16,22 @@ namespace Track {
 
 
     private SignalColour signalState;
+    private readonly ILogger<SignalConfiguration> logger;
+
     public int Id { get; }
     public int SectionLength { get; }
-    public SignalColour SignalState { get => signalState; private set => this.RaiseAndSetIfChanged(ref signalState, value); }
+    public SignalColour SignalState { get => signalState; private set {
+        if (value != signalState) {
+          logger.LogInformation("Setting signal {Id} state to {value}.", Id, value);
+        }
+        this.RaiseAndSetIfChanged(ref signalState, value);
+      }
+    }
 
-    public SignalConfiguration(int id, int sectionLength) {
+    public SignalConfiguration(int id, int sectionLength, ILogger<SignalConfiguration> logger) {
       Id = id;
       SectionLength = sectionLength;
+      this.logger = logger;
     }
 
     internal IDisposable SetupListener(TrackConnection parent) {
@@ -79,7 +88,6 @@ namespace Track {
           args.Handled = true;
 
           var newState = SignalColour.Red;
-          Debug.WriteLine($"Setting signal {Id} state to {newState}.");
           SignalState = newState;
           return;
         } else if (nextSection.TrackConnection.Signal != null) {
@@ -93,7 +101,6 @@ namespace Track {
       Debug.Assert(parentTrackConnection.Signal == this);
       var newState = GetSignalState(parentTrackConnection);
       if (newState.HasValue) {
-        Debug.WriteLine($"Setting signal {Id} state to {newState}.");
         SignalState = newState.Value;
       }
     }
