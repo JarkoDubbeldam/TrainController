@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z21;
@@ -36,6 +37,8 @@ namespace TrainRepository {
       tObject.PropertyChanged += ObjectChangedByUserHandler;
       return tObject;
     }
+    public async Task<IReadOnlyList<TObject>> GetAllObjects() => (await Task.WhenAll(repos.Values)).ToList();
+    public void Remove(int address) => repos.Remove(address, out var _);
 
     protected abstract void ObjectChangedByUserHandler(object sender, PropertyChangedEventArgs e);
     protected abstract Task<TObject> GetObjectInfoFromController(int address, string name);

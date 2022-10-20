@@ -28,7 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTrackerTester", "TrainTrackerTester\TrainTrackerTester.csproj", "{1F23A673-D65A-4AEB-A2E3-DF01B5ECA0FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainController", "TrainController\TrainController.csproj", "{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainController", "TrainController\TrainController.csproj", "{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainAPI", "TrainAPI\TrainAPI.csproj", "{0253B7DF-868B-4877-B752-1AF42BAC9EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +126,14 @@ Global
 		{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}.Release|x86.ActiveCfg = Release|Any CPU
 		{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}.Release|x86.Build.0 = Release|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Debug|x86.Build.0 = Debug|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{0253B7DF-868B-4877-B752-1AF42BAC9EFA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

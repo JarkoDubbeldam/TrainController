@@ -7,5 +7,7 @@ namespace TrainRepository {
   public interface IRepository<T> : IDisposable {
     Task<T> GetObject(int address);
     Task<T> RegisterObject(int address, string name);
+    Task<IReadOnlyList<T>> GetAllObjects();
+    void Remove(int address);
   }
 }
