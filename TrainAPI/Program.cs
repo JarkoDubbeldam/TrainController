@@ -1,7 +1,11 @@
+using System.Net;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TrainAPI.Data;
-
+using TrainAPI.Models;
+using TrainAPI.Trackers;
+using Z21;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TrainAPIContext>(options =>
@@ -9,11 +13,24 @@ builder.Services.AddDbContext<TrainAPIContext>(options =>
 
 // Add services to the container.
 
+var ipAdress = new IPAddress(new byte[] { 192, 168, 0, 111 });
+var endpoint = new IPEndPoint(ipAdress, 21105);
+builder.Services.AddTransient<IZ21Client, NewZ21Client>(s => new NewZ21Client(endpoint));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opts => {
+  var enumConverter = new JsonStringEnumConverter();
+  opts.JsonSerializerOptions.Converters.Add(enumConverter);
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<TurnoutTracker>();
+builder.Services.AddSingleton<ITracker<TrainWithInformation>, TrainTracker>();
+builder.Services.AddHostedService(s => s.GetRequiredService<ITracker<TrainWithInformation>>() as TrainTracker);
+builder.Services.AddSingleton<IOccupancyTracker, OccupancyTracker>();
+builder.Services.AddHostedService(s => s.GetRequiredService<IOccupancyTracker>() as OccupancyTracker);
 
 builder.Host.UseConsoleLifetime();
 

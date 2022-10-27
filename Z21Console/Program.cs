@@ -15,12 +15,27 @@ using Z21.Domain;
 
 namespace Z21Console {
   internal class Program {
+    private static async IAsyncEnumerable<int> GetInts() {
+      var i = 0;
+      while (true) {
+        await Task.Delay(1000);
+        yield return i++;
+      }
+    }
+
     private static async Task Main() {
-      Observable.Interval(TimeSpan.FromMilliseconds(500))
-        .Timestamp()
-        .AccumulateBuffer(TimeSpan.FromSeconds(2))
-        .Subscribe(x => Console.WriteLine(string.Join(" ", x.Select(y => y.Value.ToString()))));
-      Console.ReadLine();
+      //var observable = GetInts().ToObservable().Publish();
+      //using (var connection = observable.Connect()) {
+      //  using (var sub1 = observable.Subscribe(i => Console.WriteLine($"1: {i}"))) {
+      //    Console.ReadLine();
+      //    using (var sub2 = observable.Subscribe(i => Console.WriteLine($"2: {i}"))) {
+      //      Console.ReadLine();
+      //    }
+      //    Console.ReadLine();
+      //  }
+      //  Console.ReadLine();
+      //}
+
 
       var ipAdress = new IPAddress(new byte[] { 192, 168, 0, 111 });
       var endpoint = new IPEndPoint(ipAdress, 21105);
@@ -29,12 +44,15 @@ namespace Z21Console {
       var container = builder.Build();
       using var scope = container.BeginLifetimeScope();
       var z21Client = scope.Resolve<IZ21Client>();
-      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.RBus });
+      //z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.RBus });
 
-      z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
-      await z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = 3 });
+      //z21Client.SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = z21Client.BroadcastFlags | BroadcastFlags.DrivingAndSwitching });
+      var response = await z21Client.GetLocomotiveInformation(new LocomotiveInformationRequest { LocomotiveAddress = 3 });
 
-      Console.ReadLine();
+      using (var test = z21Client.TurnoutInformationChanged.Subscribe(x => Console.WriteLine($"{x.Address}: {x.TurnoutPosition}."))) {
+
+        Console.ReadLine();
+      }
       //using var _ = z21Client.OccupancyStatusChanged.Subscribe(x => Console.WriteLine(string.Join("", x.Occupancies.Cast<bool>().Select(x => x ? "1" : "0"))));
       //using var repos = scope.Resolve<IRepository<Train>>();
       //using var turnoutRepos = scope.Resolve<IRepository<Turnout>>();

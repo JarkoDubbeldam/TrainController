@@ -7,5 +7,7 @@ namespace TrainAPI.Data {
     }
 
     public DbSet<TrainAPI.Models.Train> Train { get; set; } = default!;
+    public DbSet<TrainAPI.Models.Turnout> Turnout { get; set; } = default!;
+    public DbSet<TrainAPI.Models.TrackSection> TrackSection { get; set; } = default!;
   }
 }

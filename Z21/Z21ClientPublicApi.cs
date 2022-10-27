@@ -49,5 +49,6 @@ namespace Z21 {
     public Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request) => SendRequestWithResponse(request);
 
     public void SetSignal(SetSignalRequest request) => SendRequestWithoutResponse(request);
+    public void SendBatchRequests(params Request[] requests) => throw new NotImplementedException();
   }
 }

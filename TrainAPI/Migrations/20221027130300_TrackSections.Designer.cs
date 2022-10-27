@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainAPI.Data;
 
@@ -10,9 +11,10 @@ using TrainAPI.Data;
 namespace TrainAPI.Migrations
 {
     [DbContext(typeof(TrainAPIContext))]
-    partial class TrainAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20221027130300_TrackSections")]
+    partial class TrackSections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -26,5 +26,6 @@ namespace Z21 {
     Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request);
     Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request);
     void SetSignal(SetSignalRequest request);
+    void SendBatchRequests(params Request[] requests);
   }
 }

@@ -26,9 +26,7 @@ namespace TrainRepository {
       builder.Populate(serviceCollection);
 
       builder.RegisterInstance(iPEndPoint);
-      builder.Register(c => new System.Net.Sockets.UdpClient(12345));
-      builder.RegisterType<Z21.UdpClient>().As<IUdpClient>();
-      builder.RegisterType<Z21Client>().As<IZ21Client>().InstancePerLifetimeScope();
+      builder.RegisterType<NewZ21Client>().As<IZ21Client>().InstancePerLifetimeScope();
 
 
       builder.RegisterType<TrainRepository>().As<IRepository<Train>>();

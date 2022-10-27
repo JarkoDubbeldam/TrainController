@@ -8,6 +8,10 @@ namespace Z21.API {
     internal abstract byte?[] ResponsePattern { get; }
     internal abstract T ParseResponseBytes(byte[] response);
 
+    internal bool MatchesPattern(byte[] responseBytes) {
+      return responseBytes.Zip(ResponsePattern, (r, p) => p == null || p == r).All(x => x);
+    }
+
     protected private static void CheckXORByte(byte[] bytes, int startingIndex) {
       var xor = 0;
       for (var index = startingIndex; index < bytes.Length - 1; index++) {
