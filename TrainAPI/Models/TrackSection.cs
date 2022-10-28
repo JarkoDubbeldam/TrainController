@@ -5,6 +5,8 @@ public class TrackSection {
   public int ForeignId { get; set; }
   public int SectionId { get; set; }
   public int FromBoundaryId { get; set; }
+
+  
   public TrackBoundary FromBoundary { get; set; }
   public int ToBoundaryId { get; set; }
   public TrackBoundary ToBoundary { get; set; }

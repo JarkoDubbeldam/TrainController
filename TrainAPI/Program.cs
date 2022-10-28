@@ -26,11 +26,14 @@ builder.Services.AddControllers().AddJsonOptions(opts => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHostedService<TurnoutTracker>();
-builder.Services.AddSingleton<ITracker<TrainWithInformation>, TrainTracker>();
-builder.Services.AddHostedService(s => s.GetRequiredService<ITracker<TrainWithInformation>>() as TrainTracker);
+builder.Services.AddSingleton<ITurnoutTracker, TurnoutTracker>();
+builder.Services.AddHostedService(s => s.GetRequiredService<ITurnoutTracker>() as TurnoutTracker);
+builder.Services.AddSingleton<ITrainTracker, TrainTracker>();
+builder.Services.AddHostedService(s => s.GetRequiredService<ITrainTracker>() as TrainTracker);
 builder.Services.AddSingleton<IOccupancyTracker, OccupancyTracker>();
 builder.Services.AddHostedService(s => s.GetRequiredService<IOccupancyTracker>() as OccupancyTracker);
+builder.Services.AddSingleton<ITrackProvider, TrackProvider>();
+builder.Services.AddHostedService<TrainPositionTracker>();
 
 builder.Host.UseConsoleLifetime();
 

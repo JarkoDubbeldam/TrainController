@@ -7,7 +7,9 @@ using Z21.Domain;
 
 namespace TrainAPI.Trackers;
 
-public class TrainTracker : IHostedService, ITracker<TrainWithInformation> {
+public interface ITrainTracker : ITracker<TrainWithInformation> { }
+
+public class TrainTracker : IHostedService, ITrainTracker {
   private readonly IServiceProvider serviceProvider;
   private readonly IZ21Client z21Client;
   private readonly Dictionary<int, TrainWithInformation> trainData = new();
@@ -69,5 +71,5 @@ public class TrainTracker : IHostedService, ITracker<TrainWithInformation> {
   public TrainWithInformation Get(int id) => trainData[id];
   public void Add(int id, TrainWithInformation value) => trainData[id] = value;
   public bool Remove(int id) => trainData.Remove(id);
-  public IEnumerable<TrainWithInformation> List() => trainData.Values;
+  public ICollection<TrainWithInformation> List() => trainData.Values;
 }

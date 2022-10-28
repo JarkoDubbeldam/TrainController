@@ -7,7 +7,9 @@ using Z21.Domain;
 
 namespace TrainAPI.Trackers;
 
-public class TurnoutTracker : IHostedService {
+public interface ITurnoutTracker : ITracker<TurnoutPosition> { }
+
+public class TurnoutTracker : IHostedService, ITurnoutTracker {
   private readonly IServiceProvider serviceProvider;
   private readonly IZ21Client z21Client;
   private readonly Dictionary<int, TurnoutPosition> turnoutPositions = new();
@@ -44,4 +46,9 @@ public class TurnoutTracker : IHostedService {
     trainAPIContext.Turnout.AddRange(turnoutPositions.Keys.Except(existingTurnouts).Select(x => new Turnout { Id = x }));
     await trainAPIContext.SaveChangesAsync(cancellationToken);
   }
+
+  public TurnoutPosition Get(int id) => turnoutPositions[id];
+  public void Add(int id, TurnoutPosition value) => turnoutPositions[id] = value;
+  public bool Remove(int id) => throw new NotImplementedException();
+  public ICollection<TurnoutPosition> List() => turnoutPositions.Values;
 }

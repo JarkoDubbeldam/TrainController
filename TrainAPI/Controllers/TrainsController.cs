@@ -11,10 +11,10 @@ namespace TrainAPI.Controllers {
   [Route("api/[controller]")]
   [ApiController]
   public class TrainsController : ControllerBase {
-    private readonly ITracker<TrainWithInformation> trainTracker;
+    private readonly ITrainTracker trainTracker;
     private readonly IZ21Client z21Client;
 
-    public TrainsController(ITracker<TrainWithInformation> trainTracker, IZ21Client z21Client) {
+    public TrainsController(ITrainTracker trainTracker, IZ21Client z21Client) {
       this.trainTracker = trainTracker;
       this.z21Client = z21Client;
     }
