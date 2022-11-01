@@ -33,7 +33,10 @@ builder.Services.AddHostedService(s => s.GetRequiredService<ITrainTracker>() as 
 builder.Services.AddSingleton<IOccupancyTracker, OccupancyTracker>();
 builder.Services.AddHostedService(s => s.GetRequiredService<IOccupancyTracker>() as OccupancyTracker);
 builder.Services.AddSingleton<ITrackProvider, TrackProvider>();
-builder.Services.AddHostedService<TrainPositionTracker>();
+builder.Services.AddSingleton<ITrainPositionTracker, TrainPositionTracker>();
+builder.Services.AddHostedService(s => s.GetRequiredService<ITrainPositionTracker>() as TrainPositionTracker);
+builder.Services.AddSingleton<ISectionLocker, SectionLocker>();
+builder.Services.AddTransient<INavigator, Navigator>();
 
 builder.Host.UseConsoleLifetime();
 
@@ -49,4 +52,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

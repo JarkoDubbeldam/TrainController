@@ -9,7 +9,7 @@ public interface IOccupancyTracker {
   IEnumerable<int> OccupiedSections();
 }
 
-public class OccupancyTracker : IHostedService, IOccupancyTracker {
+public class OccupancyTracker : BackgroundService, IOccupancyTracker {
   private readonly IZ21Client z21Client;
   private OccupancyStatus occupancy;
   private IDisposable? listener;
@@ -19,16 +19,17 @@ public class OccupancyTracker : IHostedService, IOccupancyTracker {
   }
   public bool IsOccupied(int id) => occupancy.Occupancies[id];
   public IEnumerable<int> OccupiedSections() => occupancy.Occupancies.OfType<bool>().Select((x, i) => (x, i)).Where(x => x.x).Select(x => x.i);
-  public async Task StartAsync(CancellationToken cancellationToken) {
-    occupancy = await z21Client.GetOccupancyStatus(new OccupancyStatusRequest { GroupIndex = 0 });
 
-    listener = z21Client.OccupancyStatusChanged.Subscribe(UpdateOccupancy);    
-  }
 
-  private void UpdateOccupancy(OccupancyStatus obj) => occupancy = obj;
+  protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+    while (!stoppingToken.IsCancellationRequested) {
+      var delay = Task.Delay(TimeSpan.FromMilliseconds(500), stoppingToken);
+      try {
+        occupancy = await z21Client.GetOccupancyStatus(new OccupancyStatusRequest { GroupIndex = 0 });
+      } catch (OperationCanceledException) {
 
-  public Task StopAsync(CancellationToken cancellationToken) {
-    listener?.Dispose();
-    return Task.CompletedTask;
+      }
+      await delay;
+    }
   }
 }

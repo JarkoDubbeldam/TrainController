@@ -60,7 +60,8 @@ public class NewZ21Client : IZ21Client, IDisposable {
   private async Task<T> SendRequestWithResponse<T>(RequestWithResponse<T> request, CancellationToken cancellationToken = default) {
     var bytes = request.ToByteArray();
     var client = new System.Net.Sockets.UdpClient();
-    using var requestCts = CancellationTokenSource.CreateLinkedTokenSource(cts.Token, cancellationToken);
+    using var timedCts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+    using var requestCts = CancellationTokenSource.CreateLinkedTokenSource(cts.Token, cancellationToken, timedCts.Token);
 
     try {
       await client.SendAsync(bytes, bytes.Length, remoteAddress);
@@ -130,7 +131,7 @@ public class NewZ21Client : IZ21Client, IDisposable {
   public void SetTrainFunction(TrainFunctionRequest request) => SendRequestWithoutResponse(request);
   public Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request) => SendRequestWithResponse(request);
   public Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request) => SendRequestWithResponse(request);
-  public Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request) => SendRequestWithResponse(request);
+  public void SetTurnout(SetTurnoutRequest request) => SendRequestWithoutResponse(request);
   public Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request) => SendRequestWithResponse(request);
   public void SetSignal(SetSignalRequest request) => SendRequestWithoutResponse(request);
   public void SendBatchRequests(params Request[] requests) {

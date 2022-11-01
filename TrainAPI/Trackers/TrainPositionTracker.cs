@@ -5,7 +5,7 @@ using Z21.Domain;
 
 namespace TrainAPI.Trackers;
 
-public sealed class TrainPositionTracker : IHostedService, IDisposable {
+public sealed class TrainPositionTracker : IHostedService, IDisposable, ITrainPositionTracker {
   private const string KEY = "TrainLocations";
   private readonly IOccupancyTracker occupancyTracker;
   private readonly ITrainTracker trainTracker;
@@ -36,12 +36,13 @@ public sealed class TrainPositionTracker : IHostedService, IDisposable {
     await trackProvider.Load();
     using (var scope = serviceProvider.CreateScope())
     using (var db = scope.ServiceProvider.GetRequiredService<TrainAPIContext>()) {
-      var data = await db.KeyValue.SingleAsync(x => x.Id == KEY);
+      var data = await db.KeyValue.SingleAsync(x => x.Id == KEY, cancellationToken: cancellationToken);
       trainPositions = JsonConvert.DeserializeObject<List<TrainPosition>>(data.Value) ?? throw new ArgumentNullException();
     }
 
     _ = Task.Run(() => ExecuteAsync(cts.Token));
   }
+
   public async Task StopAsync(CancellationToken cancellationToken) {
     cts.Cancel();
     Dispose();
@@ -53,10 +54,16 @@ public sealed class TrainPositionTracker : IHostedService, IDisposable {
     }
   }
 
+  public TrainPosition GetTrainPosition(int trainId) => trainPositions.Single(x => x.TrainId == trainId);
+
   private async Task ExecuteAsync(CancellationToken stoppingToken) {
     while (!stoppingToken.IsCancellationRequested) {
       var delay = Task.Delay(TimeSpan.FromMilliseconds(100), stoppingToken);
-      RunUpdate();
+      try {
+        RunUpdate();
+      } catch(Exception e) {
+        logger.LogError(e, "!!");
+      }
       await delay;
     }
   }
@@ -72,44 +79,51 @@ public sealed class TrainPositionTracker : IHostedService, IDisposable {
       if (turnedAround) {
         logger.LogInformation("Train {id} turned around.", trainPosition.TrainId);
         trainPosition.LastSeenDirection = train.Speed.DrivingDirection;
-        trainPosition.OccupiedTrackSections = trainPosition.OccupiedTrackSections
+        trainPosition.OccupiedTrackSections = new LinkedList<int>(trainPosition.OccupiedTrackSections
+          .Reverse()
           .Select(x => trackProvider.GetOppositeDirection(x))
           .Where(x => x != null)
-          .Select(x => x!.Id)
-          .ToList();
+          .Select(x => x!.Id));
       }
     }
 
     foreach (var trainPosition in trainPositions) {
-      var newPositions = new List<int>(trainPosition.OccupiedTrackSections);
-      foreach (var occupiedSection in trainPosition.OccupiedTrackSections) {
-        var section = trackProvider.GetById(occupiedSection);
-        // Remove unoccupied sections from the list
-        if (!occupiedSections.Contains(section.SectionId)) {
-          newPositions.Remove(occupiedSection);
-          //occupiedSections.Remove(section.SectionId);
-          logger.LogInformation("Train {id} left section {sectionId}", trainPosition.TrainId, section.Id);
-        }
-        // Try to account for new occupations that are not already known.
-        var nextSection = trackProvider.GetNextActiveSection(section.Id);
-        if (nextSection != null && !trainPosition.OccupiedTrackSections.Contains(nextSection.Id) && occupiedSections.Contains(nextSection.SectionId)) {
-          newPositions.Add(nextSection.Id);
-          //occupiedSections.Remove(nextSection.SectionId);
-          logger.LogInformation("Train {id} entered section {sectionId}", trainPosition.TrainId, nextSection.Id);
+      var train = trainTracker.Get(trainPosition.TrainId);
+      if(train.Speed.Speed == Speed.Stop || train.Speed.Speed == Speed.EmergencyStop) {
+        continue;
+      }
+
+      var newPositions = new LinkedList<int>(trainPosition.OccupiedTrackSections);
+      // Add new section to head.
+      var nextSection = trackProvider.GetNextActiveSection(newPositions.Last.Value);
+      if (nextSection != null && !trainPosition.OccupiedTrackSections.Contains(nextSection.Id) && occupiedSections.Contains(nextSection.SectionId)) {
+        trainPosition.TrainLost = false;
+        newPositions.AddLast(nextSection.Id);
+        logger.LogInformation("Train {id} entered section {sectionId}", trainPosition.TrainId, nextSection.Id);
+      }
+
+      // If last known position is empty, remove it.
+      var section = trackProvider.GetById(newPositions.First.Value);
+      if (!occupiedSections.Contains(section.SectionId)) {
+        if (newPositions.Count == 1) {
+          if (!trainPosition.TrainLost) {
+            logger.LogWarning("Lost track of train {id}", trainPosition.TrainId);
+          }
+          trainPosition.TrainLost = true;
+        } else {
+          logger.LogInformation("Train {id} left section {sectionId}", trainPosition.TrainId, newPositions.First.Value);
+          newPositions.RemoveFirst();
         }
       }
-      trainPosition.OccupiedTrackSections = newPositions;
-    }
 
-    //if (occupiedSections.Count > 0) {
-    //  // Handle unaccounted for sections.
-    //  logger.LogInformation("The following sections are unaccounted for: {sections}", string.Join(",", occupiedSections.Select(x => x.ToString())));
-    //}
+      trainPosition.OccupiedTrackSections = newPositions;
+    }    
   }
 }
 
 public class TrainPosition {
   public int TrainId { get; set; }
   public DrivingDirection LastSeenDirection { get; set; }
-  public List<int> OccupiedTrackSections { get; set; }
+  public LinkedList<int> OccupiedTrackSections { get; set; }
+  public bool TrainLost { get; set; }
 }

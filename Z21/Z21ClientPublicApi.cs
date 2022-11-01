@@ -50,5 +50,6 @@ namespace Z21 {
 
     public void SetSignal(SetSignalRequest request) => SendRequestWithoutResponse(request);
     public void SendBatchRequests(params Request[] requests) => throw new NotImplementedException();
+    void IZ21Client.SetTurnout(SetTurnoutRequest request) => throw new NotImplementedException();
   }
 }

@@ -23,7 +23,7 @@ namespace Z21 {
     void SetTrainFunction(TrainFunctionRequest request);
     Task<LocomotiveInformation> GetLocomotiveInformation(LocomotiveInformationRequest request);
     Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request);
-    Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request);
+    void SetTurnout(SetTurnoutRequest request);
     Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request);
     void SetSignal(SetSignalRequest request);
     void SendBatchRequests(params Request[] requests);

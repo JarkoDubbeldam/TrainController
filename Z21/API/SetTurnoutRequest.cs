@@ -6,7 +6,7 @@ using Z21.Domain;
 namespace Z21.API {
   public class SetTurnoutRequest : AddressSpecificRequest<TurnoutInformation> {
     public short Address { get; set; }
-    public Activation Activation { get; set; }
+    public Activation Activation { get; set; } = Activation.Activate;
     public TurnoutPosition TurnoutPosition { get; set; }
     public bool QueueMode { get; set; } = true;
 
