@@ -1,0 +1,66 @@
+﻿@page "/trains"
+
+@inject ITrainService TrainService
+@inherits ReactiveComponentBase
+
+<h3>TrainOverview</h3>
+
+@if (trains is null) {
+    <p><em>Loading...</em></p>
+} else {
+    <div class="train-info">
+        @foreach (var train in trains) {
+            <TrainInfo Train="train"></TrainInfo>
+        }
+    </div>
+}
+
+<button class="btn btn-primary" onclick=@AddTrain>Add</button>
+
+<TemplatedDialog Show="@showEditDialog">
+    <EditTrain Train="@editingTrain" OnCancel="CancelEdit" OnSave="ConfirmEdit" />
+</TemplatedDialog>
+
+@code {
+    private List<Train>? trains;
+    private ReactiveLoader reactiveLoader;
+    private Train? editingTrain;
+    private bool showEditDialog;
+
+
+    protected override void OnInitialized() {
+        reactiveLoader = new(ParametersSet, Load);
+    }
+
+    private async Task Load(CancellationToken cancellationToken) {
+        trains = await TrainService.ListTrains(cancellationToken);
+        StateHasChanged();
+    }
+
+    private void CancelEdit() {
+        showEditDialog = false;
+        editingTrain = null;
+        StateHasChanged();
+    }
+
+    private async Task ConfirmEdit() {
+        if (editingTrain is null) {
+            return;
+        }
+        await TrainService.SaveTrain(editingTrain);
+        trains.Add(editingTrain);
+        showEditDialog = false;
+        StateHasChanged();
+    }
+
+    private void AddTrain() {
+        editingTrain = new();
+        showEditDialog = true;
+        StateHasChanged();
+    }
+
+    public override void Dispose() {
+        reactiveLoader?.Dispose();
+        base.Dispose();
+    }
+}

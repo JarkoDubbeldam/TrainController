@@ -1,0 +1,72 @@
+﻿@inject NavigationManager NavigationManager
+
+<div class="dialog-title">
+    <h2>Editing train</h2>
+</div>
+<div class="dialog-body">
+    <EditForm Model="Train" OnValidSubmit="OnSave">
+        <div class="form-field">
+            <label>Address:</label>
+
+            <div>
+                <InputNumber @bind-Value="Train.Id" TValue="int"></InputNumber>
+                <ValidationMessage For="@(() => Train.Id)"></ValidationMessage>
+            </div>
+        </div>
+        <div class="form-field">
+            <label>Name:</label>
+
+            <div>
+                <InputText @bind-Value="Train.Name"></InputText>
+                <ValidationMessage For="@(() => Train.Name)"></ValidationMessage>
+            </div>
+        </div>
+        <div class="form-field">
+            <label>Icon:</label>
+
+            <div>
+                <InputRadioGroup @bind-Value="Train.Icon">
+                    <ul>
+                        @foreach (var trainImage in TrainImages) {
+                            <li>
+                                <InputRadio value="@trainImage" TValue="string" />
+                                <img src="@trainImage" />
+                            </li>
+                        }
+                    </ul>
+                </InputRadioGroup>
+            </div>
+        </div>
+        <div class="dialog-buttons">
+            <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancel</button>
+            <button type="submit" class="btn btn-success ml-auto">
+                Save
+            </button>
+        </div>
+
+
+        <DataAnnotationsValidator />
+    </EditForm>
+</div>
+@code {
+    private static readonly List<string> TrainImages = new()
+            {
+        "train-icons/DB 168.png",
+        "train-icons/GTW.png",
+        "train-icons/ICM.png",
+        "train-icons/Mat54.png",
+        "train-icons/NS 1600.png",
+        "train-icons/NS 6400.png",
+        "train-icons/Traxx.png",
+        "train-icons/Wadloper.png",
+    };
+
+
+
+    [Parameter]
+    public Train Train { get; set; }
+    [Parameter]
+    public EventCallback OnSave { get; set; }
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+}

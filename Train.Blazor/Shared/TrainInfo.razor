@@ -1,0 +1,14 @@
+﻿@using Trains.DataAccess.Models;
+
+<div class="train-info-container">
+    <div class="train-info" style=@BackgroundUrl>
+        <span class="train-name">@Train.Name</span>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Train Train { get; set; }
+
+    private string BackgroundUrl => $"background-image: url('{Train.Icon}');";
+}

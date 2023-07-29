@@ -1,0 +1,22 @@
+﻿.train-info-container {
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px solid black;
+    border-radius: 20px;
+    /*width: 400px;*/
+    flex: 1;
+}
+
+.train-info {
+    height: 100px;
+    padding: 1em 3em 3em 1em;
+    background-repeat: no-repeat;
+    background-position: 10em 40%;
+}
+
+.train-icon {
+}
+
+.train-name {
+    font-size: 200%;
+    line-height: 100px;
+}
