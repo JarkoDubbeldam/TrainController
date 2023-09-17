@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
+using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
 using Z21.API;
@@ -11,116 +7,51 @@ using Z21.Domain;
 
 namespace Z21 {
   public partial class Z21Client : IDisposable {
-    private readonly IUdpClient udpClient;
-    private readonly IObservable<byte[]> inStream;
-    private readonly IDisposable keepConnectionAliveSubscription;
-    private readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
+    private readonly Func<IUdpClient> udpClientFactory;
+    private readonly CompositeDisposable disposables = new();
+    private readonly Lazy<IObservable<TrackStatus>> lazyTrackStatusChanged;
+    private readonly Lazy<IObservable<SystemState>> lazySystemStateChanged;
+    private readonly Lazy<IObservable<TurnoutInformation>> lazyTurnoutInformationChanged;
+    private readonly Lazy<IObservable<OccupancyStatus>> lazyOccupancyStatusChanged;
+    private readonly Lazy<IObservable<LocomotiveInformation>> lazyLocomotiveInformationChanged;
 
-    public Z21Client(IUdpClient udpClient) {
-      this.udpClient = udpClient;
-      inStream = udpClient.ObserveBytes();
+    public Z21Client(Func<IUdpClient> udpClientFactory) {
+      this.udpClientFactory = udpClientFactory;
 
-      var connectionTicker = Observable.Interval(TimeSpan.FromSeconds(2))
-        .SelectMany(async x => {
-          try {
-            await GetSerialNumber(new SerialNumberRequest());
-            return true;
-          } catch (TimeoutException) {
-            return false;
-          }
-        })
-        .Publish();
-      keepConnectionAliveSubscription = connectionTicker.Connect();
-      ConnectionStatus = connectionTicker.DistinctUntilChanged();
+      lazyTrackStatusChanged = new(() => GetStream(new TrackStatusResponseFactory()));
+      lazySystemStateChanged = new(() => GetStream(new SystemStateResponseFactory(), BroadcastFlags.Z21SystemState));
+      lazyLocomotiveInformationChanged = new(() => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching));
+      lazyTurnoutInformationChanged = new(() => GetStream(new TurnoutInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching));
+      lazyOccupancyStatusChanged = new(() => GetStream(new OccupancyStatusResponseFactory(), BroadcastFlags.RBus));
     }
 
-  
-
-    public IObservable<bool> ConnectionStatus { get; }     
-    public IObservable<TrackStatus> TrackStatusChanged => GetStream(new TrackStatusResponseFactory());
-    public IObservable<SystemState> SystemStateChanged => GetStream(new SystemStateResponseFactory(), BroadcastFlags.Z21SystemState);
-    public IObservable<LocomotiveInformation> LocomotiveInformationChanged => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching);
-    public IObservable<TurnoutInformation> TurnoutInformationChanged => GetStream(new TurnoutInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching);
-    public IObservable<OccupancyStatus> OccupancyStatusChanged => GetStream(new OccupancyStatusResponseFactory(), BroadcastFlags.RBus);
+    public IObservable<TrackStatus> TrackStatusChanged => lazyTrackStatusChanged.Value;
+    public IObservable<SystemState> SystemStateChanged => lazySystemStateChanged.Value;
+    public IObservable<TurnoutInformation> TurnoutInformationChanged => lazyTurnoutInformationChanged.Value;
+    public IObservable<OccupancyStatus> OccupancyStatusChanged => lazyOccupancyStatusChanged.Value;
+    public IObservable<LocomotiveInformation> LocomotiveInformationChanged => lazyLocomotiveInformationChanged.Value;
 
     private IObservable<TResponse> GetStream<TResponse>(ResponseFactory<TResponse> factory, BroadcastFlags requiredFlags = BroadcastFlags.None) {
-      if(requiredFlags != BroadcastFlags.None && !BroadcastFlags.HasFlag(requiredFlags)) {
-        SetBroadcastFlags(new SetBroadcastFlagsRequest { BroadcastFlags = BroadcastFlags | requiredFlags });
-      }
-      return inStream
-        .Where(x => MatchesPattern(x, factory.ResponsePattern))
-        .Select(factory.ParseResponseBytes);
+      var connection = UpdateStreamConnection<TResponse>.CreateUpdateStream(factory, requiredFlags, udpClientFactory);
+      disposables.Add(connection);
+      return connection.UpdateObservable;
     }
-
-    private static bool MatchesPattern(byte[] responseBytes, byte?[] pattern) {
-      return responseBytes.Zip(pattern, (r, p) => p == null || p == r).All(x => x);
-    }
-
 
     private async Task<TResponse> SendRequestWithResponse<TResponse>(RequestWithResponse<TResponse> request) {
-      var factory = request.GetResponseFactory();
-      var responseTask = CreateResponseTask(factory.ResponsePattern);
-      udpClient.SendBytes(request.ToByteArray());
-      return factory.ParseResponseBytes(await responseTask);
+      var connection = new RequestResponseConnector(udpClientFactory);
+      return await connection.Execute(request);
     }
 
 
     private async Task<TOut> SendRequestWithAddressSpecificResponse<TOut>(AddressSpecificRequest<TOut> request) {
-      var factory = request.GetResponseFactory();
-      var requestBytes = request.ToByteArray();
-      var responsePattern = factory.ResponsePattern;
-      var responseTask = CreateResponseTask(responsePattern);
-      udpClient.SendBytes(requestBytes);
-      return factory.ParseResponseBytes(await responseTask);
+      var connection = new RequestResponseConnector(udpClientFactory);
+
+      return await connection.Execute(request);
     }
 
-    private void SendRequestWithoutResponse(Request request) {
-      udpClient.SendBytes(request.ToByteArray());
-    }
+    private void SendRequestWithoutResponse(Request request) => udpClientFactory().SendBytes(request.ToByteArray());
 
-    private IObservable<byte[]> CreateResponseTask(byte?[] pattern) {
-      var timeoutSequence = Observable.Throw<byte[]>(new TimeoutException()).DelaySubscription(timeout);
-      return Observable.Amb(
-        udpClient.ObserveBytes().FirstAsync(x => {
-          return MatchesPattern(x, pattern);
-        }),
-        timeoutSequence);
-    }
 
-    private void LogOff() => SendRequestWithoutResponse(new LogOffRequest());
-
-    #region IDisposable Support
-    private bool disposedValue = false; // To detect redundant calls
-
-    protected virtual void Dispose(bool disposing) {
-      if (!disposedValue) {
-        if (disposing) {
-          keepConnectionAliveSubscription.Dispose();
-          LogOff();
-          udpClient.Dispose();
-        }
-
-        // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-        // TODO: set large fields to null.
-
-        disposedValue = true;
-      }
-    }
-
-    // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-    // ~Z21Client()
-    // {
-    //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-    //   Dispose(false);
-    // }
-
-    // This code added to correctly implement the disposable pattern.
-    public void Dispose() {
-      // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-      Dispose(true);
-      // TODO: uncomment the following line if the finalizer is overridden above.
-      // GC.SuppressFinalize(this);
-    }
-    #endregion
+    public void Dispose() => disposables.Dispose();
   }
 }

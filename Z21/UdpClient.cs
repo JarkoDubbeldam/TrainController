@@ -5,24 +5,37 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SysClient = System.Net.Sockets.UdpClient;
 
 namespace Z21 {
-  public class UdpClient : IUdpClient {
+  public sealed class UdpClient : IUdpClient, IDisposable {
     private readonly SysClient sysClient;
-    private IPEndPoint endpoint;
+    private readonly IPEndPoint endpoint;
     private readonly ILogger<UdpClient> logger;
-    private readonly UdpObservable listener;
     private readonly IObservable<byte[]> instream;
+    private IDisposable? instreamDisposable;
 
-    public UdpClient(SysClient sysClient, IPEndPoint endpoint, ILogger<UdpClient> logger) {
-      this.sysClient = sysClient;
-      this.endpoint = endpoint;
+    public UdpClient(IOptions<Z21Settings> options, ILogger<UdpClient> logger) {
+      this.sysClient = new SysClient();
+      this.endpoint = options.Value.Z21Endpoint;
       this.logger = logger;
-      listener = new UdpObservable(sysClient, logger);
-      instream = listener.SelectMany(SplitMessages);
+      this.instream = Observable.FromAsync(ListenAsync)
+        .Repeat()
+        .Where(x => x.RemoteEndPoint == endpoint)
+        .SelectMany(x => SplitMessages(x.Buffer))
+        .Publish()
+        .AutoConnect(onConnect: d => instreamDisposable = d);
+    }
+
+    private async Task<UdpReceiveResult> ListenAsync(CancellationToken cancellationToken) {
+      logger.LogDebug("Starting listen");
+      var result = await sysClient.ReceiveAsync(cancellationToken);
+      logger.LogDebug("Received message {bytes}", string.Join(" ", result.Buffer.Select(x => x.ToString())));
+      return result;
     }
 
 
@@ -39,41 +52,13 @@ namespace Z21 {
     }
 
     public void SendBytes(byte[] bytes) {
-      logger.LogDebug($"Sent {string.Join(' ', bytes.Select(x => x.ToString()))}");
+      logger.LogDebug("Sent {message}", string.Join(' ', bytes.Select(x => x.ToString())));
       sysClient.Send(bytes, bytes.Length, endpoint);
     }
 
-    #region IDisposable Support
-    private bool disposedValue = false; // To detect redundant calls
-
-    protected virtual void Dispose(bool disposing) {
-      if (!disposedValue) {
-        if (disposing) {
-          sysClient.Dispose();
-          listener.Dispose();
-        }
-
-        // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-        // TODO: set large fields to null.
-
-        disposedValue = true;
-      }
-    }
-
-    // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-    // ~UdpClient()
-    // {
-    //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-    //   Dispose(false);
-    // }
-
-    // This code added to correctly implement the disposable pattern.
     public void Dispose() {
-      // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-      Dispose(true);
-      // TODO: uncomment the following line if the finalizer is overridden above.
-      // GC.SuppressFinalize(this);
+      instreamDisposable?.Dispose();
+      sysClient.Dispose();
     }
-    #endregion
   }
 }
