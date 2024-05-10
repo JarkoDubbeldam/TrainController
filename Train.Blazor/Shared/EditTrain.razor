@@ -64,9 +64,9 @@
 
 
     [Parameter]
-    public Train Train { get; set; }
+    public required Train Train { get; set; }
     [Parameter]
-    public EventCallback OnSave { get; set; }
+    public required EventCallback OnSave { get; set; }
     [Parameter]
-    public EventCallback OnCancel { get; set; }
+    public required EventCallback OnCancel { get; set; }
 }

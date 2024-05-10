@@ -39,10 +39,10 @@ namespace TrainUI.ViewModels {
       Stop = ReactiveCommand.Create(() => Speed = 0, hasNonZeroSpeed);
       this.WhenActivated((CompositeDisposable disposables) => {
         var z21Client = Locator.Current.GetService<IZ21Client>();
-        z21Client
-          .ConnectionStatus
-          .Subscribe(x => Enabled = x)
-          .DisposeWith(disposables);
+        //z21Client
+        //  .ConnectionStatus
+        //  .Subscribe(x => Enabled = x)
+        //  .DisposeWith(disposables);
         z21Client.LocomotiveInformationChanged
           .Where(t => t.Address == address)
           .Subscribe(HandleTrainUpdate)

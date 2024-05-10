@@ -14,7 +14,7 @@
 
 @code {
     private List<Train>? trains;
-    private ReactiveLoader reactiveLoader;
+    private ReactiveLoader? reactiveLoader;
     private Subject<Train> selectedTrain = new Subject<Train>();
     private CompositeDisposable disposables = new();
 

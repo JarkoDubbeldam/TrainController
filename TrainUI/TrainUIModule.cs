@@ -23,7 +23,7 @@ namespace TrainUI {
       builder.RegisterModule(new TrainRepositoryModule(endpoint));
       builder.RegisterModule<TrainTrackerModule>();
       builder.RegisterModule<TrackModule>();
-      builder.RegisterModule<TrainControllerModule>();
+      //builder.RegisterModule<TrainControllerModule>();
       builder.RegisterAssemblyTypes(ThisAssembly).Where(x => x.Namespace == typeof(MainWindowViewModel).Namespace);
       builder.RegisterAssemblyTypes(ThisAssembly).Where(x => x.IsAssignableTo<JsonConverter>()).As<JsonConverter>().AsSelf();
       builder.RegisterType<JsonSuspensionDriver>();

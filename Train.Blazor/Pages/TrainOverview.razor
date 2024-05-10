@@ -23,7 +23,7 @@
 
 @code {
     private List<Train>? trains;
-    private ReactiveLoader reactiveLoader;
+    private ReactiveLoader? reactiveLoader;
     private Train? editingTrain;
     private bool showEditDialog;
 
@@ -48,13 +48,13 @@
             return;
         }
         await TrainService.SaveTrain(editingTrain);
-        trains.Add(editingTrain);
+        trains?.Add(editingTrain);
         showEditDialog = false;
         StateHasChanged();
     }
 
     private void AddTrain() {
-        editingTrain = new();
+        editingTrain = new() { Icon = "", Name = "" };
         showEditDialog = true;
         StateHasChanged();
     }

@@ -5,6 +5,6 @@ public class Train {
   [Range(1, 128)]
   public int Id { get; set; }
   [Required]
-  public string Name { get; set; }
-  public string Icon { get; set; }
+  public required string Name { get; set; }
+  public required string Icon { get; set; }
 }

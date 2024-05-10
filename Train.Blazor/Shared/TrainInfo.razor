@@ -8,7 +8,7 @@
 
 @code {
     [Parameter]
-    public Train Train { get; set; }
+    public required Train Train { get; set; }
 
     private string BackgroundUrl => $"background-image: url('{Train.Icon}');";
 }
