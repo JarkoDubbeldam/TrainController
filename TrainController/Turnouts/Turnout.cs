@@ -1,4 +1,4 @@
-﻿namespace TrainController.Turnout;
+﻿namespace TrainController.Turnouts;
 public class Turnout {
   public int Id { get; set; }
   /// <summary>

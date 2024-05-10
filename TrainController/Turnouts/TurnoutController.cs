@@ -7,7 +7,7 @@ using Z21;
 using Z21.API;
 using Z21.Domain;
 
-namespace TrainController.Turnout;
+namespace TrainController.Turnouts;
 internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21Client) : BackgroundService, IController<Turnout> {
   private readonly Subject<Turnout> turnoutSubject = new();
   private readonly ConcurrentDictionary<int, Turnout> turnouts = new();
