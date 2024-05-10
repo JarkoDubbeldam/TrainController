@@ -21,7 +21,10 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
     await turnoutService.SaveTurnout(dbTurnout);
 
     var turnout = turnouts.GetOrAdd(value.Id, new Turnout { Id = dbTurnout.Id, Timestamp = lastUpdate });
-    turnout.TurnoutMode = value.TurnoutMode;
+    if (turnout.TurnoutMode != value.TurnoutMode) {
+      turnout.TurnoutMode = value.TurnoutMode;
+      turnout.Timestamp = lastUpdate;
+    }    
   }
 
   public async Task<Turnout?> Get(int id) {
@@ -40,7 +43,7 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
   }
 
   private async Task FetchDatabase() {
-    var databaseTurnouts = await turnoutService.ListTurnout();
+    var databaseTurnouts = await turnoutService.ListTurnouts();
     foreach (var dbTurnout in databaseTurnouts) {
       turnouts.TryAdd(dbTurnout.Id, new Turnout { Id = dbTurnout.Id, Timestamp = lastUpdate });
     }

@@ -2,13 +2,10 @@
 using Trains.DataAccess.Models;
 
 namespace Trains.DataAccess {
-  public class TrainContext : DbContext {
-    public TrainContext(DbContextOptions options) : base(options) {
-    }
-
+  public class TrainContext(DbContextOptions options) : DbContext(options) {
     public DbSet<Train> Trains { get; set; }
     public DbSet<Turnout> Turnouts { get; set; }
-
+    public DbSet<Signal> Signals { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
       modelBuilder.Entity<Train>(b => {
@@ -19,7 +16,10 @@ namespace Trains.DataAccess {
       .Entity<Turnout>(b => {
         b.HasKey(t => t.Id);
         b.Property(t => t.Id).ValueGeneratedNever();
+      })
+      .Entity<Signal>(b => {
+        b.HasKey(s => s.Id);
+        b.Property(s => s.Id).ValueGeneratedNever();
       });
-
   }
 }
