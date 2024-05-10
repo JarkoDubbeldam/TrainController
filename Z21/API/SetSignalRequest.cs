@@ -7,7 +7,7 @@ using Z21.Domain;
 namespace Z21.API {
   public class SetSignalRequest : Request {
     public short Address { get; set; }
-    public SignalMode SignalMode { get; set; }
+    public required SignalMode SignalMode { get; set; }
 
     private static readonly Dictionary<(SignalColour, bool, bool), TurnoutPosition[]> mappings =
       new Dictionary<(SignalColour, bool, bool), TurnoutPosition[]>{
