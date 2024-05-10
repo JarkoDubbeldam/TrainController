@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Z21.API {
   public class SerialNumberResponseFactory : ResponseFactory<int> {
@@ -8,7 +7,5 @@ namespace Z21.API {
     internal override int ParseResponseBytes(byte[] response) {
       return ByteArrayToInt(response.Skip(4).ToArray());
     }
-
-
   }
 }

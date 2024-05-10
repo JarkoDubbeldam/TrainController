@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Z21.Domain;
 
 namespace Z21.API {
@@ -18,15 +16,14 @@ namespace Z21.API {
       if (!QueueMode) {
         throw new NotImplementedException("Queuemode off is currently not supported/implemented");
       }
-      if(TurnoutPosition == TurnoutPosition.Unknown) {
+      if (TurnoutPosition == TurnoutPosition.Unknown) {
         throw new ArgumentException($"Can't set turnout to {TurnoutPosition.Unknown}.");
       }
 
       Address.GetAddressBytes(out var msb, out var lsb);
       var activationByte = (int)Activation << 3;
       var queueByte = QueueMode ? 0b100000 : 0;
-      var positionByte = TurnoutPosition switch
-      {
+      var positionByte = TurnoutPosition switch {
         TurnoutPosition.Position1 => 0,
         TurnoutPosition.Position2 => 1,
         _ => throw new ArgumentOutOfRangeException(nameof(TurnoutPosition))

@@ -14,10 +14,10 @@ namespace Z21.Domain {
 
 
     public TrainSpeed(SpeedStepSetting speedStepSetting, DrivingDirection drivingDirection, Speed speed) {
-      if(speed > MaxSpeeds[speedStepSetting]) {
+      if (speed > MaxSpeeds[speedStepSetting]) {
         throw new ArgumentOutOfRangeException(nameof(speed), $"Max speed with setting {speedStepSetting} is {MaxSpeeds[speedStepSetting]}, actual {speed}");
       }
-      if(speed < Speed.Stop) {
+      if (speed < Speed.Stop) {
         throw new ArgumentOutOfRangeException(nameof(speed), $"Min speed is -1 as {Speed.Stop}, to change direction, use {nameof(drivingDirection)}.");
       }
 
@@ -29,16 +29,15 @@ namespace Z21.Domain {
     internal TrainSpeed(SpeedStepSetting speedStepSetting, byte speedByte) {
       this.speedStepSetting = speedStepSetting;
       this.drivingDirection = (speedByte & DirectionMask) == 0 ? DrivingDirection.Backward : DrivingDirection.Forward;
-      if(speedStepSetting == SpeedStepSetting.Step128) {
+      if (speedStepSetting == SpeedStepSetting.Step128) {
         this.speed = (Speed)((Speed128Mask & speedByte) - 1);
       } else {
         this.speed = (Speed)((Speed14Mask & speedByte) - 1);
-        if(speed > 0 && speedStepSetting == SpeedStepSetting.Step28) {
+        if (speed > 0 && speedStepSetting == SpeedStepSetting.Step28) {
           this.speed = (Speed)(((sbyte)speed << 1) - ((speedByte & ExtraBitSpeed28Mask) == 0 ? 1 : 0));
         }
       }
     }
-
 
     public SpeedStepSetting SpeedStepSetting => speedStepSetting;
     public DrivingDirection DrivingDirection => drivingDirection;
@@ -48,12 +47,12 @@ namespace Z21.Domain {
 
     internal byte ToSpeedByte() {
       var directionByte = ((byte)DrivingDirection << 7);
-      if(SpeedStepSetting == SpeedStepSetting.Step128 || Speed <= 0) {
+      if (SpeedStepSetting == SpeedStepSetting.Step128 || Speed <= 0) {
         return (byte)(directionByte + (byte)(Speed + 1));
       } else {
         var resultByte = directionByte;
         var speed = (int)this.Speed;
-        if(SpeedStepSetting == SpeedStepSetting.Step28) {
+        if (SpeedStepSetting == SpeedStepSetting.Step28) {
           resultByte |= speed % 2 == 0 ? 0b00010000 : 0;
           speed /= 2;
         }
@@ -66,10 +65,13 @@ namespace Z21.Domain {
       return $"Direction: {DrivingDirection}, Speed: {Speed}";
     }
 
-    private static readonly Dictionary<SpeedStepSetting, Speed> MaxSpeeds = new Dictionary<SpeedStepSetting, Speed> { { SpeedStepSetting.Step14, (Speed)14 }, { SpeedStepSetting.Step28, (Speed)28 }, { SpeedStepSetting.Step128, (Speed)126 } };
-
-
+    private static readonly Dictionary<SpeedStepSetting, Speed> MaxSpeeds = new() {
+      [SpeedStepSetting.Step14] = (Speed)14,
+      [SpeedStepSetting.Step28] = (Speed)28,
+      [SpeedStepSetting.Step128] = (Speed)126
+    };
   }
+
   public enum SpeedStepSetting : byte {
     Step14 = 0,
     Step28 = 2,

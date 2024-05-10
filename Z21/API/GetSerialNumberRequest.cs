@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Z21.API {
+﻿namespace Z21.API {
   public class SerialNumberRequest : RequestWithResponse<int> {
     internal override ResponseFactory<int> GetResponseFactory() {
       return new SerialNumberResponseFactory();

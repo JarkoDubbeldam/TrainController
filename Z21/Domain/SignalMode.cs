@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Z21.Domain {
+﻿namespace Z21.Domain {
   public class SignalMode {
     public SignalColour SignalColour { get; set; }
     public bool Blinking { get; set; }

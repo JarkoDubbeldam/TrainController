@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Z21.Domain {
   public class LocomotiveInformation {
@@ -50,5 +47,4 @@ namespace Z21.Domain {
     Function27 = 0x40000000,
     Function28 = 0x80000000
   }
-
 }

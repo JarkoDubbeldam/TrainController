@@ -16,6 +16,6 @@ namespace Z21.API {
     internal override OccupancyStatus ParseResponseBytes(byte[] response) => new OccupancyStatus {
       Occupancies = new BitArray(response.Skip(5).ToArray()),
       GroupIndex = response[4]
-    };    
+    };
   }
 }

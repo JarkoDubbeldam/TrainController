@@ -9,7 +9,7 @@ namespace Z21.API {
     public short Address { get; set; }
     public SignalMode SignalMode { get; set; }
 
-    private static readonly Dictionary<(SignalColour, bool, bool), TurnoutPosition[]> mappings = 
+    private static readonly Dictionary<(SignalColour, bool, bool), TurnoutPosition[]> mappings =
       new Dictionary<(SignalColour, bool, bool), TurnoutPosition[]>{
         { (SignalColour.Red, false, false), new [] { TurnoutPosition.Position1, TurnoutPosition.Position1, TurnoutPosition.Position1 } },
         { (SignalColour.Green, false, false), new [] { TurnoutPosition.Position2, TurnoutPosition.Position1, TurnoutPosition.Position1 } },
@@ -22,7 +22,7 @@ namespace Z21.API {
     };
 
     internal override byte[] ToByteArray() {
-      if(!mappings.TryGetValue((SignalMode.SignalColour, SignalMode.Blinking, SignalMode.Number), out var mapping)) {
+      if (!mappings.TryGetValue((SignalMode.SignalColour, SignalMode.Blinking, SignalMode.Number), out var mapping)) {
         throw new InvalidOperationException("Unavailable combinations of settings");
       }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Z21.Domain;
+﻿using Z21.Domain;
 
 namespace Z21.API {
   internal class SystemStateResponseFactory : ResponseFactory<SystemState> {
@@ -20,6 +17,4 @@ namespace Z21.API {
       };
     }
   }
-
- 
 }

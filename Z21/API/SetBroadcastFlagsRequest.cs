@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Z21.Domain;
 
 namespace Z21.API {
@@ -16,6 +15,4 @@ namespace Z21.API {
       return new byte[] { 0x08, 0x00, 0x50, 0x00 }.Concat(flagBits).ToArray();
     }
   }
-
-
 }

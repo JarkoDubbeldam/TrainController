@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
 using System.Threading.Tasks;
 using Z21.API;
 using Z21.Domain;
@@ -27,7 +24,7 @@ internal class UpdateStreamConnection<TUpdate> : IDisposable {
       .AutoConnect();
 
     var _ = Observable.FromAsync(() => Task.Delay(TimeSpan.FromSeconds(50)))
-      .Repeat()      
+      .Repeat()
       .Do(_ => udpClient.SendBytes(new BroadcastFlagsRequest().ToByteArray()))
       .TakeUntil(disposed)
       .Subscribe();
@@ -43,7 +40,7 @@ internal class UpdateStreamConnection<TUpdate> : IDisposable {
   }
 
   public static UpdateStreamConnection<TUpdate> CreateUpdateStream<TFactory>(BroadcastFlags broadcastFlags, Func<IUdpClient> clientFactory)
-    where TFactory : ResponseFactory<TUpdate>, new() 
+    where TFactory : ResponseFactory<TUpdate>, new()
     => CreateUpdateStream(new TFactory(), broadcastFlags, clientFactory);
 
   public static UpdateStreamConnection<TUpdate> CreateUpdateStream(ResponseFactory<TUpdate> responseFactory, BroadcastFlags broadcastFlags, Func<IUdpClient> clientFactory)
