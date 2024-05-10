@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Trains.DataAccess.Models;
 
 namespace Trains.DataAccess.Services;
-internal class TrainService : ITrainService {
-  private readonly TrainContext trainContext;
-
-  public TrainService(TrainContext trainContext) {
-    this.trainContext = trainContext;
-  }
-
+internal class TrainService(TrainContext trainContext) : ITrainService {
   public Task<List<Train>> ListTrains(CancellationToken cancellationToken = default) {
     return trainContext.Trains.ToListAsync(cancellationToken);
   }
@@ -24,7 +13,7 @@ internal class TrainService : ITrainService {
       var databaseTrain = await trainContext.Trains.SingleOrDefaultAsync(t => t.Id == train.Id);
       if (databaseTrain == null) {
         await trainContext.Trains.AddAsync(train);
-      } else { 
+      } else {
         databaseTrain.Name = train.Name;
         databaseTrain.Icon = train.Icon;
       }
@@ -33,6 +22,5 @@ internal class TrainService : ITrainService {
     } catch (DbUpdateException) {
       await transaction.RollbackAsync();
     }
-
   }
 }

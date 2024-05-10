@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Trains.DataAccess.Models;
 
 namespace Trains.DataAccess {
@@ -8,13 +7,19 @@ namespace Trains.DataAccess {
     }
 
     public DbSet<Train> Trains { get; set; }
+    public DbSet<Turnout> Turnouts { get; set; }
 
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) => 
+    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
       modelBuilder.Entity<Train>(b => {
         b.HasKey(t => t.Id);
         b.Property(t => t.Id).ValueGeneratedNever();
         b.Property(t => t.Name).IsRequired();
+      })
+      .Entity<Turnout>(b => {
+        b.HasKey(t => t.Id);
+        b.Property(t => t.Id).ValueGeneratedNever();
       });
+
   }
 }

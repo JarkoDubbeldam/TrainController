@@ -9,7 +9,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TrainTracker\TrainTracker.csproj" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Train.DataAccess\Trains.DataAccess.csproj" />
+	  <ProjectReference Include="..\Z21\Z21.csproj" />
 	</ItemGroup>
 
 </Project>

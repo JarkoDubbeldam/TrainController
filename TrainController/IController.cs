@@ -1,11 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrainController {
-    public interface IController<T> {
-    }
+﻿namespace TrainController; 
+public interface IController<T> where T : class {
+  Task Apply(T value);
+  Task<T?> Get(int id);
+  Task<List<T>> List();
+  IObservable<T> Observable { get; }
 }
