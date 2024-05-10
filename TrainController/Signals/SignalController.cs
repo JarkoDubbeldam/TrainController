@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Reactive.Subjects;
+using System.Text.Json;
 using Microsoft.Extensions.Hosting;
 using Trains.DataAccess.Services;
 using Z21;
@@ -15,14 +16,27 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
   public IObservable<Signal> Observable => signalSubject;
 
   public async Task Apply(Signal value) {
-    var dbSignal = new Trains.DataAccess.Models.Signal { Id = value.Id };
+    var dbSignal = new Trains.DataAccess.Models.Signal { Id = value.Id, Json = Serialize(value.SignalConfigurations) };
     await signalService.SaveSignal(dbSignal);
 
-    var signal = signals.GetOrAdd(value.Id, new Signal { Id = dbSignal.Id, Timestamp = lastUpdate });
-    if (signal.SignalMode != value.SignalMode) {
-      signal.SignalMode = value.SignalMode;
-      signal.Timestamp = lastUpdate;
+    signals.AddOrUpdate(value.Id, value with { Timestamp = lastUpdate }, (id, old) => {
+      if (old.SignalMode != value.SignalMode) {
+        return old with {
+          SignalMode = value.SignalMode,
+          SignalConfigurations = value.SignalConfigurations,
+          Timestamp = lastUpdate,
+        };
+      }
+      return old;
+    });
+  }
+
+  private static string Serialize(List<SignalConfiguration> signalConfigurations) => JsonSerializer.Serialize(signalConfigurations);
+  private static List<SignalConfiguration> Deserialize(string? json) {
+    if (json is null) {
+      return [];
     }
+    return JsonSerializer.Deserialize<List<SignalConfiguration>>(json) ?? [];
   }
 
   public async Task<Signal?> Get(int id) {
@@ -32,21 +46,22 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
     return signals.GetValueOrDefault(id);
   }
 
-  public async Task<List<Signal>> List() {
+  public async Task<IReadOnlyDictionary<int, Signal>> List() {
     if (!fetchedDatabaseYet) {
       await FetchDatabase();
     }
 
-    return signals.Values.ToList();
+    return signals;
   }
 
   private async Task FetchDatabase() {
     var databaseTurnouts = await signalService.ListSignals();
     foreach (var dbSignal in databaseTurnouts) {
-      signals.TryAdd(dbSignal.Id, new Signal { Id = dbSignal.Id, Timestamp = lastUpdate });
+      signals.TryAdd(dbSignal.Id, new Signal(Id: dbSignal.Id, Timestamp: lastUpdate, SignalConfigurations: Deserialize(dbSignal.Json))); 
     }
     fetchedDatabaseYet = true;
   }
+
 
   protected async override Task ExecuteAsync(CancellationToken stoppingToken) {
     while (!stoppingToken.IsCancellationRequested) {
@@ -58,6 +73,7 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
 
   private void RunUpdateLoop() {
     foreach (var signal in signals.Values) {
+      var mutableSignal = signal;
       if (signal.Timestamp < lastUpdate) {
         continue;
       }
@@ -72,16 +88,18 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
         (signal.SignalMode.SignalColour == SignalColour.Green && signal.SignalStatus?.SignalColour == SignalColour.Red)) {
         intendedMode = intendedMode with { SignalColour = SignalColour.Yellow };
         // Also set timestamp to be in the future in order to ensure this will be visited again.
-        signal.Timestamp = long.MaxValue;
+        mutableSignal = mutableSignal with { Timestamp = long.MaxValue };
       } else {
         // reset timestamp to prevent continuously updating.
-        signal.Timestamp = lastUpdate;
+        mutableSignal = mutableSignal with { Timestamp = lastUpdate };
       }
 
       z21Client.SetSignal(new SetSignalRequest {
         Address = (short)signal.Id,
         SignalMode = Map(intendedMode)
       });
+      mutableSignal = mutableSignal with { SignalStatus = intendedMode };
+      signals.AddOrUpdate(mutableSignal.Id, mutableSignal, (_, _) => mutableSignal);
     }
   }
 

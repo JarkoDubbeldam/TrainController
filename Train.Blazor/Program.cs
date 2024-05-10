@@ -1,8 +1,6 @@
-using Trains.DataAccess;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Z21;
 using System.Net;
+using Trains.DataAccess;
+using Z21;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();

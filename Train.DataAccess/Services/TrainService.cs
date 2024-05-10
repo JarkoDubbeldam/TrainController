@@ -3,9 +3,8 @@ using Trains.DataAccess.Models;
 
 namespace Trains.DataAccess.Services;
 internal class TrainService(TrainContext trainContext) : ITrainService {
-  public Task<List<Train>> ListTrains(CancellationToken cancellationToken = default) {
-    return trainContext.Trains.ToListAsync(cancellationToken);
-  }
+  public Task<List<Train>> ListTrains(CancellationToken cancellationToken = default) =>
+    trainContext.Trains.ToListAsync(cancellationToken);
 
   public async Task SaveTrain(Train train) {
     using var transaction = await trainContext.Database.BeginTransactionAsync();

@@ -34,12 +34,12 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
     return turnouts.GetValueOrDefault(id);
   }
 
-  public async Task<List<Turnout>> List() {
+  public async Task<IReadOnlyDictionary<int, Turnout>> List() {
     if (!fetchedDatabaseYet) {
       await FetchDatabase();
     }
 
-    return turnouts.Values.ToList();
+    return turnouts;
   }
 
   private async Task FetchDatabase() {
@@ -55,13 +55,13 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
       .Subscribe(OnTurnoutChanged);
 
     while (!stoppingToken.IsCancellationRequested) {
-      await RunUpdateLoop(stoppingToken);
+      await RunUpdateLoop();
       lastUpdate = DateTime.UtcNow.Ticks;
       await Task.Delay(500, stoppingToken);
     }
   }
 
-  private async Task RunUpdateLoop(CancellationToken stoppingToken) {
+  private async Task RunUpdateLoop() {
     foreach (var turnout in turnouts.Values) {
       if (turnout.Timestamp < lastUpdate) {
         continue;
