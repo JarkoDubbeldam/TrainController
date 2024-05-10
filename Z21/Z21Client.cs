@@ -20,7 +20,7 @@ namespace Z21 {
 
       lazyTrackStatusChanged = new(() => GetStream(new TrackStatusResponseFactory()));
       lazySystemStateChanged = new(() => GetStream(new SystemStateResponseFactory(), BroadcastFlags.Z21SystemState));
-      lazyLocomotiveInformationChanged = new(() => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching));
+      lazyLocomotiveInformationChanged = new(() => GetStream(new LocomotiveInformationResponseFactory(), BroadcastFlags.AllLocs));
       lazyTurnoutInformationChanged = new(() => GetStream(new TurnoutInformationResponseFactory(), BroadcastFlags.DrivingAndSwitching));
       lazyOccupancyStatusChanged = new(() => GetStream(new OccupancyStatusResponseFactory(), BroadcastFlags.RBus));
     }

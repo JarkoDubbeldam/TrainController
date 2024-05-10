@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Z21.API;
 using SysClient = System.Net.Sockets.UdpClient;
 
 namespace Z21 {
@@ -18,6 +19,7 @@ namespace Z21 {
     private readonly ILogger<UdpClient> logger;
     private readonly IObservable<byte[]> instream;
     private IDisposable? instreamDisposable;
+    private bool disposedValue;
 
     public UdpClient(IOptions<Z21Settings> options, ILogger<UdpClient> logger) {
       this.sysClient = new SysClient();
@@ -32,9 +34,9 @@ namespace Z21 {
     }
 
     private async Task<UdpReceiveResult> ListenAsync(CancellationToken cancellationToken) {
-      logger.LogDebug("Starting listen");
+      logger.LogInformation("Starting listen");
       var result = await sysClient.ReceiveAsync(cancellationToken);
-      logger.LogDebug("Received message {bytes}", string.Join(" ", result.Buffer.Select(x => x.ToString())));
+      logger.LogInformation("Receive {fromip} -> {toip}: {bytes}", result.RemoteEndPoint, sysClient.Client.LocalEndPoint, string.Join(" ", result.Buffer.Select(x => x.ToString())));
       return result;
     }
 
@@ -52,13 +54,26 @@ namespace Z21 {
     }
 
     public void SendBytes(byte[] bytes) {
-      logger.LogDebug("Sent {message}", string.Join(' ', bytes.Select(x => x.ToString())));
       sysClient.Send(bytes, bytes.Length, endpoint);
+      logger.LogInformation("Sent {fromip} -> {toip}: {bytes}", sysClient.Client.LocalEndPoint, endpoint, string.Join(" ", bytes.Select(x => x.ToString())));
+    }
+
+    private void Dispose(bool disposing) {
+      if (!disposedValue) {
+        if (disposing) {
+          instreamDisposable?.Dispose();
+
+          this.SendBytes(new LogOffRequest().ToByteArray());
+          sysClient.Dispose();
+        }
+        disposedValue = true;
+      }
     }
 
     public void Dispose() {
-      instreamDisposable?.Dispose();
-      sysClient.Dispose();
+      // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+      Dispose(disposing: true);
+      GC.SuppressFinalize(this);
     }
   }
 }

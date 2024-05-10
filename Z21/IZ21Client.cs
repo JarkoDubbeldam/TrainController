@@ -5,7 +5,6 @@ using Z21.Domain;
 
 namespace Z21 {
   public interface IZ21Client {
-    IObservable<bool> ConnectionStatus { get; }
     IObservable<TurnoutChangingEventArgs> TurnoutChanging { get; }
     IObservable<TurnoutInformation> TurnoutInformationChanged { get; }
     IObservable<LocomotiveInformation> LocomotiveInformationChanged { get; }

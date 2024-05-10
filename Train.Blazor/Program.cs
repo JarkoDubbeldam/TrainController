@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddTrainContext();
-builder.Services.AddZ21(c => c.Z21Endpoint = new IPEndPoint(IPAddress.Parse("192.168.0.111"), 12345));
+builder.Services.AddZ21(c => c.Z21Endpoint = new IPEndPoint(IPAddress.Parse("192.168.0.111"), 21105));
 var app = builder.Build();
 
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();

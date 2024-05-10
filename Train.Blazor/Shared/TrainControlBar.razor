@@ -1,0 +1,54 @@
+﻿@using System.Reactive.Subjects;
+@using System.Reactive.Linq;
+@using System.Reactive.Disposables;
+@using Z21;
+@using Z21.Domain;
+@inject ITrainService TrainService;
+@inject IZ21Client Z21Client;
+
+@inherits ReactiveComponentBase;
+
+<div class="train-control-bar">
+    <TrainControls Train="@train" LocomotiveInformation="@locomotiveInformation"></TrainControls>
+</div>
+
+@code {
+    private List<Train>? trains;
+    private ReactiveLoader reactiveLoader;
+    private Subject<Train> selectedTrain = new Subject<Train>();
+    private CompositeDisposable disposables = new();
+
+    private Train? train = null;
+    private LocomotiveInformation? locomotiveInformation = null;
+
+
+    protected override void OnInitialized() {
+        disposables.Add(selectedTrain
+            .Do(t => {
+                train = t;
+                StateHasChanged();
+            })
+            .Select(x => Z21Client.LocomotiveInformationChanged.Where(l => l.Address == x.Id))
+            .Switch()
+            .Do(l => {
+                locomotiveInformation = l;
+                StateHasChanged();
+            })
+            .Subscribe());
+        reactiveLoader = new(ParametersSet, Load);
+        disposables.Add(reactiveLoader);
+    }
+
+    private async Task Load(CancellationToken cancellationToken) {
+        trains = await TrainService.ListTrains(cancellationToken);
+        selectedTrain.OnNext(trains[0]);
+        StateHasChanged();
+    }
+
+
+
+    public override void Dispose() {
+        disposables.Dispose();
+        base.Dispose();
+    }
+}

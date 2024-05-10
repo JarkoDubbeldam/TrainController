@@ -16,6 +16,8 @@ namespace Z21 {
       handler => TurnoutChangingInternal -= handler
     )
       .Select(x => x.EventArgs);
+
+
     private event EventHandler<TurnoutChangingEventArgs> TurnoutChangingInternal;
 
     public Task<int> GetSerialNumber(SerialNumberRequest serialNumberRequest) => SendRequestWithResponse(serialNumberRequest);

@@ -26,8 +26,9 @@ internal class UpdateStreamConnection<TUpdate> : IDisposable {
       .Publish()
       .AutoConnect();
 
-    var _ = Observable.Timer(TimeSpan.FromSeconds(50))
-      .Do(_ => udpClient.SendBytes(new SerialNumberRequest().ToByteArray()))
+    var _ = Observable.FromAsync(() => Task.Delay(TimeSpan.FromSeconds(50)))
+      .Repeat()      
+      .Do(_ => udpClient.SendBytes(new BroadcastFlagsRequest().ToByteArray()))
       .TakeUntil(disposed)
       .Subscribe();
   }
@@ -45,8 +46,9 @@ internal class UpdateStreamConnection<TUpdate> : IDisposable {
     where TFactory : ResponseFactory<TUpdate>, new() 
     => CreateUpdateStream(new TFactory(), broadcastFlags, clientFactory);
 
-  public static UpdateStreamConnection<TUpdate> CreateUpdateStream(ResponseFactory<TUpdate> responseFactory, BroadcastFlags broadcastFlags, Func<IUdpClient> clientFactory) {
-    var client = clientFactory();
+  public static UpdateStreamConnection<TUpdate> CreateUpdateStream(ResponseFactory<TUpdate> responseFactory, BroadcastFlags broadcastFlags, Func<IUdpClient> clientFactory)
+    => CreateUpdateStream(responseFactory, broadcastFlags, clientFactory());
+  public static UpdateStreamConnection<TUpdate> CreateUpdateStream(ResponseFactory<TUpdate> responseFactory, BroadcastFlags broadcastFlags, IUdpClient client) {
     var broadcastFlagRequest = new SetBroadcastFlagsRequest { BroadcastFlags = broadcastFlags };
     client.SendBytes(broadcastFlagRequest.ToByteArray());
 

@@ -30,9 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTrackerTester", "Train
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainController", "TrainController\TrainController.csproj", "{4A5F4BC9-F902-4BB5-BBE1-D01BB787C6B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.DataAccess", "Train.DataAccess\Trains.DataAccess.csproj", "{05530CF9-4F1D-49B3-8F3A-7B23232ACA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trains.DataAccess", "Train.DataAccess\Trains.DataAccess.csproj", "{05530CF9-4F1D-49B3-8F3A-7B23232ACA40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Blazor", "Train.Blazor\Trains.Blazor.csproj", "{A34A543C-3B85-4972-9157-8D5DD0211E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trains.Blazor", "Train.Blazor\Trains.Blazor.csproj", "{A34A543C-3B85-4972-9157-8D5DD0211E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

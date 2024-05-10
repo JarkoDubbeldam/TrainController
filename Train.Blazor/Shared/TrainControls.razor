@@ -1,0 +1,17 @@
+﻿@using Z21.Domain;
+<div>
+@if (Train is not null)
+{
+    <TrainInfo Train="@Train"></TrainInfo>
+}
+    <p>Speed: @speed</p>
+</div>
+
+@code {
+    [Parameter]
+    public Train? Train { get; set; }
+    [Parameter]
+    public LocomotiveInformation? LocomotiveInformation {get;set;}
+
+    private int speed => (int)(LocomotiveInformation?.TrainSpeed.Speed ?? 0);
+}
