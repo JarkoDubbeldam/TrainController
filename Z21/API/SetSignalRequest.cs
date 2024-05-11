@@ -20,15 +20,16 @@ namespace Z21.API {
         [(SignalColour.Green, true, false)] = [TurnoutPosition.Position2, TurnoutPosition.Position1, TurnoutPosition.Position2],
         [(SignalColour.Green, true, true)] = [TurnoutPosition.Position2, TurnoutPosition.Position2, TurnoutPosition.Position1],
       };
+    private static readonly int[] commandOrder = [1, 0, 2]; // TODO figure out better transition logic so that yellow -> green doesn't go past red.
 
     internal override byte[] ToByteArray() {
       if (!mappings.TryGetValue((SignalMode.SignalColour, SignalMode.Blinking, SignalMode.Number), out var mapping)) {
         throw new InvalidOperationException("Unavailable combinations of settings");
       }
 
-      return mapping.Select((position, index) => new SetTurnoutRequest {
-        Address = (short)(Address + index),
-        TurnoutPosition = position
+      return commandOrder.Select(idx => new SetTurnoutRequest {
+        Address = (short)(Address + idx),
+        TurnoutPosition = mapping[idx]
       })
         .SelectMany(x => x.ToByteArray())
         .Concat(new SetTurnoutRequest {

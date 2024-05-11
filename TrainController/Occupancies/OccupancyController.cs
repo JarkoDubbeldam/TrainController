@@ -20,7 +20,7 @@ internal class OccupancyController(IZ21Client z21Client) : BackgroundService, IC
   }
 
   private void OnStatusChanged(OccupancyStatus status) {
-    var offset = (status.GroupIndex - 1) * 80;
+    var offset = (status.GroupIndex) * 80;
     for (var index = 0; index < 80; index++) {
       var occupancy = occupancies.AddOrUpdate(offset + index, id => {
         var createdOccupancy = new Occupancy(Id: id, IsOccupied: status.Occupancies[index]);

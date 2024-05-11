@@ -22,30 +22,54 @@ internal class SignalStateController(
     var occupancies = await occupancyController.List();
 
     foreach (var signal in signals.Values) {
+      logger.LogTrace("Checking for signal {signal}", signal.Id);
       var colour = signal.SignalConfigurations.Select(x => DetermineColour(x, turnouts, occupancies, signals)).Min();
-      var newSignal = signal with { SignalMode = signal.SignalMode ?? new SignalMode(colour, false, false, false) with { SignalColour = colour } };
-      //logger.LogDebug("{signal} should be colour {colour}", signal.Id, colour);
+      var newSignal = signal with { SignalMode = (signal.SignalMode ?? new SignalMode(colour, false, false, false)) with { SignalColour = colour } };
+      logger.LogDebug("{signal} should be colour {colour}", signal.Id, colour);
       await signalController.Apply(newSignal);
     }
   }
 
-  private static SignalColour DetermineColour(
+  private SignalColour DetermineColour(
     SignalConfiguration signalConfiguration,
     IReadOnlyDictionary<int, Turnout> turnouts,
     IReadOnlyDictionary<int, Occupancy> occupancies,
     IReadOnlyDictionary<int, Signal> signals) {
-    if (!AreAllTurnoutsActivated(signalConfiguration.TurnoutConfigurations, turnouts)) {
-      return SignalColour.Red;
+    foreach(var turnoutConfig in signalConfiguration.TurnoutConfigurations) {
+      if(!turnouts.TryGetValue(turnoutConfig.TurnoutId, out var turnout)) {
+        logger.LogTrace("TurnoutId {turnoudId} was not found.", turnoutConfig.TurnoutId);
+        return SignalColour.Red;
+      }
+      if(turnout.TurnoutStatus != turnoutConfig.TurnoutMode) {
+        logger.LogTrace("TurnoutId {turnoudId} was in mode {actual}, not {required}.", turnoutConfig.TurnoutId, turnout.TurnoutStatus, turnoutConfig.TurnoutMode);
+        return SignalColour.Red;
+      }
     }
-    if (!AreAllSectionsUnoccupied(signalConfiguration.GuardedSections, occupancies)) {
-      return SignalColour.Red;
+
+    //if (!AreAllTurnoutsActivated(signalConfiguration.TurnoutConfigurations, turnouts)) {
+    //  return SignalColour.Red;
+    //}
+    foreach(var section in signalConfiguration.GuardedSections) {
+      if(!occupancies.TryGetValue(section, out var occupancy)) {
+        logger.LogTrace("Section {section} was not found.", section);
+        return SignalColour.Red;
+      }
+      if (occupancy.IsOccupied) {
+        logger.LogTrace("Section {section} was occupied.", section);
+        return SignalColour.Red;
+      }
     }
+    //if (!AreAllSectionsUnoccupied(signalConfiguration.GuardedSections, occupancies)) {
+    //  return SignalColour.Red;
+    //}
 
     if (signalConfiguration.DownstringSignalId is not null &&
       signals.GetValueOrDefault(signalConfiguration.DownstringSignalId.Value)?.SignalStatus?.SignalColour == SignalColour.Red) {
+      logger.LogTrace("Next signal {signal} was red. Therefore yellow.", signalConfiguration.DownstringSignalId);
       return SignalColour.Yellow;
     }
 
+    logger.LogTrace("All safe!");
     return SignalColour.Green;
   }
 
