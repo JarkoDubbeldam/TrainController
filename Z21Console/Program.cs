@@ -16,7 +16,11 @@ var z21Client = collection.GetService<IZ21Client>();
 
 using var _ = z21Client.LocomotiveInformationChanged.Do(PrintLoco).Subscribe();
 
-void PrintLoco(LocomotiveInformation information) {
+using var __ = z21Client.OccupancyStatusChanged.Do(PrintLoco).Subscribe();
+
+using var ___ = z21Client.TurnoutInformationChanged.Do(PrintLoco).Subscribe();
+
+void PrintLoco<T>(T information) {
   Console.WriteLine(information);
 }
 

@@ -26,7 +26,7 @@ namespace Z21 {
       this.logger = logger;
       this.instream = Observable.FromAsync(ListenAsync)
         .Repeat()
-        .Where(x => x.RemoteEndPoint == endpoint)
+        .Where(x => x.RemoteEndPoint.Address.Equals(endpoint.Address) && x.RemoteEndPoint.Port == endpoint.Port)
         .SelectMany(x => SplitMessages(x.Buffer))
         .Publish()
         .AutoConnect(onConnect: d => instreamDisposable = d);
