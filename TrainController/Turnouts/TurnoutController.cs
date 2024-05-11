@@ -93,14 +93,14 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
   }
 
   private static TurnoutPosition Map(TurnoutStatus turnoutMode) => turnoutMode switch {
-    TurnoutStatus.Left => TurnoutPosition.Position1,
-    TurnoutStatus.Right => TurnoutPosition.Position2,
+    TurnoutStatus.Left => TurnoutPosition.Position2,
+    TurnoutStatus.Right => TurnoutPosition.Position1,
     _ => throw new ArgumentOutOfRangeException(nameof(turnoutMode))
   };
 
   private static TurnoutStatus Map(TurnoutPosition turnoutPosition) => turnoutPosition switch {
-    TurnoutPosition.Position1 => TurnoutStatus.Left,
-    TurnoutPosition.Position2 => TurnoutStatus.Right,
+    TurnoutPosition.Position2 => TurnoutStatus.Left,
+    TurnoutPosition.Position1 => TurnoutStatus.Right,
     _ => TurnoutStatus.Unspecified
   };
 }

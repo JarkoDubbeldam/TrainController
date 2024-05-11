@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using TrainController.Occupancies;
 using TrainController.Turnouts;
-using Z21;
 
 namespace TrainController.Signals;
 internal class SignalStateController(IController<Signal> signalController, IController<Turnout> turnoutController, IController<Occupancy> occupancyController) : BackgroundService {
@@ -22,17 +16,17 @@ internal class SignalStateController(IController<Signal> signalController, ICont
     var signals = await signalController.List();
     var occupancies = await occupancyController.List();
 
-    foreach(var signal in signals.Values) {
+    foreach (var signal in signals.Values) {
       var colour = signal.SignalConfigurations.Select(x => DetermineColour(x, turnouts, occupancies, signals)).Min();
-      var newSignal = signal with { SignalMode = signal.SignalMode ?? new SignalMode(colour, false, false, false) with { SignalColour = colour }};
+      var newSignal = signal with { SignalMode = signal.SignalMode ?? new SignalMode(colour, false, false, false) with { SignalColour = colour } };
       await signalController.Apply(newSignal);
     }
   }
 
   private static SignalColour DetermineColour(
-    SignalConfiguration signalConfiguration, 
+    SignalConfiguration signalConfiguration,
     IReadOnlyDictionary<int, Turnout> turnouts,
-    IReadOnlyDictionary<int, Occupancy> occupancies, 
+    IReadOnlyDictionary<int, Occupancy> occupancies,
     IReadOnlyDictionary<int, Signal> signals) {
     if (!AreAllTurnoutsActivated(signalConfiguration.TurnoutConfigurations, turnouts)) {
       return SignalColour.Red;
@@ -41,14 +35,15 @@ internal class SignalStateController(IController<Signal> signalController, ICont
       return SignalColour.Red;
     }
 
-    if (signalConfiguration.DownstringSignalId is not null && 
+    if (signalConfiguration.DownstringSignalId is not null &&
       signals.GetValueOrDefault(signalConfiguration.DownstringSignalId.Value)?.SignalStatus?.SignalColour == SignalColour.Red) {
       return SignalColour.Yellow;
     }
 
     return SignalColour.Green;
   }
-  private static bool AreAllTurnoutsActivated(HashSet<TurnoutConfiguration> turnoutConfiguration, IReadOnlyDictionary<int, Turnout> turnouts) => 
+
+  private static bool AreAllTurnoutsActivated(HashSet<TurnoutConfiguration> turnoutConfiguration, IReadOnlyDictionary<int, Turnout> turnouts) =>
     turnoutConfiguration.All(t => turnouts.GetValueOrDefault(t.TurnoutId)?.TurnoutStatus == t.TurnoutStatus);
 
   private static bool AreAllSectionsUnoccupied(HashSet<int> sections, IReadOnlyDictionary<int, Occupancy> occupancies) =>
