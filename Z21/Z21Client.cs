@@ -49,7 +49,10 @@ namespace Z21 {
       return await connection.Execute(request);
     }
 
-    private void SendRequestWithoutResponse(Request request) => udpClientFactory().SendBytes(request.ToByteArray());
+    private void SendRequestWithoutResponse(Request request) {
+      using var client = udpClientFactory();
+      client.SendBytes(request.ToByteArray());
+    }
 
 
     public void Dispose() => disposables.Dispose();

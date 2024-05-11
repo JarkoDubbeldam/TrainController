@@ -15,10 +15,7 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
 
   public IObservable<Signal> Observable => signalSubject;
 
-  public async Task Apply(Signal value) {
-    var dbSignal = new Trains.DataAccess.Models.Signal { Id = value.Id, Json = Serialize(value.SignalConfigurations) };
-    await signalService.SaveSignal(dbSignal);
-
+  public Task Apply(Signal value) {
     signals.AddOrUpdate(value.Id, value with { Timestamp = lastUpdate }, (id, old) => {
       if (old.SignalMode != value.SignalMode) {
         return old with {
@@ -29,9 +26,10 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
       }
       return old;
     });
+
+    return Task.CompletedTask;
   }
 
-  private static string Serialize(List<SignalConfiguration> signalConfigurations) => JsonSerializer.Serialize(signalConfigurations);
   private static List<SignalConfiguration> Deserialize(string? json) {
     if (json is null) {
       return [];

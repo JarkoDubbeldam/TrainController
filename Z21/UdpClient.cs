@@ -33,9 +33,9 @@ namespace Z21 {
     }
 
     private async Task<UdpReceiveResult> ListenAsync(CancellationToken cancellationToken) {
-      logger.LogInformation("Starting listen");
+      logger.LogTrace("Starting listen");
       var result = await sysClient.ReceiveAsync(cancellationToken);
-      logger.LogInformation("Receive {fromip} -> {toip}: {bytes}", result.RemoteEndPoint, sysClient.Client.LocalEndPoint, string.Join(" ", result.Buffer.Select(x => x.ToString())));
+      logger.LogTrace("Receive {fromip} -> {toip}: {bytes}", result.RemoteEndPoint, sysClient.Client.LocalEndPoint, string.Join(" ", result.Buffer.Select(x => x.ToString())));
       return result;
     }
 
@@ -54,7 +54,7 @@ namespace Z21 {
 
     public void SendBytes(byte[] bytes) {
       sysClient.Send(bytes, bytes.Length, endpoint);
-      logger.LogInformation("Sent {fromip} -> {toip}: {bytes}", sysClient.Client.LocalEndPoint, endpoint, string.Join(" ", bytes.Select(x => x.ToString())));
+      logger.LogTrace("Sent {fromip} -> {toip}: {bytes}", sysClient.Client.LocalEndPoint, endpoint, string.Join(" ", bytes.Select(x => x.ToString())));
     }
 
     private void Dispose(bool disposing) {

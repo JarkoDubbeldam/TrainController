@@ -1,9 +1,14 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using TrainController.Occupancies;
 using TrainController.Turnouts;
 
 namespace TrainController.Signals;
-internal class SignalStateController(IController<Signal> signalController, IController<Turnout> turnoutController, IController<Occupancy> occupancyController) : BackgroundService {
+internal class SignalStateController(
+  IController<Signal> signalController,
+  IController<Turnout> turnoutController,
+  IController<Occupancy> occupancyController,
+  ILogger<SignalStateController> logger) : BackgroundService {
   protected async override Task ExecuteAsync(CancellationToken stoppingToken) {
     while (!stoppingToken.IsCancellationRequested) {
       await ExecuteUpdate();
@@ -19,6 +24,7 @@ internal class SignalStateController(IController<Signal> signalController, ICont
     foreach (var signal in signals.Values) {
       var colour = signal.SignalConfigurations.Select(x => DetermineColour(x, turnouts, occupancies, signals)).Min();
       var newSignal = signal with { SignalMode = signal.SignalMode ?? new SignalMode(colour, false, false, false) with { SignalColour = colour } };
+      //logger.LogDebug("{signal} should be colour {colour}", signal.Id, colour);
       await signalController.Apply(newSignal);
     }
   }
@@ -44,7 +50,7 @@ internal class SignalStateController(IController<Signal> signalController, ICont
   }
 
   private static bool AreAllTurnoutsActivated(HashSet<TurnoutConfiguration> turnoutConfiguration, IReadOnlyDictionary<int, Turnout> turnouts) =>
-    turnoutConfiguration.All(t => turnouts.GetValueOrDefault(t.TurnoutId)?.TurnoutStatus == t.TurnoutStatus);
+    turnoutConfiguration.All(t => turnouts.GetValueOrDefault(t.TurnoutId)?.TurnoutStatus == t.TurnoutMode);
 
   private static bool AreAllSectionsUnoccupied(HashSet<int> sections, IReadOnlyDictionary<int, Occupancy> occupancies) =>
     sections.All(s => occupancies.GetValueOrDefault(s)?.IsOccupied == true);

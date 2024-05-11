@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Train.DataAccess\Trains.DataAccess.csproj" />
+		<ProjectReference Include="..\TrainController\TrainController.csproj" />
 		<ProjectReference Include="..\Z21\Z21.csproj" />
 	</ItemGroup>
 

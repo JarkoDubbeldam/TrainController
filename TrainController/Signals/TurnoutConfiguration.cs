@@ -2,4 +2,4 @@
 
 namespace TrainController.Signals;
 
-public record TurnoutConfiguration(int TurnoutId, TurnoutStatus TurnoutStatus);
+public record TurnoutConfiguration(int TurnoutId, TurnoutStatus TurnoutMode);

@@ -1,10 +1,13 @@
 using System.Net;
 using Trains.DataAccess;
+using TrainController;
 using Z21;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddTrainControllers();
 
 builder.Services.AddTrainContext();
 builder.Services.AddZ21(c => c.Z21Endpoint = new IPEndPoint(IPAddress.Parse("192.168.0.111"), 21105));

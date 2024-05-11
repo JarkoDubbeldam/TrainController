@@ -6,7 +6,8 @@ namespace Trains.DataAccess;
 public static class ServiceCollectionExtensions {
   public static IServiceCollection AddTrainContext(this IServiceCollection services) =>
     services
-      .AddDbContext<TrainContext>(db => db.UseSqlite("Data Source=train.db"))
+      .AddDbContext<TrainContext>(db => db.UseSqlite("Data Source=train.db"), contextLifetime: ServiceLifetime.Transient, optionsLifetime: ServiceLifetime.Transient)
       .AddTransient<ITrainService, TrainService>()
-      .AddTransient<ITurnoutService, TurnoutService>();
+      .AddTransient<ITurnoutService, TurnoutService>()
+      .AddTransient<ISignalService, SignalService>();
 }

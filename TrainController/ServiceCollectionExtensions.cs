@@ -6,7 +6,7 @@ using TrainController.Turnouts;
 
 namespace TrainController;
 public static class ServiceCollectionExtensions {
-  public static IServiceCollection AddControllers(this IServiceCollection services) =>
+  public static IServiceCollection AddTrainControllers(this IServiceCollection services) =>
     services.RegisterController<TurnoutController, Turnout>()
       .RegisterController<SignalController, Signal>()
       .RegisterController<OccupancyController, Occupancy>()

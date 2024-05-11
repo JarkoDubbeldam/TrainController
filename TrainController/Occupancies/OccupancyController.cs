@@ -16,7 +16,7 @@ internal class OccupancyController(IZ21Client z21Client) : BackgroundService, IC
   protected async override Task ExecuteAsync(CancellationToken stoppingToken) {
     using var _ = z21Client.OccupancyStatusChanged
       .Subscribe(OnStatusChanged);
-    await Task.Delay(TimeSpan.MaxValue, stoppingToken);
+    await Task.Delay(-1, stoppingToken);
   }
 
   private void OnStatusChanged(OccupancyStatus status) {
