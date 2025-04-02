@@ -7,7 +7,7 @@ using Z21;
 using Z21.Domain;
 
 var services = new ServiceCollection();
-services.AddLogging(l => l.AddConsole());
+services.AddLogging(l => l.AddConsole().SetMinimumLevel(LogLevel.Trace));
 services.AddZ21(s => s.Z21Endpoint = new System.Net.IPEndPoint(IPAddress.Parse("192.168.0.111"), 21105));
 
 using var collection = services.BuildServiceProvider();

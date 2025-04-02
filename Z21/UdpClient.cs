@@ -34,7 +34,7 @@ namespace Z21 {
 
     private async Task<UdpReceiveResult> ListenAsync(CancellationToken cancellationToken) {
       logger.LogTrace("Starting listen");
-      var result = await sysClient.ReceiveAsync(cancellationToken);
+      var result = await sysClient.ReceiveAsync(cancellationToken); 
       logger.LogTrace("Receive {fromip} -> {toip}: {bytes}", result.RemoteEndPoint, sysClient.Client.LocalEndPoint, string.Join(" ", result.Buffer.Select(x => x.ToString())));
       return result;
     }
