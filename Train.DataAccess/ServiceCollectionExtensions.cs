@@ -9,5 +9,6 @@ public static class ServiceCollectionExtensions {
       .AddDbContext<TrainContext>(db => db.UseSqlite("Data Source=train.db"), contextLifetime: ServiceLifetime.Transient, optionsLifetime: ServiceLifetime.Transient)
       .AddTransient<ITrainService, TrainService>()
       .AddTransient<ITurnoutService, TurnoutService>()
-      .AddTransient<ISignalService, SignalService>();
+      .AddTransient<ISignalService, SignalService>()
+      .AddTransient<ISegmentService, SegmentService>();
 }

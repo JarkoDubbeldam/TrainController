@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Reactive.Linq;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using Z21;
 using Z21.Domain;
 
@@ -24,4 +26,11 @@ void PrintLoco<T>(T information) {
   Console.WriteLine(information);
 }
 
-Console.ReadLine();
+var direction = TurnoutPosition.Position1;
+while (true) {
+  direction = direction == TurnoutPosition.Position1 ? TurnoutPosition.Position2 : TurnoutPosition.Position1;
+  Console.ReadLine();
+  try {
+    z21Client.SetTurnout(new Z21.API.SetTurnoutRequest { Address = (short)8, TurnoutPosition = direction });
+  } catch (Exception) { }
+}

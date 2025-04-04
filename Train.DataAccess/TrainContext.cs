@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Trains.DataAccess.Models;
 
-namespace Trains.DataAccess; 
+namespace Trains.DataAccess;
 public class TrainContext(DbContextOptions options) : DbContext(options) {
-  public DbSet<Train> Trains { get; set; }
-  public DbSet<Turnout> Turnouts { get; set; }
-  public DbSet<Signal> Signals { get; set; }
+  public required DbSet<Train> Trains { get; set; }
+  public required DbSet<Turnout> Turnouts { get; set; }
+  public required DbSet<Signal> Signals { get; set; }
+  public required DbSet<Segment> Segments { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder) =>
     modelBuilder.Entity<Train>(b => {
@@ -18,6 +20,10 @@ public class TrainContext(DbContextOptions options) : DbContext(options) {
       b.Property(t => t.Id).ValueGeneratedNever();
     })
     .Entity<Signal>(b => {
+      b.HasKey(s => s.Id);
+      b.Property(s => s.Id).ValueGeneratedNever();
+    })
+    .Entity<Segment>(b => {
       b.HasKey(s => s.Id);
       b.Property(s => s.Id).ValueGeneratedNever();
     });

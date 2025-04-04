@@ -1,0 +1,11 @@
+﻿.segment-info-container {
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.segment-info {
+    padding: 1em 1em 1em 1em;
+    background-repeat: no-repeat;
+    background-position: 10em 40%;
+}

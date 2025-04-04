@@ -1,14 +1,18 @@
 ﻿
 using System.Collections.Concurrent;
 using System.Reactive.Subjects;
+
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 using Trains.DataAccess.Services;
+
 using Z21;
 using Z21.API;
 using Z21.Domain;
 
 namespace TrainController.Turnouts;
-internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21Client) : BackgroundService, IController<Turnout> {
+internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21Client, ILogger<TurnoutController> logger) : BackgroundService, IController<Turnout> {
   private readonly Subject<Turnout> turnoutSubject = new();
   private readonly ConcurrentDictionary<int, Turnout> turnouts = new();
   private long lastUpdate = DateTime.UtcNow.Ticks;
@@ -17,14 +21,19 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
   public IObservable<Turnout> Observable => turnoutSubject;
 
   public async Task Apply(Turnout value) {
-    var dbTurnout = new Trains.DataAccess.Models.Turnout { Id = value.Id };
-    await turnoutService.SaveTurnout(dbTurnout);
+    var newTurnout = new Turnout { Id = value.Id, Timestamp = lastUpdate };
+    var turnout = turnouts.AddOrUpdate(value.Id, newTurnout, (_, existing) => {
+      if (existing.TurnoutMode != value.TurnoutMode) {
+        return existing with { TurnoutMode = value.TurnoutMode, Timestamp = lastUpdate };
+      }
+      return existing;
+    });
 
-    var turnout = turnouts.GetOrAdd(value.Id, new Turnout { Id = dbTurnout.Id, Timestamp = lastUpdate });
-    if (turnout.TurnoutMode != value.TurnoutMode) {
-      turnout.TurnoutMode = value.TurnoutMode;
-      turnout.Timestamp = lastUpdate;
-    }    
+    if (object.ReferenceEquals(turnout, newTurnout)) {
+      var dbTurnout = new Trains.DataAccess.Models.Turnout { Id = value.Id };
+      await turnoutService.SaveTurnout(dbTurnout);
+    }
+
   }
 
   public async Task<Turnout?> Get(int id) {
@@ -55,41 +64,58 @@ internal class TurnoutController(ITurnoutService turnoutService, IZ21Client z21C
       .Subscribe(OnTurnoutChanged);
 
     while (!stoppingToken.IsCancellationRequested) {
-      await RunUpdateLoop();
+      RunUpdateLoop();
       lastUpdate = DateTime.UtcNow.Ticks;
       await Task.Delay(500, stoppingToken);
     }
   }
 
-  private async Task RunUpdateLoop() {
+  private void RunUpdateLoop() {
     foreach (var turnout in turnouts.Values) {
-      if (turnout.Timestamp < lastUpdate) {
-        continue;
+      //if (turnout.Timestamp < lastUpdate) {
+      //  continue;
+      //}
+
+      var mutableTurnout = turnout;
+
+      if (turnout.TurnoutMode == TurnoutStatus.Unspecified) {
+        mutableTurnout = mutableTurnout with { TurnoutStatus = TurnoutStatus.Unspecified };
       }
 
       // If a change was requested through Apply:
       if (turnout.TurnoutMode != TurnoutStatus.Unspecified && turnout.TurnoutMode != turnout.TurnoutStatus) {
-        await z21Client.SetTurnout(new SetTurnoutRequest {
-          Address = (short)turnout.Id,
-          TurnoutPosition = Map(turnout.TurnoutMode)
-        });
+        try {
+          z21Client.SetTurnout(new SetTurnoutRequest {
+            Address = (short)turnout.Id,
+            TurnoutPosition = Map(turnout.TurnoutMode)
+          });
+          mutableTurnout = mutableTurnout with { TurnoutStatus = turnout.TurnoutMode };
+        } catch (TimeoutException) {
+          logger.LogInformation("Waiting for response about setting turnout timed out.");
+        }
       }
 
-      turnoutSubject.OnNext(turnout);
+      if (mutableTurnout != turnout) {
+        logger.LogInformation("Turnout {old} changed to {new}", turnout, mutableTurnout);
+        turnouts.AddOrUpdate(turnout.Id, mutableTurnout, (_, _) => mutableTurnout);
+        turnoutSubject.OnNext(turnout);
+      }
     }
   }
 
 
   private void OnTurnoutChanged(TurnoutInformation information) {
-    var turnout = turnouts.GetOrAdd(information.Address, new Turnout {
-      Id = information.Address
+    var turnout = turnouts.AddOrUpdate(information.Address, new Turnout {
+      Id = information.Address,
+      TurnoutStatus = Map(information.TurnoutPosition),
+      Timestamp = lastUpdate,
+      TurnoutMode = TurnoutStatus.Unspecified
+    }, (_, existing) => {
+      var newStatus = Map(information.TurnoutPosition);
+      return existing with { TurnoutStatus = newStatus, Timestamp = lastUpdate, TurnoutMode = existing.TurnoutMode != newStatus ?  TurnoutStatus.Unspecified : existing.TurnoutMode };
     });
-    turnout.TurnoutStatus = Map(information.TurnoutPosition);
-    // if the mode was set from z21
-    if (turnout.TurnoutStatus != turnout.TurnoutMode) {
-      turnout.TurnoutMode = TurnoutStatus.Unspecified;
-    }
-    turnout.Timestamp = lastUpdate;
+
+    turnoutSubject.OnNext(turnout);
   }
 
   private static TurnoutPosition Map(TurnoutStatus turnoutMode) => turnoutMode switch {

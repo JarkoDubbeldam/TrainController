@@ -1,0 +1,43 @@
+﻿@using TrainController
+@using TrainController.Segments
+
+@inject IController<TrainController.Segments.Segment> segmentController
+
+<div class="segment-info-container">
+	<div class="segment-info">
+		<input type="checkbox" disabled="@IsDisabledDueToMutuallyExclusive" @bind-value="set" @bind-value:after="ValueChanged" class="btn-check" id="@Segment.Configuration.Id"/>
+		<label class="btn btn-outline-secondary" for="@Segment.Configuration.Id">@Segment.Configuration.Name</label>
+	</div>
+</div>
+
+
+@code {
+	[Parameter]
+	public required TrainController.Segments.Segment Segment { get; set; }
+
+	[Parameter]
+	public required IReadOnlyDictionary<int, TrainController.Segments.Segment> OtherSegments { get; set; }
+
+	private bool set;
+
+	private bool IsDisabledDueToMutuallyExclusive => Segment.Configuration.MutuallyExclusiveSegments.Any(x => OtherSegments[x].SegmentMode == SegmentMode.Enabled);
+
+	private async Task ValueChanged()
+	{
+		if (IsDisabledDueToMutuallyExclusive)
+		{
+			set = false;
+			return;
+		}
+		if (set && Segment.SegmentMode != SegmentMode.Enabled)
+		{
+			var mutated = Segment with { SegmentMode = SegmentMode.Enabled };
+			await segmentController.Apply(mutated);
+		}
+		else if (!set && Segment.SegmentMode != SegmentMode.Disabled)
+		{
+			var mutated = Segment with { SegmentMode = SegmentMode.Disabled };
+			await segmentController.Apply(mutated);
+		}
+	}
+}

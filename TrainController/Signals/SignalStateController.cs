@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 using TrainController.Occupancies;
 using TrainController.Turnouts;
 
@@ -25,8 +26,12 @@ internal class SignalStateController(
       logger.LogTrace("Checking for signal {signal}", signal.Id);
       var colour = signal.SignalConfigurations.Select(x => DetermineColour(x, turnouts, occupancies, signals)).Min();
       var newSignal = signal with { SignalMode = (signal.SignalMode ?? new SignalMode(colour, false, false, false)) with { SignalColour = colour } };
-      logger.LogDebug("{signal} should be colour {colour}", signal.Id, colour);
-      await signalController.Apply(newSignal);
+
+      if (signal != newSignal) {
+        logger.LogInformation("Signal changed from {old} to {new}", signal, newSignal);
+        logger.LogDebug("{signal} should be colour {colour}", signal.Id, colour);
+        await signalController.Apply(newSignal);
+      }
     }
   }
 

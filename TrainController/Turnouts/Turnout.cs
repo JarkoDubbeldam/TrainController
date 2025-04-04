@@ -1,15 +1,15 @@
 ﻿namespace TrainController.Turnouts;
-public class Turnout {
-  public int Id { get; set; }
+public record Turnout {
+  public int Id { get; init; }
   /// <summary>
   /// Turnout status as specified by the user
   /// </summary>
-  public TurnoutStatus TurnoutMode { get; set; }
+  public TurnoutStatus TurnoutMode { get; init; }
   /// <summary>
   /// Turnout status as reported by the track.
   /// </summary>
-  public TurnoutStatus TurnoutStatus { get; set; }
-  public long Timestamp { get; set; }
+  public TurnoutStatus TurnoutStatus { get; init; }
+  public long Timestamp { get; init; }
 }
 
 public enum TurnoutStatus {

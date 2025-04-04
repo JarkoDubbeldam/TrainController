@@ -6,7 +6,7 @@ using Z21.API;
 using Z21.Domain;
 
 namespace Z21 {
-  public partial class Z21Client : IDisposable {
+  public sealed partial class Z21Client : IDisposable {
     private readonly Func<IUdpClient> udpClientFactory;
     private readonly CompositeDisposable disposables = new();
     private readonly Lazy<IObservable<TrackStatus>> lazyTrackStatusChanged;

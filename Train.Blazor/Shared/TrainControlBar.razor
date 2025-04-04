@@ -1,12 +1,14 @@
 ﻿@using System.Reactive.Subjects;
 @using System.Reactive.Linq;
 @using System.Reactive.Disposables;
+@using System.Threading
+@using Trains.DataAccess.Models
 @using Z21;
 @using Z21.Domain;
 @inject ITrainService TrainService;
 @inject IZ21Client Z21Client;
 
-@inherits ReactiveComponentBase;
+@inherits ReactiveComponentBase
 
 <div class="train-control-bar">
     <TrainControls Train="@train" LocomotiveInformation="@locomotiveInformation"></TrainControls>

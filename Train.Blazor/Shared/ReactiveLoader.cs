@@ -2,10 +2,12 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Trains.Blazor.Shared;
 
-public class ReactiveLoader : IDisposable {
+public sealed class ReactiveLoader : IDisposable {
   private readonly Subject<Unit> disposed = new();
   private readonly Subject<Unit> reload = new();
   private readonly Subject<bool> loading = new();

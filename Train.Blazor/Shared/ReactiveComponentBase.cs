@@ -2,6 +2,8 @@
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive;
+using System.Threading.Tasks;
+using System;
 
 namespace Trains.Blazor.Shared;
 
@@ -34,13 +36,14 @@ public class ReactiveComponentBase : ComponentBase, IDisposable {
         .TakeUntil(_disposed);
   }
 
-  public override async Task SetParametersAsync(ParameterView parameters) {
+  public async override Task SetParametersAsync(ParameterView parameters) {
     await base.SetParametersAsync(parameters);
     _parametersSet.OnNext(Unit.Default);
   }
 
 
   public virtual void Dispose() {
+    GC.SuppressFinalize(this);
     _disposed.OnNext(Unit.Default);
   }
 }

@@ -1,0 +1,62 @@
+﻿@page "/segments"
+@using System.Threading
+@using System.Reactive.Disposables
+@using TrainController
+@using TrainController.Segments
+
+@inject IController<TrainController.Segments.Segment> segmentController
+@* @inject Dispatcher dispatcher *@
+@inherits ReactiveComponentBase
+
+<h3>Segments</h3>
+
+@if (segments is null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<div class="segments-info">
+		@foreach (var segment in segments.Values)
+		{
+			<SegmentControl Segment="segment" OtherSegments="segments"></SegmentControl>
+		}
+	</div>
+}
+
+@code {
+	private Dictionary<int, TrainController.Segments.Segment>? segments = null;
+	private ReactiveLoader? reactiveLoader;
+	private readonly CompositeDisposable disposables = new();
+
+	protected override void OnInitialized()
+	{
+		disposables.Add(segmentController.Observable.Subscribe(OnSegmentUpdated));
+		reactiveLoader = new(ParametersSet, Load);
+		disposables.Add(reactiveLoader);
+	}
+
+	private async Task Load(CancellationToken cancellationToken)
+	{
+		segments = (await segmentController.List()).ToDictionary();
+		StateHasChanged();
+	}
+
+	private async void OnSegmentUpdated(TrainController.Segments.Segment segment)
+	{
+		if (segments is null)
+		{
+			return;
+		}
+		segments[segment.Configuration.Id] = segment;
+		await InvokeAsync(StateHasChanged);
+		// StateHasChanged();
+		// await dispatcher.InvokeAsync(StateHasChanged);
+	}
+
+	public override void Dispose()
+	{
+		disposables.Dispose();
+		base.Dispose();
+	}
+}

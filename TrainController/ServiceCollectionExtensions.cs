@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TrainController.Occupancies;
+using TrainController.Segments;
 using TrainController.Signals;
 using TrainController.Turnouts;
 
@@ -10,6 +11,7 @@ public static class ServiceCollectionExtensions {
     services.RegisterController<TurnoutController, Turnout>()
       .RegisterController<SignalController, Signal>()
       .RegisterController<OccupancyController, Occupancy>()
+      .RegisterController<SegmentController, Segment>()
       .AddHostedService<SignalStateController>();
 
   private static IServiceCollection RegisterController<T, TObject>(this IServiceCollection services)

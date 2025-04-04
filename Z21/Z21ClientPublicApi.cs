@@ -37,14 +37,7 @@ namespace Z21 {
 
     public Task<TurnoutInformation> GetTurnoutInformation(TurnoutInformationRequest request) => SendRequestWithAddressSpecificResponse(request);
 
-    public async Task<TurnoutInformation> SetTurnout(SetTurnoutRequest request) {
-      TurnoutChangingEventArgs args = new TurnoutChangingEventArgs(request.Address);
-      TurnoutChangingInternal?.Invoke(this, args);
-      if (args.Handled && args.DelayChange.HasValue) {
-        await Task.Delay(args.DelayChange.Value);
-      }
-      return await SendRequestWithAddressSpecificResponse(request);
-    }
+    public void SetTurnout(SetTurnoutRequest request) => SendRequestWithoutResponse(request);
 
     public Task<OccupancyStatus> GetOccupancyStatus(OccupancyStatusRequest request) => SendRequestWithResponse(request);
 

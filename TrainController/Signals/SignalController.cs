@@ -16,7 +16,7 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
   public IObservable<Signal> Observable => signalSubject;
 
   public Task Apply(Signal value) {
-    signals.AddOrUpdate(value.Id, value with { Timestamp = lastUpdate }, (id, old) => {
+    var result = signals.AddOrUpdate(value.Id, value with { Timestamp = lastUpdate }, (id, old) => {
       if (old.SignalMode != value.SignalMode) {
         return old with {
           SignalMode = value.SignalMode,
@@ -26,6 +26,7 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
       }
       return old;
     });
+    signalSubject.OnNext(result);
 
     return Task.CompletedTask;
   }
@@ -97,7 +98,8 @@ internal class SignalController(ISignalService signalService, IZ21Client z21Clie
         SignalMode = Map(intendedMode)
       });
       mutableSignal = mutableSignal with { SignalStatus = intendedMode };
-      signals.AddOrUpdate(mutableSignal.Id, mutableSignal, (_, _) => mutableSignal);
+      var result = signals.AddOrUpdate(mutableSignal.Id, mutableSignal, (_, _) => mutableSignal);
+      signalSubject.OnNext(result);
     }
   }
 

@@ -1,5 +1,5 @@
 ﻿using TrainController.Turnouts;
 
-namespace TrainController.Signals;
+namespace TrainController;
 
 public record TurnoutConfiguration(int TurnoutId, TurnoutStatus TurnoutMode);
