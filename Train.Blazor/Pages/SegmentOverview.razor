@@ -3,59 +3,74 @@
 @using System.Reactive.Disposables
 @using TrainController
 @using TrainController.Segments
+@using Trains.Blazor.Shared.TrackDrawing
 
 @inject IController<TrainController.Segments.Segment> segmentController
-@* @inject Dispatcher dispatcher *@
 @inherits ReactiveComponentBase
 
-<h3>Segments</h3>
+<CascadingValue Name="ActivatedSegments" Value="activatedSegments" TValue=@(HashSet<int>)>
+	<MudStack Row=true>
+		<MudPaper Class="pa-3">
+			<TrackGrid GridScale="30" Height="550" Width="800" />
+		</MudPaper>
 
-@if (segments is null)
-{
-	<p><em>Loading...</em></p>
-}
-else
-{
-	<div class="segments-info">
-		@foreach (var segment in segments.Values)
-		{
-			<SegmentControl Segment="segment" OtherSegments="segments"></SegmentControl>
-		}
-	</div>
-}
+		<MudPaper Class="pa-3">
+			@if (segments is null) {
+				<p><em>Loading...</em></p>
+			} else {
+				<MudGrid Spacing="6" Justify="Justify.Center" Style="margin: 1em">
+					@foreach (var segment in segments.Values) {
+						<MudItem xs="4">
+							<SegmentControl Segment="segment" OtherSegments="segments" IsSetOnLoad=@(segment.ActualSegmentMode == SegmentMode.Enabled)></SegmentControl>
+						</MudItem>
+					}
+				</MudGrid>
+			}
+		</MudPaper>
+	</MudStack>
+</CascadingValue>
 
 @code {
 	private Dictionary<int, TrainController.Segments.Segment>? segments = null;
+	private readonly HashSet<int> activatedSegments = [];
 	private ReactiveLoader? reactiveLoader;
 	private readonly CompositeDisposable disposables = new();
 
-	protected override void OnInitialized()
-	{
+	protected override void OnInitialized() {
 		disposables.Add(segmentController.Observable.Subscribe(OnSegmentUpdated));
 		reactiveLoader = new(ParametersSet, Load);
 		disposables.Add(reactiveLoader);
 	}
 
-	private async Task Load(CancellationToken cancellationToken)
-	{
+	private async Task Load(CancellationToken cancellationToken) {
 		segments = (await segmentController.List()).ToDictionary();
+		activatedSegments.Clear();
+		foreach (var segment in segments.Values) {
+			if (segment.ActualSegmentMode == SegmentMode.Enabled) {
+				activatedSegments.Add(segment.Configuration.Id);
+			}
+		}
 		StateHasChanged();
 	}
 
-	private async void OnSegmentUpdated(TrainController.Segments.Segment segment)
-	{
-		if (segments is null)
-		{
+	private async void OnSegmentUpdated(TrainController.Segments.Segment segment) {
+		if (segments is null) {
 			return;
 		}
 		segments[segment.Configuration.Id] = segment;
+
+		if (segment.ActualSegmentMode == SegmentMode.Enabled) {
+			activatedSegments.Add(segment.Configuration.Id);
+		} else {
+			activatedSegments.Remove(segment.Configuration.Id);
+		}
+
 		await InvokeAsync(StateHasChanged);
 		// StateHasChanged();
 		// await dispatcher.InvokeAsync(StateHasChanged);
 	}
 
-	public override void Dispose()
-	{
+	public override void Dispose() {
 		disposables.Dispose();
 		base.Dispose();
 	}

@@ -3,66 +3,57 @@
 @using Trains.DataAccess.Models
 
 @inject ITrainService TrainService
+@inject IDialogService DialogService
 @inherits ReactiveComponentBase
 
 <h3>TrainOverview</h3>
 
-@if (trains is null) {
-    <p><em>Loading...</em></p>
-} else {
-    <div class="train-info">
-        @foreach (var train in trains) {
-            <TrainInfo Train="train"></TrainInfo>
-        }
-    </div>
-}
+<MudStack>
+	@if (trains is null) {
+		<p><em>Loading...</em></p>
+	} else {
+		<MudGrid>
+			@foreach (var train in trains) {
+				<MudItem xs="4">
+					<TrainInfo Train="train"></TrainInfo>
+				</MudItem>
+			}
+		</MudGrid>
+	}
 
-<button class="btn btn-primary" onclick=@AddTrain>Add</button>
+	<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="AddTrain">Add</MudButton>
+</MudStack>
 
-<TemplatedDialog Show="@showEditDialog">
-    <EditTrain Train="@editingTrain" OnCancel="CancelEdit" OnSave="ConfirmEdit" />
-</TemplatedDialog>
 
 @code {
-    private List<Train>? trains;
-    private ReactiveLoader? reactiveLoader;
-    private Train? editingTrain;
-    private bool showEditDialog;
+	private List<Train>? trains;
+	private ReactiveLoader? reactiveLoader;
 
+	protected override void OnInitialized() {
+		reactiveLoader = new(ParametersSet, Load);
+	}
 
-    protected override void OnInitialized() {
-        reactiveLoader = new(ParametersSet, Load);
-    }
+	private async Task Load(CancellationToken cancellationToken) {
+		trains = await TrainService.ListTrains(cancellationToken);
+		StateHasChanged();
+	}
 
-    private async Task Load(CancellationToken cancellationToken) {
-        trains = await TrainService.ListTrains(cancellationToken);
-        StateHasChanged();
-    }
+	private async Task AddTrain() {
+		var newTrain = new Train() { Icon = "", Name = "" };
+		var parameters = new DialogParameters<EditTrain> { { x => x.Train, newTrain } };
 
-    private void CancelEdit() {
-        showEditDialog = false;
-        editingTrain = null;
-        StateHasChanged();
-    }
+		var dialog = await DialogService.ShowAsync<EditTrain>("New train", parameters);
+		var result = await dialog.GetReturnValueAsync<Train>();
 
-    private async Task ConfirmEdit() {
-        if (editingTrain is null) {
-            return;
-        }
-        await TrainService.SaveTrain(editingTrain);
-        trains?.Add(editingTrain);
-        showEditDialog = false;
-        StateHasChanged();
-    }
+		if (result is not null) {
+			await TrainService.SaveTrain(result);
+			trains?.Add(result);
+		}
+		StateHasChanged();
+	}
 
-    private void AddTrain() {
-        editingTrain = new() { Icon = "", Name = "" };
-        showEditDialog = true;
-        StateHasChanged();
-    }
-
-    public override void Dispose() {
-        reactiveLoader?.Dispose();
-        base.Dispose();
-    }
+	public override void Dispose() {
+		reactiveLoader?.Dispose();
+		base.Dispose();
+	}
 }

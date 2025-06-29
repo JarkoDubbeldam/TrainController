@@ -1,10 +1,19 @@
 ﻿@using Trains.DataAccess.Models;
 
-<div class="train-info-container">
+@* <div class="train-info-container">
     <div class="train-info" style=@BackgroundUrl>
         <span class="train-name">@Train.Name</span>
     </div>
-</div>
+</div> *@
+
+<MudCard Style="min-width: 300px">
+    <MudCardHeader>
+        <MudText Typo=Typo.h5>@Train.Name</MudText>
+    </MudCardHeader>
+    <MudCardMedia Image="@Train.Icon" Height="35" Style="background-position: 5em;" />
+    <MudCardContent>
+    </MudCardContent>
+</MudCard>
 
 @code {
     [Parameter]

@@ -3,13 +3,14 @@
 
 @inject IController<TrainController.Segments.Segment> segmentController
 
-<div class="segment-info-container">
+@* <div class="segment-info-container">
 	<div class="segment-info">
-		<input type="checkbox" disabled="@IsDisabledDueToMutuallyExclusive" @bind-value="set" @bind-value:after="ValueChanged" class="btn-check" id="@Segment.Configuration.Id"/>
+		<input type="checkbox" disabled="@IsDisabledDueToMutuallyExclusive" @bind-value="set" @bind-value:after="ValueChanged" class="btn-check" id="@Segment.Configuration.Id" />
 		<label class="btn btn-outline-secondary" for="@Segment.Configuration.Id">@Segment.Configuration.Name</label>
 	</div>
-</div>
+</div> *@
 
+<MudToggleIconButton Variant=Variant.Filled Toggled=@set ToggledChanged=@ValueChanged Color="Color.Dark" ToggledColor="Color.Primary" Disabled=@IsDisabledDueToMutuallyExclusive>@Segment.Configuration.Name</MudToggleIconButton>
 
 @code {
 	[Parameter]
@@ -18,24 +19,32 @@
 	[Parameter]
 	public required IReadOnlyDictionary<int, TrainController.Segments.Segment> OtherSegments { get; set; }
 
+	[Parameter]
+	public bool IsSetOnLoad { get; set; }
+
 	private bool set;
 
 	private bool IsDisabledDueToMutuallyExclusive => Segment.Configuration.MutuallyExclusiveSegments.Any(x => OtherSegments[x].SegmentMode == SegmentMode.Enabled);
 
-	private async Task ValueChanged()
-	{
-		if (IsDisabledDueToMutuallyExclusive)
-		{
+	protected override void OnAfterRender(bool firstRender) {
+		if (firstRender) {
+			set = IsSetOnLoad;
+			if (IsSetOnLoad) {
+				StateHasChanged();
+			}
+		}
+	}
+
+	private async Task ValueChanged(bool value) {
+		set = value;
+		if (IsDisabledDueToMutuallyExclusive) {
 			set = false;
 			return;
 		}
-		if (set && Segment.SegmentMode != SegmentMode.Enabled)
-		{
+		if (set && Segment.SegmentMode != SegmentMode.Enabled) {
 			var mutated = Segment with { SegmentMode = SegmentMode.Enabled };
 			await segmentController.Apply(mutated);
-		}
-		else if (!set && Segment.SegmentMode != SegmentMode.Disabled)
-		{
+		} else if (!set && Segment.SegmentMode != SegmentMode.Disabled) {
 			var mutated = Segment with { SegmentMode = SegmentMode.Disabled };
 			await segmentController.Apply(mutated);
 		}

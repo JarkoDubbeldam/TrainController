@@ -1,0 +1,76 @@
+﻿@using System.Reactive.Disposables
+@using System.Threading
+@using TrainController
+@using TrainController.Signals
+
+@inject IController<Signal> SignalController
+@inherits ReactiveComponentBase
+
+<circle r=@(GridScale / 7) cx=@LocationX cy=@LocationY stroke-width="1" fill=@Colour />
+
+@code {
+	private ReactiveLoader? reactiveLoader;
+	private readonly CompositeDisposable disposables = new();
+	private Signal? signal;
+
+	[CascadingParameter(Name = nameof(GridScale))]
+	private int GridScale { get; set; }
+
+	[Parameter]
+	public int X { get; set; }
+	[Parameter]
+	public int Y { get; set; }
+	[Parameter]
+	public SignalOrientation Orientation { get; set; }
+	[Parameter]
+	public int SignalId { get; set; }
+
+	private int LocationX => Orientation switch {
+		SignalOrientation.TopLeft => X * GridScale + GridScale / 4,
+		SignalOrientation.BottomLeft => X * GridScale + GridScale / 4,
+		SignalOrientation.TopRight => X * GridScale + GridScale / 4 * 3,
+		SignalOrientation.BottomRight => X * GridScale + GridScale / 4 * 3,
+		_ => throw new ArgumentOutOfRangeException()
+	};
+
+	private int LocationY => Orientation switch {
+		SignalOrientation.TopLeft => Y * GridScale - GridScale / 4,
+		SignalOrientation.BottomLeft => Y * GridScale + GridScale / 4,
+		SignalOrientation.TopRight => Y * GridScale - GridScale / 4,
+		SignalOrientation.BottomRight => Y * GridScale + GridScale / 4,
+		_ => throw new ArgumentOutOfRangeException()
+	};
+
+	private string Colour => signal switch {
+		{ SignalStatus: { SignalColour: SignalColour.Green } } => "green",
+		{ SignalStatus: { SignalColour: SignalColour.Yellow } } => "yellow",
+		{ SignalStatus: { SignalColour: SignalColour.Red } } => "red",
+		_ => "transparent",
+	};
+
+	protected override void OnInitialized() {
+		disposables.Add(SignalController.Observable.Subscribe(OnSignalUpdated));
+		reactiveLoader = new(ParametersSet, Load);
+		disposables.Add(reactiveLoader);
+	}
+
+	private async Task Load(CancellationToken cancellationToken) {
+		signal = await SignalController.Get(SignalId);
+		StateHasChanged();
+	}
+
+	private async void OnSignalUpdated(Signal signal) {
+		if (signal.Id != signal.Id) {
+			return;
+		}
+
+		this.signal = signal;
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	public override void Dispose() {
+		disposables.Dispose();
+		base.Dispose();
+	}
+}

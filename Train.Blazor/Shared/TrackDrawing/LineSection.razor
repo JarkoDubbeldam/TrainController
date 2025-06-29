@@ -1,0 +1,101 @@
+﻿<path d=@D @onclick=OnClick stroke=@Stroke stroke-opacity=@Opacity />
+
+@code {
+	[CascadingParameter(Name = nameof(GridScale))]
+	private int GridScale { get; set; }
+	[CascadingParameter(Name = nameof(ActivatedSegments))]
+	public required HashSet<int> ActivatedSegments { get; set; }
+
+	[Parameter]
+	public int X { get; set; }
+	[Parameter]
+	public int Y { get; set; }
+	[Parameter]
+	public LineDirection Direction { get; set; }
+
+	[Parameter]
+	public List<int> Segments { get; set; } = [];
+
+	private string Stroke => IsActive ? "lightgreen" : "";
+	private string Opacity => IsActive ? "100%" : "";
+	private bool IsActive => Segments.Any(x => ActivatedSegments?.Contains(x) == true) == true;
+
+	private string D => $"M{StartPointX} {StartPointY} q {MidPointX} {MidPointY} {EndPointX} {EndPointY}";
+
+	private int StartPointX => Direction switch {
+		LineDirection.TopToBottom => X * GridScale + GridScale / 2,
+		LineDirection.TopToBottomLeft => X * GridScale + GridScale / 2,
+		LineDirection.TopToBottomRight => X * GridScale + GridScale / 2,
+		LineDirection.BottomToTopLeft => X * GridScale + GridScale / 2,
+		LineDirection.BottomToTopRight => X * GridScale + GridScale / 2,
+		_ => X * GridScale
+	};
+
+	private int StartPointY => Direction switch {
+		LineDirection.TopLeftToBottomRight => Y * GridScale - GridScale / 2,
+		LineDirection.TopToBottom => Y * GridScale - GridScale / 2,
+		LineDirection.TopToBottomLeft => Y * GridScale - GridScale / 2,
+		LineDirection.TopToBottomRight => Y * GridScale - GridScale / 2,
+		LineDirection.BottomLeftToTopRight => Y * GridScale + GridScale / 2,
+		LineDirection.BottomToTopLeft => Y * GridScale + GridScale / 2,
+		LineDirection.BottomToTopRight => Y * GridScale + GridScale / 2,
+		_ => Y * GridScale
+	};
+
+	private int MidPointX => Direction switch {
+		LineDirection.LeftToRight => GridScale / 2,
+		LineDirection.LeftToTopRight => GridScale / 2,
+		LineDirection.LeftToBottomRight => GridScale / 2,
+		LineDirection.TopLeftToBottomRight => GridScale / 2,
+		LineDirection.BottomLeftToTopRight => GridScale / 2,
+		LineDirection.RightToTopLeft => GridScale / -2,
+		LineDirection.RightToBottomLeft => GridScale / -2,
+		_ => 0
+	};
+	private int MidPointY => Direction switch {
+		LineDirection.TopToBottom => GridScale / 2,
+		LineDirection.TopToBottomLeft => GridScale / 2,
+		LineDirection.TopToBottomRight => GridScale / 2,
+		LineDirection.TopLeftToBottomRight => GridScale / 2,
+		LineDirection.BottomToTopLeft => GridScale / -2,
+		LineDirection.BottomToTopRight => GridScale / -2,
+		LineDirection.BottomLeftToTopRight => GridScale / -2,
+		_ => 0
+	};
+
+	private int EndPointX => Direction switch {
+		LineDirection.LeftToRight => GridScale,
+		LineDirection.LeftToTopRight => GridScale,
+		LineDirection.LeftToBottomRight => GridScale,
+		LineDirection.TopLeftToBottomRight => GridScale,
+		LineDirection.BottomLeftToTopRight => GridScale,
+		LineDirection.TopToBottom => 0,
+		LineDirection.TopToBottomLeft => GridScale / -2,
+		LineDirection.TopToBottomRight => GridScale / 2,
+		LineDirection.RightToTopLeft => -GridScale,
+		LineDirection.RightToBottomLeft => -GridScale,
+		LineDirection.BottomToTopLeft => GridScale / -2,
+		LineDirection.BottomToTopRight => GridScale / 2,
+		_ => throw new ArgumentNullException()
+	};
+
+	private int EndPointY => Direction switch {
+		LineDirection.LeftToRight => 0,
+		LineDirection.LeftToTopRight => GridScale / -2,
+		LineDirection.LeftToBottomRight => GridScale / 2,
+		LineDirection.TopLeftToBottomRight => GridScale,
+		LineDirection.TopToBottom => GridScale,
+		LineDirection.TopToBottomLeft => GridScale,
+		LineDirection.TopToBottomRight => GridScale,
+		LineDirection.RightToTopLeft => GridScale / -2,
+		LineDirection.RightToBottomLeft => GridScale / 2,
+		LineDirection.BottomToTopLeft => -GridScale,
+		LineDirection.BottomToTopRight => -GridScale,
+		LineDirection.BottomLeftToTopRight => -GridScale,
+		_ => throw new ArgumentNullException()
+	};
+
+	private Task OnClick() {
+		return Task.CompletedTask;
+	}
+}

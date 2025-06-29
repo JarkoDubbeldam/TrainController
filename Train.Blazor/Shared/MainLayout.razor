@@ -2,19 +2,40 @@
 
 <PageTitle>Trains!</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@* Required *@
+<MudThemeProvider IsDarkMode=true />
+<MudPopoverProvider />
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+@* Needed for dialogs *@
+<MudDialogProvider />
 
-        <article class="content px-4">
-            @Body
-            <TrainControlBar></TrainControlBar>
-        </article>
-    </main>
-</div>
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+
+<MudLayout>
+	<MudAppBar>
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+		Train Controller
+	</MudAppBar>
+	<MudDrawer @bind-Open="@_drawerOpen">
+		<NavMenu></NavMenu>
+	</MudDrawer>
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.ExtraLarge">
+			@Body
+		</MudContainer>
+		<MudAppBar Bottom=true Fixed=true>
+			<TrainControlBar></TrainControlBar>
+		</MudAppBar>
+	</MudMainContent>
+
+</MudLayout>
+
+@code {
+	bool _drawerOpen = true;
+
+	void DrawerToggle() {
+		_drawerOpen = !_drawerOpen;
+	}
+}

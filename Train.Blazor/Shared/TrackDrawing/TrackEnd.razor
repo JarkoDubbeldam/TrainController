@@ -1,0 +1,53 @@
+﻿<path d=@Path />
+
+@code {
+	[CascadingParameter(Name = nameof(GridScale))]
+	private int GridScale { get; set; }
+
+	[Parameter]
+	public int X { get; set; }
+	[Parameter]
+	public int Y { get; set; }
+	[Parameter]
+	public TrackEndOrientation Orientation { get; set; }
+
+	private string Path => $"M {TrackStartX} {TrackStartY} L {TrackEndX} {TrackEndY} m {CrossStartDeltaX} {CrossStartDeltaY} l {CrossEndDeltaX} {CrossEndDeltaY}";
+
+	private int TrackStartX => Orientation switch {
+		TrackEndOrientation.Top => X * GridScale + GridScale / 2,
+		TrackEndOrientation.Bottom => X * GridScale + GridScale / 2,
+		TrackEndOrientation.Left => X * GridScale,
+		TrackEndOrientation.Right => (X + 1) * GridScale,
+		_ => throw new ArgumentOutOfRangeException()
+	};
+	private int TrackStartY => Orientation switch {
+		TrackEndOrientation.Left => Y * GridScale,
+		TrackEndOrientation.Right => Y * GridScale,
+		TrackEndOrientation.Top => Y * GridScale - GridScale / 2,
+		TrackEndOrientation.Bottom => Y * GridScale + GridScale / 2,
+		_ => throw new ArgumentOutOfRangeException()
+	};
+	private int TrackEndX => X * GridScale + GridScale / 2;
+	private int TrackEndY => Y * GridScale;
+
+	private int CrossStartDeltaX => Orientation switch {
+		TrackEndOrientation.Top => GridScale / 4,
+		TrackEndOrientation.Bottom => GridScale / 4,
+		_ => 0
+	};
+	private int CrossStartDeltaY => Orientation switch {
+		TrackEndOrientation.Left => GridScale / 4,
+		TrackEndOrientation.Right => GridScale / 4,
+		_ => 0
+	};
+	private int CrossEndDeltaX => Orientation switch {
+		TrackEndOrientation.Top => GridScale / -2,
+		TrackEndOrientation.Bottom => GridScale / -2,
+		_ => 0
+	};
+	private int CrossEndDeltaY => Orientation switch {
+		TrackEndOrientation.Left => GridScale / -2,
+		TrackEndOrientation.Right => GridScale / -2,
+		_ => 0
+	};
+}
